@@ -9,8 +9,8 @@ export default function Start() {
                 <h3>Lingo conntect</h3>
                 <h3>언어 학습을 통한 사회적 연결</h3>
             </div>
-            <img src='./img/mummy.png'></img>
-            {/* <img src='./img/cat.png'></img> */}
+            <img src={process.env.PUBLIC_URL + '/img/mummy.png'}></img>
+            {/* <img src={process.env.PUBLIC_URL + '/img/cat.png'}></img> */}
             <div className="start-button-box">
                 <button>로그인</button>
                 <button>회원가입</button>
