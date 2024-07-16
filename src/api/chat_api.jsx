@@ -4,7 +4,10 @@ const BASE_URL = "http://localhost:8080";
 
 export const getFeedback = async ({ title, question, userAnswer }) => {
     try {
-        const response = await axios.get(`${BASE_URL}/openai/?title=${title}&question=${question}&userAnswer=${userAnswer}`,
+        const encodedTitle = encodeURIComponent(title);
+        const encodedQuestion = encodeURIComponent(question);
+        const encodedUserAnswer = encodeURIComponent(userAnswer);
+        const response = await axios.get(`${BASE_URL}/openai/?title=${encodedTitle}&question=${encodedQuestion}&userAnswer=${encodedUserAnswer}`,
             {
                 title,
                 question,

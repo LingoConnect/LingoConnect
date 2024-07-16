@@ -1,4 +1,6 @@
 import '../styles/start.css';
+import React from 'react';
+import { Link } from 'react-router-dom';
 import { BigTitle } from '../components/title';
 
 export default function Start() {
@@ -12,8 +14,12 @@ export default function Start() {
             <img src={process.env.PUBLIC_URL + '/img/mummy.png'}></img>
             {/* <img src={process.env.PUBLIC_URL + '/img/cat.png'}></img> */}
             <div className="start-button-box">
-                <button>로그인</button>
-                <button>회원가입</button>
+                <Link to="/login">
+                    <button>로그인</button>
+                </Link>
+                <Link to="/register">
+                    <button>회원가입</button>
+                </Link>
                 <div className="search-box">
                     <p>아이디 찾기</p>
                     <span>|</span>

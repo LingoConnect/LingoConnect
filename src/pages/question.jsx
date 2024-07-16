@@ -10,7 +10,8 @@ export default function Question() {
     const topicData = learningContent.find(t => t.topic === decodeURIComponent(topic));
 
     const handleQuestionClick = (question) => {
-        navigate(`/practice/${topic}/${question}`);
+        const encodedQuestion = encodeURIComponent(question);
+        navigate(`/practice/${topic}/${encodedQuestion}`);
     }
 
     return (

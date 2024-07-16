@@ -12,14 +12,14 @@ export default function Practice() {
 
     const handleFeedback = async () => {
         if (answerInput.trim() !== '') {
-            const gptTitle = encodeURIComponent("주제: " + decodeURIComponent(topic) + "\n");
-            const gptQuestion = encodeURIComponent("친구: " + decodeURIComponent(question) + "\n");
-            const gptUserAnswer = encodeURIComponent("사용자: " + answerInput);
+            const gptTitle = "주제: " + decodeURIComponent(topic) + "\n";
+            const gptQuestion = "친구: " + decodeURIComponent(question) + "\n";
+            const gptUserAnswer = "사용자: " + answerInput;
             console.log(gptTitle, gptQuestion, gptUserAnswer);
             const response = await getFeedback({ gptTitle, gptQuestion, gptUserAnswer });
             if (response.status === 200) {
+                console.log(response.data);
                 setFeedback(response.data);
-                alert(feedback);
             } else {
                 alert("error");
             }

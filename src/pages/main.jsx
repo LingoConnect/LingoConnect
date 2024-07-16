@@ -8,7 +8,8 @@ export default function Main() {
     const navigate = useNavigate();
 
     const handleTopicClick = (topic) => {
-        navigate(`/main/${encodeURIComponent(topic)}`);
+        const encodedTopic = encodeURIComponent(topic);
+        navigate(`/main/${encodedTopic}`);
     }
 
     return (
