@@ -20,6 +20,10 @@ export default function Question() {
                 <SmallTitle />
             </div>
 
+            <div className="question-back" onClick={()=> navigate('/main')}>
+                <img src={process.env.PUBLIC_URL + '/img/arrow.png'} />
+            </div>
+
             <div className="question-box">
                 <div className="question-box-title">
                     <div className="question-box-title-row1">

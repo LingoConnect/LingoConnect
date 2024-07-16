@@ -15,15 +15,22 @@
     padding: 10px;
 }
 
+.question-back {
+    cursor: pointer;
+    margin: 2vh auto 2vh 5%;
+    opacity: 65%;
+}
+
 .question-box {
     height: fit-content;
     background-color: rgb(255,253,243);
     border: 2px solid rgb(255, 247, 207);
+    border-radius: 10px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin: 8vh 5% 10% 5%;
+    margin: 1vh 5% 10% 5%;
 }
 
 .question-box-title {
