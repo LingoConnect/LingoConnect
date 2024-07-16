@@ -11,7 +11,7 @@ import Practice from './pages/practice';
 function App() {
   return (
     <div className="container">
-      <Router>
+      <Router basename={process.env.PUBLIC_URL}>
         <Routes>
           <Route path="/" element={<Start />} />
           <Route path="/login" element={<Login />} />
