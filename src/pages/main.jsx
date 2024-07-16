@@ -22,13 +22,31 @@ export default function Main() {
                     <p>name</p>
                 </div>
             </div>
-            {
-                learningContent.map(function (element, index) {
-                    return (
-                        <div className="topic-box" onClick={() => { handleTopicClick(element.topic) }}>{element.topic}</div>
-                    )
-                })
-            }
+
+            <div className="main-topic">
+                <div className="main-topic-title">
+                    <img src={process.env.PUBLIC_URL + '/img/mummy.png'} />
+                    <h4>학습할 주제를 선택하세요!</h4>
+                </div>
+                {
+                    learningContent.map(function (element, index) {
+                        return (
+                            <div
+                                className="main-topic-box"
+                                onClick={() => { handleTopicClick(element.topic) }}
+                            >
+                                <img
+                                    src={process.env.PUBLIC_URL + '/img/일상.jpg'}
+                                    className="main-topic-box-img"
+                                    loading="lazy"
+                                />
+                                <h4>{element.topic}</h4>                              
+                            </div>
+                        )
+                    })
+                }
+            </div>
         </div>
+
     )
 }
