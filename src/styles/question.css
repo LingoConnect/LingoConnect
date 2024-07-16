@@ -1,0 +1,15 @@
+.question-container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background-color: white;
+}
+
+.question-navbar {
+    background-color: #FFE660;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    padding: 10px;
+}

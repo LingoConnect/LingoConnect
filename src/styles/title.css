@@ -1,0 +1,62 @@
+.title-box {
+    position: relative;
+    width: 200px;
+    
+    @media (max-width: 700px) {
+        width: 190px;
+    }
+    @media (max-width: 600px) {
+        width: 180px;
+    }
+    @media (max-width: 500px) {
+        width: 170px;
+    }
+    @media (max-width: 400px) {
+        width: 160px;
+    }
+}
+
+.title-box h1 {
+    display: inline-block;
+    font-family: "Gugi";
+    font-size: 5.2rem;
+    font-weight: 400;
+    color: white;
+    text-shadow: 4px 4px 5px rgb(0, 0, 0, 0.25);
+}
+
+.title-box p {
+    font-family: 'GmarketSansMedium';
+    font-size: 1.8rem;
+    color: #5011D7;
+    position: absolute;
+    bottom: -5px;
+    right: 0;
+    text-shadow: 2px 2px 2.5px rgb(0, 0, 0, 0.25);
+}
+
+.title-box.small {
+    width: 75px;
+
+    @media (max-width: 700px) {
+        width: 73px;
+    }
+    @media (max-width: 600px) {
+        width: 70px;
+    }
+    @media (max-width: 500px) {
+        width: 65px;
+    }
+    @media (max-width: 400px) {
+        width: 60px;
+    }
+}
+
+.title-box.small h1 {
+    font-size: 2rem;
+}
+
+.title-box.small p {
+    font-size: 0.6rem;
+    bottom: -3px;
+}
