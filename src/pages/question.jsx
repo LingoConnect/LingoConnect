@@ -1,12 +1,18 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import learningContent from '../data/learningContent';
 import '../styles/question.css';
 import { SmallTitle } from '../components/title';
 
 export default function Question() {
+    const navigate = useNavigate();
     const { topic } = useParams();
     const topicData = learningContent.find(t => t.topic === decodeURIComponent(topic));
+
+    const handleQuestionClick = (question) => {
+        navigate(`/practice/${topic}/${question}`);
+    }
+
     return (
         <div className="question-container">
             <div className="question-navbar">
@@ -15,7 +21,7 @@ export default function Question() {
             {
                 topicData.questions.map(function (question, index) {
                     return (
-                        <div>{question}</div>
+                        <div onClick={() => handleQuestionClick(question)}>{question}</div>
                     )
                 })
             }

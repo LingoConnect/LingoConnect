@@ -18,7 +18,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/main" element={<Main />} />
           <Route path="/main/:topic" element={<Question />} />
-          <Route path="/practice" element={<Practice />} />
+          <Route path="/practice/:topic/:question" element={<Practice />} />
         </Routes>
       </Router>
     </div>
