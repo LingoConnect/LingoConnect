@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/LingoConnect_frontend/static/css/main.02959e20.css",
-    "main.js": "/LingoConnect_frontend/static/js/main.5508b494.js",
+    "main.js": "/LingoConnect_frontend/static/js/main.985c8545.js",
     "static/js/453.c3497b63.chunk.js": "/LingoConnect_frontend/static/js/453.c3497b63.chunk.js",
     "index.html": "/LingoConnect_frontend/index.html",
     "main.02959e20.css.map": "/LingoConnect_frontend/static/css/main.02959e20.css.map",
-    "main.5508b494.js.map": "/LingoConnect_frontend/static/js/main.5508b494.js.map",
+    "main.985c8545.js.map": "/LingoConnect_frontend/static/js/main.985c8545.js.map",
     "453.c3497b63.chunk.js.map": "/LingoConnect_frontend/static/js/453.c3497b63.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.02959e20.css",
-    "static/js/main.5508b494.js"
+    "static/js/main.985c8545.js"
   ]
 }
