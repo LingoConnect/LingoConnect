@@ -19,13 +19,37 @@ export default function Question() {
             <div className="question-navbar">
                 <SmallTitle />
             </div>
-            {
-                topicData.questions.map(function (question, index) {
-                    return (
-                        <div onClick={() => handleQuestionClick(question)}>{question}</div>
-                    )
-                })
-            }
+
+            <div className="question-box">
+                <div className="question-box-title">
+                    <div className="question-box-title-row1">
+                        <h4>{topic}</h4>
+                    </div>
+                    <div className="question-box-title-row2">
+                        <img src={process.env.PUBLIC_URL + '/img/cat.png'} />
+                        <h4>연습할 질문을 선택하세요!</h4>
+                    </div>
+                </div>
+
+                {
+                    topicData.questions.map(function (question, index) {
+                        return (
+                            <div
+                                className="question-box-list-q"
+                                onClick={() => handleQuestionClick(question)}
+                            >
+                                <div className="q-question">
+                                    <h4>{index + 1}.&nbsp;</h4>
+                                    <h5>{question}</h5>
+                                </div>
+                                {(index <= 3) && <p>초급</p>}
+                                {(index > 3) && (index <= 6) && <p>중급</p>}
+                                {(index > 6) && <p>고급</p>}
+                            </div>
+                        )
+                    })
+                }
+            </div>
         </div>
     )
 }
