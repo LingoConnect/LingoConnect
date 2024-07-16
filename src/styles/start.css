@@ -18,7 +18,7 @@
 }
 
 .start-container img {
-  width: 300px;
+  width: 165px;
   margin: 3%;
 
   @media (max-width: 500px) {
