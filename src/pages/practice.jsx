@@ -31,7 +31,7 @@ export default function Practice() {
         <div className="practice-container">
             <div className="practice-navbar">
                 <img src={process.env.PUBLIC_URL + '/img/arrow.png'} />
-                <h4>{decodedQuestion}</h4>
+                <h4>주제: {decodedTopic}</h4>
             </div>
 
             <div className="practice-chat">
@@ -74,6 +74,11 @@ function AIChat() {
     )
 }
 
+// function UserChat() {
+//     return (
+
+//     )
+// }
 
 {/* <div className="practice-container">
     <div>{decodedTopic}</div>

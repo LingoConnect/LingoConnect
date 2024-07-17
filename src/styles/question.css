@@ -18,8 +18,12 @@
 .question-back {
     cursor: pointer;
     margin: 2vh auto 2vh 5%;
-    opacity: 65%;
 }
+
+.question-back img {
+    width: 2.5rem;
+}
+
 
 .question-box {
     height: fit-content;

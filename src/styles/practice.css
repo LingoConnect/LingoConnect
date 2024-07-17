@@ -20,8 +20,8 @@
 }
 
 .practice-navbar img{
+    backface-visibility: hidden;
     cursor: pointer;
-    opacity: 45%;
     width: 1.5rem;
     margin-right: 1.5rem;
 }
@@ -137,9 +137,11 @@
 }
 
 .practice-input-send img {
+    width: 100%;
     object-fit: cover;
-    opacity: 45%;
 }
+
+
 
 /* .practice-container {
     width: 100%;

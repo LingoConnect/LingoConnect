@@ -1,6 +1,7 @@
 const learningContent = [
     {
         topic: "학교",
+        imgUrl: "/img/학교.jpg",
         questions: [
             "가장 좋아하는 과목은 무엇인가요?",
             "학교에서 가장 기억에 남는 추억은 무엇인가요?",
@@ -16,6 +17,7 @@ const learningContent = [
     },
     {
         topic: "음식",
+        imgUrl: "/img/음식.jpg",
         questions: [
             "가장 좋아하는 음식은 무엇인가요?",
             "음식을 직접 만들어 본 적이 있나요?",
@@ -31,6 +33,7 @@ const learningContent = [
     },
     {
         topic: "여행",
+        imgUrl: "/img/여행.jpg",
         questions: [
             "가장 기억에 남는 여행지는 어디인가요?",
             "가보고 싶은 여행지는 어디인가요?",
@@ -46,6 +49,7 @@ const learningContent = [
     },
     {
         topic: "취미",
+        imgUrl: "/img/취미.jpg",
         questions: [
             "취미가 무엇인가요?",
             "새로운 취미를 시작해본 적이 있나요?",
@@ -61,6 +65,7 @@ const learningContent = [
     },
     {
         topic: "영화",
+        imgUrl: "/img/영화.jpg",
         questions: [
             "가장 좋아하는 영화는 무엇인가요?",
             "최근에 본 영화 중 기억에 남는 것은 무엇인가요?",
@@ -76,6 +81,7 @@ const learningContent = [
     },
     {
         topic: "음악",
+        imgUrl: "/img/음악.jpg",
         questions: [
             "가장 좋아하는 음악 장르는 무엇인가요?",
             "최근에 자주 듣는 노래는 무엇인가요?",
@@ -91,6 +97,7 @@ const learningContent = [
     },
     {
         topic: "운동",
+        imgUrl: "/img/운동.jpg",
         questions: [
             "가장 좋아하는 운동은 무엇인가요?",
             "운동을 자주 하나요?",
