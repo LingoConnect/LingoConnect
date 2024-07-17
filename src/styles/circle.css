@@ -1,0 +1,26 @@
+.circle {
+    position: absolute;
+    background-color: white;
+    opacity: 0.78;
+    border-radius: 50%;
+}
+
+.circle.big {
+    width: 180px;
+    aspect-ratio: 1/1;
+    z-index: 200;
+}
+
+.circle.middle {
+    width: 90px;
+    aspect-ratio: 1/1;
+    background-color: #FFEE94;
+    opacity: 1;
+    z-index: 100;
+}
+
+.circle.small {
+    width: 25px;
+    aspect-ratio: 1/1;
+    z-index: 300;
+}

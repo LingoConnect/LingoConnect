@@ -40,7 +40,7 @@ export default function Main() {
                                     className="main-topic-box-img"
                                     loading="lazy"
                                 />
-                                <h4>{element.topic}</h4>                              
+                                <h4>{element.topic}</h4>
                             </div>
                         )
                     })
