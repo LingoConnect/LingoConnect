@@ -12,7 +12,19 @@
 }
 
 .register-container .top-container {
-    height: 200px;
+    height: 300px;
+}
+
+.register-container .circle.middle:nth-child(1){
+    width: 100px;
+}
+
+.register-container .circle.middle:nth-child(2){
+    width: 65px;
+}
+
+.top-circle-container .circle.small:nth-child(4){
+    grid-column: -5 / span 1;
 }
 
 .register-container h2 {
