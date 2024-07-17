@@ -36,7 +36,7 @@ export default function Main() {
                                 onClick={() => { handleTopicClick(element.topic) }}
                             >
                                 <img
-                                    src={process.env.PUBLIC_URL + '/img/일상.jpg'}
+                                    src={process.env.PUBLIC_URL + element.imgUrl}
                                     className="main-topic-box-img"
                                     loading="lazy"
                                 />
