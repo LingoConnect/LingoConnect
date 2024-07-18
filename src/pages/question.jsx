@@ -1,18 +1,29 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import learningContent from '../data/learningContent';
+import { test_mainquestions } from '../data/learningContent';
 import '../styles/question.css';
 import { SmallTitle } from '../components/title';
+import { getMainQuestion } from '../api/learning_content_api';
 
 export default function Question() {
     const navigate = useNavigate();
     const { topic } = useParams();
-    const topicData = learningContent.find(t => t.topic === decodeURIComponent(topic));
+    const [mainQuestions, setMainQuestions] = useState([]);
 
     const handleQuestionClick = (question) => {
-        const encodedQuestion = encodeURIComponent(question);
-        navigate(`/practice/${topic}/${encodedQuestion}`);
+        navigate(`/main/${topic}/${question}`);
     }
+
+    useEffect(() => {
+        const fetchMainQuestion = async () => {
+            const response = await getMainQuestion({ topic });
+            if (response.status === 200) {
+                console.log(response.data);
+                setMainQuestions(response.data);
+            }
+        };
+        fetchMainQuestion();
+    }, []);
 
     return (
         <div className="question-container">
@@ -20,7 +31,7 @@ export default function Question() {
                 <SmallTitle />
             </div>
 
-            <div className="question-back" onClick={()=> navigate('/main')}>
+            <div className="question-back" onClick={() => navigate('/main')}>
                 <img src={process.env.PUBLIC_URL + '/img/arrow.png'} />
             </div>
 
@@ -36,15 +47,16 @@ export default function Question() {
                 </div>
 
                 {
-                    topicData.questions.map(function (question, index) {
+                    //테스트 코드(mainQuestions로 수정)
+                    test_mainquestions.map(function (element, index) {
                         return (
                             <div
                                 className="question-box-list-q"
-                                onClick={() => handleQuestionClick(question)}
+                                onClick={() => handleQuestionClick(element)}
                             >
                                 <div className="q-question">
                                     <h4>{index + 1}.&nbsp;</h4>
-                                    <h5>{question}</h5>
+                                    <h5>{element}</h5>
                                 </div>
                                 {(index <= 3) && <p>초급</p>}
                                 {(index > 3) && (index <= 6) && <p>중급</p>}
