@@ -16,7 +16,6 @@ export default function Main() {
         const fetchTopics = async () => {
             const response = await getTopic();
             if (response.status === 200) {
-                console.log(response.data);
                 setTopics(response.data);
             }
         };
@@ -48,7 +47,7 @@ export default function Main() {
                                 onClick={() => { handleTopicClick(element.topic) }}
                             >
                                 <img
-                                    src={element.image}
+                                    src={element.image_url}
                                     className="main-topic-box-img"
                                     loading="lazy"
                                 />

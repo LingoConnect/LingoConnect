@@ -23,14 +23,18 @@ export default function Practice() {
     const processorRef = useRef(null);
 
     useEffect(() => {
+        setCurrentQuestionIndex(0)
+    }, [])
 
-        if (answerInput.trim() === ''){
+    useEffect(() => {
+
+        if (answerInput.trim() === '') {
             setActiveSendButton(false);
         } else {
             setActiveSendButton(true);
         }
 
-        if (currentQuestionIndex + 1 === Questions.length ) {
+        if (currentQuestionIndex + 1 === Questions.length) {
             setActiveMicButton(false);
             setActiveStopButton(false);
             setActiveSendButton(false);
@@ -39,8 +43,8 @@ export default function Practice() {
         const fetchSubQuestion = async () => {
             const response = await getSubQuestion({ topic });
             if (response.status === 200) {
-                console.log(response.data);
-                const questionList = [question, ...response.data];
+                const subQuestionList = response.data.map(element => element.question);
+                const questionList = [question, ...subQuestionList];
                 setQuestions(questionList);
             }
         };
@@ -77,34 +81,34 @@ export default function Practice() {
         setActiveMicButton(false);
         setActiveStopButton(true);
         setActiveSendButton(false);
-        navigator.mediaDevices.getUserMedia({ audio: true })
-            .then(stream => {
-                audioContextRef.current = new (window.AudioContext || window.webkitAudioContext)();
-                const input = audioContextRef.current.createMediaStreamSource(stream);
-                processorRef.current = audioContextRef.current.createScriptProcessor(4096, 1, 1);
+        // navigator.mediaDevices.getUserMedia({ audio: true })
+        //     .then(stream => {
+        //         audioContextRef.current = new (window.AudioContext || window.webkitAudioContext)();
+        //         const input = audioContextRef.current.createMediaStreamSource(stream);
+        //         processorRef.current = audioContextRef.current.createScriptProcessor(4096, 1, 1);
 
-                processorRef.current.onaudioprocess = e => {
-                    const inputData = e.inputBuffer.getChannelData(0);
-                    const buffer = new ArrayBuffer(inputData.length * 2);
-                    const outputData = new DataView(buffer);
+        //         processorRef.current.onaudioprocess = e => {
+        //             const inputData = e.inputBuffer.getChannelData(0);
+        //             const buffer = new ArrayBuffer(inputData.length * 2);
+        //             const outputData = new DataView(buffer);
 
-                    for (let i = 0; i < inputData.length; i++) {
-                        let s = Math.max(-1, Math.min(1, inputData[i]));
-                        outputData.setInt16(i * 2, s < 0 ? s * 0x8000 : s * 0x7FFF, true);
-                    }
+        //             for (let i = 0; i < inputData.length; i++) {
+        //                 let s = Math.max(-1, Math.min(1, inputData[i]));
+        //                 outputData.setInt16(i * 2, s < 0 ? s * 0x8000 : s * 0x7FFF, true);
+        //             }
 
-                    audioChunksRef.current.push(new Int16Array(buffer));
-                };
+        //             audioChunksRef.current.push(new Int16Array(buffer));
+        //         };
 
-                input.connect(processorRef.current);
-                processorRef.current.connect(audioContextRef.current.destination);
+        //         input.connect(processorRef.current);
+        //         processorRef.current.connect(audioContextRef.current.destination);
 
-                setTimeout(() => {
-                    processorRef.current.disconnect();
-                    input.disconnect();
-                    setIsRecording(false);
-                }, 5000);
-            });
+        //         setTimeout(() => {
+        //             processorRef.current.disconnect();
+        //             input.disconnect();
+        //             setIsRecording(false);
+        //         }, 5000);
+        //     });
     };
 
     const stopRecording = async () => {
@@ -112,33 +116,33 @@ export default function Practice() {
         setActiveMicButton(false);
         setActiveStopButton(false);
 
-        const audioData = audioChunksRef.current.reduce((acc, chunk) => {
-            acc.push(...chunk);
-            return acc;
-        }, []);
+        // const audioData = audioChunksRef.current.reduce((acc, chunk) => {
+        //     acc.push(...chunk);
+        //     return acc;
+        // }, []);
 
-        const int16Array = new Int16Array(audioData);
+        // const int16Array = new Int16Array(audioData);
 
-        const requestData = {
-            short: 0,
-            char: "string",
-            int: 0,
-            long: 0,
-            float: 0,
-            double: 0,
-            direct: true,
-            readOnly: true,
-            audioData: Array.from(int16Array)
-        };
+        // const requestData = {
+        //     short: 0,
+        //     char: "string",
+        //     int: 0,
+        //     long: 0,
+        //     float: 0,
+        //     double: 0,
+        //     direct: true,
+        //     readOnly: true,
+        //     audioData: Array.from(int16Array)
+        // };
 
-        const response = await getAudioFeedback(requestData);
-        if (response.status === 200) {
-            console.log(response.data);
-            setAudioText(response.data.text);
-            setAudioFeedback(response.data.score);
-        } else {
-            alert("error");
-        }
+        // const response = await getAudioFeedback(requestData);
+        // if (response.status === 200) {
+        //     console.log(response.data);
+        //     setAudioText(response.data.text);
+        //     setAudioFeedback(response.data.score);
+        // } else {
+        //     alert("error");
+        // }
     };
 
     return (
@@ -149,17 +153,19 @@ export default function Practice() {
             </div>
 
             <div className="practice-chat">
-                {Questions.slice(0, currentQuestionIndex + 1).map((question, index) => (
-                    <React.Fragment key={index}>
-                        <AIChat question={question} />
-                        {index < answers.length && (
-                            <>
-                                <p className="answer-box">{answers[index]}</p>
-                                <p className="feedback-box">{feedbacks[index].feedback}<br></br>{feedbacks[index].score}</p>
-                            </>
-                        )}
-                    </React.Fragment>
-                ))}
+                {
+                    Questions.slice(0, currentQuestionIndex + 1).map((question, index) => (
+                        <React.Fragment key={index}>
+                            <AIChat question={question} />
+                            {index < answers.length && (
+                                <>
+                                    <p className="answer-box">{answers[index]}</p>
+                                    <p className="feedback-box">{feedbacks[index].feedback}<br></br>{feedbacks[index].score}</p>
+                                </>
+                            )}
+                        </React.Fragment>
+                    ))
+                }
                 {
                     currentQuestionIndex + 1 === Questions.length && <p>준비된 질문은 여기까지에요. 마이페이지에서 저장된 피드백들을 반복적으로 학습해보아요!</p>
                 }
