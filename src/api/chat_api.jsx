@@ -33,7 +33,7 @@ export const getFeedback = async ({ gptTitle, gptQuestion, gptUserAnswer }) => {
     }
 };
 
-export const getPronunciationScore = async ({}) => {
+export const getAudioFeedback = async ({}) => {
     try {
         const response = await axios.post(`${BASE_URL}/pronunciation/`,
             {

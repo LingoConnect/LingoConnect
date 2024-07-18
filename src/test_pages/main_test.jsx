@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/main.css';
 import { SmallTitle } from '../components/title';
+import { test_topics } from './data_test';
 import { getTopic } from '../api/learning_content_api';
 
-export default function Main() {
+export default function MainTest() {
     const navigate = useNavigate();
     const [topics, setTopics] = useState([]);
 
@@ -41,14 +42,14 @@ export default function Main() {
                     <h4>학습할 주제를 선택하세요!</h4>
                 </div>
                 {
-                    topics.map(function (element, index) {
+                    test_topics.map(function (element, index) {
                         return (
                             <div
                                 className="main-topic-box"
                                 onClick={() => { handleTopicClick(element.topic) }}
                             >
                                 <img
-                                    src={element.image}
+                                    src={process.env.PUBLIC_URL + element.imgUrl}
                                     className="main-topic-box-img"
                                     loading="lazy"
                                 />
