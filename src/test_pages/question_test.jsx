@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { test_mainquestions } from './data_test';
 import '../styles/question.css';
 import { SmallTitle } from '../components/title';
 import { getMainQuestion } from '../api/learning_content_api';
 
-export default function Question() {
+export default function QuestionTest() {
     const navigate = useNavigate();
     const { topic } = useParams();
     const [mainQuestions, setMainQuestions] = useState([]);
@@ -46,16 +47,16 @@ export default function Question() {
                 </div>
 
                 {
-                    mainQuestions.map((element, index) => {
+                    test_mainquestions.map((element, index) => {
                         return (
                             <div
                                 className="question-box-list-q"
                                 onClick={() => handleQuestionClick(element)}>
                                 <div className="q-question">
                                     <h4>{index + 1}.&nbsp;</h4>
-                                    <h5>{element.question}</h5>
+                                    <h5>{element}</h5>
                                 </div>
-                                <p>{element.grade}</p>
+                                <p>초급</p>
                             </div>
                         )
                     })

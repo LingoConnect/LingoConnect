@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import '../styles/practice.css';
-import { getFeedback } from '../api/chat_api';
-import { test_subquestions, test_feedback } from '../data/learningContent';
+import { getFeedback, getAudioFeedback } from '../api/chat_api';
 import { getSubQuestion } from '../api/learning_content_api';
 
 export default function Practice() {
@@ -18,11 +17,25 @@ export default function Practice() {
     const [isRecording, setIsRecording] = useState(false);
     const [activeMicButton, setActiveMicButton] = useState(true);
     const [activeStopButton, setActiveStopButton] = useState(false);
+    const [activeSendButton, setActiveSendButton] = useState(false);
     const audioChunksRef = useRef([]);
     const audioContextRef = useRef(null);
     const processorRef = useRef(null);
 
     useEffect(() => {
+
+        if (answerInput.trim() === ''){
+            setActiveSendButton(false);
+        } else {
+            setActiveSendButton(true);
+        }
+
+        if (currentQuestionIndex + 1 === Questions.length ) {
+            setActiveMicButton(false);
+            setActiveStopButton(false);
+            setActiveSendButton(false);
+        }
+
         const fetchSubQuestion = async () => {
             const response = await getSubQuestion({ topic });
             if (response.status === 200) {
@@ -32,7 +45,7 @@ export default function Practice() {
             }
         };
         fetchSubQuestion();
-    }, [topic, question]);
+    }, [answerInput, topic, question, currentQuestionIndex]);
 
     const handleFeedback = async () => {
         if (answerInput.trim() !== '') {
@@ -63,6 +76,7 @@ export default function Practice() {
         setIsRecording(true);
         setActiveMicButton(false);
         setActiveStopButton(true);
+        setActiveSendButton(false);
         navigator.mediaDevices.getUserMedia({ audio: true })
             .then(stream => {
                 audioContextRef.current = new (window.AudioContext || window.webkitAudioContext)();
@@ -146,27 +160,31 @@ export default function Practice() {
                         )}
                     </React.Fragment>
                 ))}
+                {
+                    currentQuestionIndex + 1 === Questions.length && <p>준비된 질문은 여기까지에요. 마이페이지에서 저장된 피드백들을 반복적으로 학습해보아요!</p>
+                }
             </div>
 
             <div className="practice-input">
                 <input value={answerInput} onChange={(event) => setAnswerInput(event.target.value)} />
                 <div className="practice-input-send">
-                    <button onClick={activeMicButton && startRecording} disabled={isRecording}>
+                    <button onClick={activeMicButton ? startRecording : undefined} disabled={isRecording}>
                         <img
                             style={activeMicButton ? {} : { opacity: '0.5' }}
                             src={process.env.PUBLIC_URL + '/img/mic.png'}
                             alt="mic"
                         />
                     </button>
-                    <button onClick={activeStopButton && stopRecording} disabled={!audioChunksRef.current.length}>
+                    <button onClick={activeStopButton ? stopRecording : undefined} disabled={!audioChunksRef.current.length}>
                         <img
                             style={activeStopButton ? {} : { opacity: '0.5' }}
                             src={process.env.PUBLIC_URL + '/img/mic.png'}
                             alt="stop"
                         />
                     </button>
-                    <button onClick={handleFeedback}>
+                    <button onClick={activeSendButton ? handleFeedback : undefined}>
                         <img
+                            style={activeSendButton ? {} : { opacity: '0.5' }}
                             src={process.env.PUBLIC_URL + '/img/send.png'}
                             alt="send"
                         />
