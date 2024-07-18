@@ -17,8 +17,7 @@ export default function Question() {
         const fetchMainQuestion = async () => {
             const response = await getMainQuestion({ topic });
             if (response.status === 200) {
-                console.log(response.data);
-                setMainQuestions([response.data.question]);
+                setMainQuestions(response.data);
             }
         };
         fetchMainQuestion();
@@ -50,12 +49,12 @@ export default function Question() {
                         return (
                             <div
                                 className="question-box-list-q"
-                                onClick={() => handleQuestionClick(element)}>
+                                onClick={() => handleQuestionClick(element.question)}>
                                 <div className="q-question">
                                     <h4>{index + 1}.&nbsp;</h4>
                                     <h5>{element.question}</h5>
                                 </div>
-                                <p>{element.grade}</p>
+                                <p>{element.difficulty}</p>
                             </div>
                         )
                     })
