@@ -19,7 +19,7 @@ export default function Question() {
             const response = await getMainQuestion({ topic });
             if (response.status === 200) {
                 console.log(response.data);
-                setMainQuestions(response.data.question);
+                setMainQuestions([response.data.question]);
             }
         };
         fetchMainQuestion();
@@ -55,11 +55,9 @@ export default function Question() {
                                 onClick={() => handleQuestionClick(element)}>
                                 <div className="q-question">
                                     <h4>{index + 1}.&nbsp;</h4>
-                                    <h5>{element}</h5>
+                                    <h5>{element.question}</h5>
                                 </div>
-                                {(index <= 3) && <p>초급</p>}
-                                {(index > 3) && (index <= 6) && <p>중급</p>}
-                                {(index > 6) && <p>고급</p>}
+                                <p>{element.grade}</p>
                             </div>
                         )
                     })
