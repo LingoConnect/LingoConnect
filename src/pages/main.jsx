@@ -43,14 +43,14 @@ export default function Main() {
                 </div>
                 {
                     // 테스트 코드 (topics로 수정)
-                    test_topics.map(function (element, index) {
+                    topics.map(function (element, index) {
                         return (
                             <div
                                 className="main-topic-box"
                                 onClick={() => { handleTopicClick(element.topic) }}
                             >
                                 <img
-                                    src={process.env.PUBLIC_URL + element.imgUrl}
+                                    src={element.image}
                                     className="main-topic-box-img"
                                     loading="lazy"
                                 />
