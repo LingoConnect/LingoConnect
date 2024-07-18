@@ -2,15 +2,28 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/main.css';
 import { SmallTitle } from '../components/title';
-import learningContent from '../data/learningContent';
+import { test_topics } from '../data/learningContent';
+import { getTopic } from '../api/learning_content_api';
 
 export default function Main() {
     const navigate = useNavigate();
+    const [topics, setTopics] = useState([]);
 
     const handleTopicClick = (topic) => {
-        const encodedTopic = encodeURIComponent(topic);
-        navigate(`/main/${encodedTopic}`);
+        navigate(`/main/${topic}`);
     }
+
+    useEffect(() => {
+        const fetchTopics = async () => {
+            const response = await getTopic();
+            if (response.status === 200) {
+                console.log(response.data);
+                setTopics(response.data);
+            }
+        };
+
+        fetchTopics();
+    }, []);
 
     return (
         <div className="main-container">
@@ -29,7 +42,8 @@ export default function Main() {
                     <h4>학습할 주제를 선택하세요!</h4>
                 </div>
                 {
-                    learningContent.map(function (element, index) {
+                    // 테스트 코드 (topics로 수정)
+                    test_topics.map(function (element, index) {
                         return (
                             <div
                                 className="main-topic-box"
