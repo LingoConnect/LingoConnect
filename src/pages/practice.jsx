@@ -22,24 +22,24 @@ export default function Practice() {
             const gptUserAnswer = "사용자: " + answerInput;
             console.log(gptTitle, gptQuestion, gptUserAnswer);
 
-            // const response = await getFeedback({ gptTitle, gptQuestion, gptUserAnswer });
-            // if (response.status === 200) {
-            //     console.log(response.data);
-            //     setFeedbacks([...feedbacks, response.data]);
-            //     setAnswers([...answers, answerInput]);
-            //     setAnswerInput('');
-            //     setFeedback('');
-            //     setCurrentQuestionIndex(currentQuestionIndex + 1);
-            // } else {
-            //     alert("error");
-            // }
+            const response = await getFeedback({ gptTitle, gptQuestion, gptUserAnswer });
+            if (response.status === 200) {
+                console.log(response.data);
+                setFeedbacks([...feedbacks, response.data]);
+                setAnswers([...answers, answerInput]);
+                setAnswerInput('');
+                setFeedback('');
+                setCurrentQuestionIndex(currentQuestionIndex + 1);
+            } else {
+                alert("error");
+            }
             
             // 테스트 코드(삭제할 예정)
-            setFeedbacks(test_feedback);
-            setAnswers([...answers, answerInput]);
-            setAnswerInput('');
-            setFeedback('');
-            setCurrentQuestionIndex(currentQuestionIndex + 1);
+            // setFeedbacks(test_feedback);
+            // setAnswers([...answers, answerInput]);
+            // setAnswerInput('');
+            // setFeedback('');
+            // setCurrentQuestionIndex(currentQuestionIndex + 1);
 
         }
     }
