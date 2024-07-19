@@ -24,9 +24,14 @@ export default function Start() {
                     <button>회원가입</button>
                 </Link>
                 <div className="search-box">
-                    <p>아이디 찾기</p>
+                    <p>&nbsp;&nbsp;아이디 찾기</p>
                     <span>|</span>
                     <p>비밀번호 찾기</p>
+                </div>
+                <div className="guest-login">
+                    <Link to="/main">                    
+                        <p>비회원으로 로그인</p>
+                    </Link>
                 </div>
             </div>
 
