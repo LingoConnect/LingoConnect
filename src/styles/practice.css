@@ -230,8 +230,8 @@
     line-height: 1.5;
 }
 
-.practice-finish span{
+.practice-finish span, .practice-finish h4{
     cursor: pointer;
-    text-decoration:underline;
+    color: #39085A;
     font-weight: bold;
 }
