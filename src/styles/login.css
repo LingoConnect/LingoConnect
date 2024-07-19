@@ -9,7 +9,7 @@
 }
 
 .login-top {
-    position: absoulte;
+    position: absolute;
     width: 100%;
 }
 
@@ -21,8 +21,8 @@
     flex-direction: column;
     justify-content: center;
 
-    @media (max-height: 790px) {
-        margin-top: 200px;    
+    @media (max-height: 870px) {
+        margin-top: 240px;    
         justify-content: flex-start;    
     }
 }
@@ -30,7 +30,9 @@
 .login-back {
     cursor: pointer;
     width: fit-content;
-    margin-left: 10%;
+    position: absolute;
+    top: 190px;
+    left: 10%;
 }
 
 .login-back img {
@@ -44,8 +46,6 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* margin-top: calc(margin-bottom - 220px);
-    margin-bottom: auto; */
 }
 
 .login-submit h2 {
@@ -68,7 +68,7 @@
     max-width: 400px;
     height: 25%;
     margin: 5px;
-    padding: 10px 20px;
+    padding: 1.1rem 20px;
     font-family: "Jua";
     font-size: 1.1rem;
 
@@ -87,7 +87,7 @@
     border-radius: 50px;
     width: 65%;
     max-width: 400px;
-    padding: 10px 0 10px 0;
+    padding: 1.1rem 0;
     margin: 20px;
     font-size: 1.1rem;
     font-family: "Gugi";
@@ -113,7 +113,6 @@
 }
 
 .login-submit-icon img {
-    cursor: pointer;
     width: 40px;
     object-fit: cover;
 }

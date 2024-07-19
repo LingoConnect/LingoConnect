@@ -1,25 +1,28 @@
 .register-container {
     width: 100%;
     height: 100%;
-    overflow: hidden;
-    background-color: #FFFDF3;
-    position: relative;
+    overflow-x: hidden;
+    overflow-y: auto;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding-top: 50px;
+    position: relative;
+    background-color: #FFFDF3;
 }
 
-.register-container .top-container {
+
+.register-top {
+    width: 100%;
+}
+
+.register-top .top-container {
     height: 300px;
 }
 
-.register-container .circle.middle:nth-child(1){
+.register-top .circle.middle:nth-child(1){
     width: 100px;
 }
 
-.register-container .circle.middle:nth-child(2){
+.register-top .circle.middle:nth-child(2){
     width: 65px;
 }
 
@@ -27,43 +30,93 @@
     grid-column: -5 / span 1;
 }
 
-.register-container h2 {
-    width: 75%;
+.register-register {
+    width: 100%;
+    height: 100vh;
+    margin: 0 auto 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    @media (max-height:785px) {
+        margin-top: 195px;
+        justify-content: flex-start;
+    }
+}
+
+.register-back {
+    cursor: pointer;
+    width: fit-content;
+    position: absolute;
+    top: 165px;
+    left: 10%;
+}
+
+.register-back img {
+    width: 30px;
+    object-fit: cover;
+}
+
+.register-submit {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.register-submit h2 {
+    width: 65%;
     max-width: 400px;
     font-family: "Gugi";
     font-size: 2.8rem;
     margin: 20px;
-}
-
-.register-container input {
-    background-color: #FFF3B3;
-    border: none;
-    border-radius: 50px;
-    width: 75%;
-    max-width: 400px;
-    height: 7%;
-    margin: 5px;
-    padding: 10px 20px;
-    font-family: "Jua";
-    font-size: 1.1rem;
 
     @media (max-width: 700px) {
         width: 75%;
     }
 }
 
-.register-container input::placeholder {
+.register-submit input {
+    background-color: #FFF3B3;
+    border: none;
+    border-radius: 50px;
+    width: 65%;
+    max-width: 400px;
+    height: 25%;
+    margin: 5px;
+    padding: 1.1rem 20px;
+    font-family: "Jua";
+    font-size: 1.1rem;
+
+    @media (max-width: 700px) {
+        width: 75%;
+    }    
+}
+
+.register-submit input::placeholder {
     color: #746745;
 }
 
-.register-container button {
+.register-submit p {
+    width: 65%;
+    max-width: 400px;
+    color: red;
+    margin-left: 20px;
+}
+
+.register-submit button {
     background-color: #FFE660;
     border: none;
     border-radius: 50px;
-    width: 75%;
+    width: 65%;
     max-width: 400px;
-    height: 7%;
-    margin: 15px;
+    padding: 1.1rem 0;
+    margin: 20px;
     font-size: 1.1rem;
     font-family: "Gugi";
+
+    @media (max-width: 700px) {
+        width: 75%;
+    }
 }
