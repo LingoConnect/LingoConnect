@@ -7,7 +7,6 @@ import { getSubQuestion } from '../api/learning_content_api';
 export default function Practice() {
     const { topic, question } = useParams();
     const [answerInput, setAnswerInput] = useState('');
-    const [audioText, setAudioText] = useState('');
     const [feedback, setFeedback] = useState('');
     const [Questions, setQuestions] = useState([]);
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -18,16 +17,27 @@ export default function Practice() {
     const [activeMicButton, setActiveMicButton] = useState(true);
     const [activeStopButton, setActiveStopButton] = useState(false);
     const [activeSendButton, setActiveSendButton] = useState(false);
-    const audioChunksRef = useRef([]);
     const audioContextRef = useRef(null);
     const processorRef = useRef(null);
+    const audioChunksRef = useRef([]);
 
     useEffect(() => {
-        setCurrentQuestionIndex(0)
-    }, [])
+        setCurrentQuestionIndex(0);
+    }, []);
 
     useEffect(() => {
+        const fetchSubQuestion = async () => {
+            const response = await getSubQuestion({ topic });
+            if (response.status === 200) {
+                const subQuestionList = response.data.map(element => element.question);
+                const questionList = [question, ...subQuestionList];
+                setQuestions(questionList);
+            }
+        };
+        fetchSubQuestion();
+    }, [topic, question]);
 
+    useEffect(() => {
         if (answerInput.trim() === '') {
             setActiveSendButton(false);
         } else {
@@ -39,18 +49,88 @@ export default function Practice() {
             setActiveStopButton(false);
             setActiveSendButton(false);
         }
+    }, [answerInput, currentQuestionIndex, Questions.length]);
 
-        const fetchSubQuestion = async () => {
-            const response = await getSubQuestion({ topic });
-            if (response.status === 200) {
-                const subQuestionList = response.data.map(element => element.question);
-                const questionList = [question, ...subQuestionList];
-                setQuestions(questionList);
-            }
-        };
-        fetchSubQuestion();
-    }, [answerInput, topic, question, currentQuestionIndex]);
-
+    const startRecording = async () => {
+        try {
+            setIsRecording(true);
+            setActiveMicButton(false);
+            setActiveStopButton(true);
+            setActiveSendButton(false);
+    
+            // 오디오 컨텍스트 생성 및 설정
+            audioContextRef.current = new (window.AudioContext || window.webkitAudioContext)();
+            await audioContextRef.current.audioWorklet.addModule(process.env.PUBLIC_URL + '/audio-processor.js');
+            const processorNode = new AudioWorkletNode(audioContextRef.current, 'audio-processor');
+            processorRef.current = processorNode;
+    
+            // 사용자 미디어 가져오기
+            const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+            const source = audioContextRef.current.createMediaStreamSource(stream);
+            source.connect(processorNode);
+    
+            processorNode.port.onmessage = (event) => {
+                console.log('Received message from AudioWorkletProcessor:', event.data); // 디버깅용 로그
+                if (Array.isArray(event.data)) {
+                    audioChunksRef.current = new Int16Array(event.data);
+                    console.log('1 Audio chunks:', audioChunksRef.current);
+                }
+            };
+    
+        } catch (error) {
+            console.error('Error starting recording:', error);
+            setIsRecording(false);
+            setActiveMicButton(true);
+            setActiveStopButton(false);
+        }
+    };
+    
+    const stopRecording = async () => {
+        setIsRecording(false);
+        setActiveMicButton(true);
+        setActiveStopButton(false);
+    
+        if (processorRef.current) {
+            processorRef.current.port.postMessage('flush');
+    
+            // flush 메시지가 처리될 때까지 대기
+            const waitForFlush = new Promise((resolve) => {
+                processorRef.current.port.onmessage = (event) => {
+                    if (Array.isArray(event.data)) {
+                        audioChunksRef.current = new Int16Array(event.data);
+                        console.log('1 Audio chunks:', audioChunksRef.current);
+                        resolve();
+                    }
+                };
+            });
+    
+            await waitForFlush;
+    
+            processorRef.current.disconnect();
+            audioContextRef.current.close();
+        }
+    
+        console.log('2 Audio chunks:', audioChunksRef.current); // 디버깅용 로그
+    
+        // 오디오 청크 사용
+        const int16Array = new Int16Array(audioChunksRef.current);
+        console.log('Converted Int16Array:', Array.from(int16Array));
+    
+        // const requestData = {
+        //     audioData: Array.from(int16Array)
+        // };
+    
+        // const response = await getAudioFeedback(requestData);
+        // if (response.status === 200) {
+        //     console.log(response.data);
+        //     setAudioText(response.data.text);
+        //     setAudioFeedback(response.data.score);
+        // } else {
+        //     alert("error");
+        // }
+    };
+    
+    // 전송 버튼 누를 때 실행
     const handleFeedback = async () => {
         if (answerInput.trim() !== '') {
             const currentQuestion = Questions[currentQuestionIndex];
@@ -74,75 +154,6 @@ export default function Practice() {
                 alert("error");
             }
         }
-    }
-
-    const startRecording = () => {
-        setIsRecording(true);
-        setActiveMicButton(false);
-        setActiveStopButton(true);
-        setActiveSendButton(false);
-        // navigator.mediaDevices.getUserMedia({ audio: true })
-        //     .then(stream => {
-        //         audioContextRef.current = new (window.AudioContext || window.webkitAudioContext)();
-        //         const input = audioContextRef.current.createMediaStreamSource(stream);
-        //         processorRef.current = audioContextRef.current.createScriptProcessor(4096, 1, 1);
-
-        //         processorRef.current.onaudioprocess = e => {
-        //             const inputData = e.inputBuffer.getChannelData(0);
-        //             const buffer = new ArrayBuffer(inputData.length * 2);
-        //             const outputData = new DataView(buffer);
-
-        //             for (let i = 0; i < inputData.length; i++) {
-        //                 let s = Math.max(-1, Math.min(1, inputData[i]));
-        //                 outputData.setInt16(i * 2, s < 0 ? s * 0x8000 : s * 0x7FFF, true);
-        //             }
-
-        //             audioChunksRef.current.push(new Int16Array(buffer));
-        //         };
-
-        //         input.connect(processorRef.current);
-        //         processorRef.current.connect(audioContextRef.current.destination);
-
-        //         setTimeout(() => {
-        //             processorRef.current.disconnect();
-        //             input.disconnect();
-        //             setIsRecording(false);
-        //         }, 5000);
-        //     });
-    };
-
-    const stopRecording = async () => {
-
-        setActiveMicButton(false);
-        setActiveStopButton(false);
-
-        // const audioData = audioChunksRef.current.reduce((acc, chunk) => {
-        //     acc.push(...chunk);
-        //     return acc;
-        // }, []);
-
-        // const int16Array = new Int16Array(audioData);
-
-        // const requestData = {
-        //     short: 0,
-        //     char: "string",
-        //     int: 0,
-        //     long: 0,
-        //     float: 0,
-        //     double: 0,
-        //     direct: true,
-        //     readOnly: true,
-        //     audioData: Array.from(int16Array)
-        // };
-
-        // const response = await getAudioFeedback(requestData);
-        // if (response.status === 200) {
-        //     console.log(response.data);
-        //     setAudioText(response.data.text);
-        //     setAudioFeedback(response.data.score);
-        // } else {
-        //     alert("error");
-        // }
     };
 
     return (
@@ -181,7 +192,7 @@ export default function Practice() {
                             alt="mic"
                         />
                     </button>
-                    <button onClick={activeStopButton ? stopRecording : undefined} disabled={!audioChunksRef.current.length}>
+                    <button onClick={activeStopButton ? stopRecording : undefined} disabled={!isRecording}>
                         <img
                             style={activeStopButton ? {} : { opacity: '0.5' }}
                             src={process.env.PUBLIC_URL + '/img/mic.png'}
@@ -212,5 +223,5 @@ function AIChat({ question }) {
                 <h4>{question}</h4>
             </div>
         </div>
-    )
+    );
 }
