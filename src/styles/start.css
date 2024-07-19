@@ -8,10 +8,11 @@
   align-items: center;
   padding: 5%;
   position: relative;
+  overflow-y: auto;
 }
 
 .start-subtitle {
-  margin: 3%;
+  margin: 1%;
   z-index: 5000;
 }
 
@@ -19,7 +20,7 @@
   font-size: 1.2rem;
   color: #746745;
   font-family: 'NEXON Lv2 Gothic', sans-serif;
-  margin: 5px;
+  margin: 0.8rem;
   text-align: center;
 }
 
@@ -57,10 +58,26 @@
   justify-content: center;
   align-items: center;
   font-size: 1rem;
+  color: rgb(116, 103, 69);
 }
 
 .search-box p {
+  /* font-weight: 600; */
   cursor: pointer;
+  margin: 8px;
+}
+
+.guest-login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1rem;
+}
+
+.guest-login a {
+  cursor: pointer;
+  text-decoration: underline;
+  color: rgb(116, 103, 69);
   margin: 8px;
 }
 
