@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import '../styles/practice.css';
 import { test_subquestions, test_feedback } from './data_test';
 import { getSubQuestion } from '../api/learning_content_api';
@@ -12,7 +12,8 @@ export default function PracticeTest() {
     const [answers, setAnswers] = useState([]);
     const [activeMicButton, setActiveMicButton] = useState(true);
     const [activeStopButton, setActiveStopButton] = useState(false);
-    const [activeSendButton, setActiveSendButton] = useState(false);
+    const [activeSendButton, setActiveSendButton] = useState(false);    
+    const navigate = useNavigate();
 
     useEffect(() => {
 
@@ -64,15 +65,26 @@ export default function PracticeTest() {
                     <React.Fragment key={index}>
                         <AIChat question={question} />
                         {index < answers.length && (
-                            <>
+                            <div className="practice-chat-answer">
                                 <p className="answer-box">{answers[index]}</p>
-                                <p className="feedback-box">{test_feedback[index].feedback}<br></br>{test_feedback[index].score}</p>
-                            </>
+                                <div className="feedback-box">
+                                    <img src={process.env.PUBLIC_URL + '/img/cat.png'} />
+                                    <p>{test_feedback[index].feedback}</p>
+                                </div>
+                                <div className="score-box">
+                                    <p>{test_feedback[index].score}</p>
+                                </div>
+                            </div>
                         )}
                     </React.Fragment>
                 ))}
                 {
-                    currentQuestionIndex + 1 === test_questions.length && <p>준비된 질문은 여기까지에요. 마이페이지에서 저장된 피드백들을 반복적으로 학습해보아요!</p>
+                    currentQuestionIndex + 1 === test_questions.length && 
+                    <div className="practice-finish">
+                        <p >준비된 질문은 여기까지에요.</p>
+                        <p><span onClick={()=>navigate("/main")}>마이페이지</span>에서 저장된 피드백들을 반복적으로 학습해보아요!</p>
+                        <h4 onClick={()=>navigate(`/main/${topic}/${question}/result`)}>❗피드백 보기❗</h4>
+                    </div>
                 }
             </div>
 
@@ -114,7 +126,7 @@ function AIChat({ question }) {
                 <p />
             </div>
             <div className="ai-chat-dialogue">
-                <h4>{question}</h4>
+                <h4>{question}?</h4>
             </div>
         </div>
     )
