@@ -115,14 +115,17 @@
 }
 
 .q-question h4, .q-question h5 {
-    font-size: 2rem;
+    word-break: keep-all;
+    font-size: 1.5rem;
     font-weight: 600;
+    line-height: 1.5;
     color:#746745;
 }
 
 .question-box-list-q p{
-    font-size: 1.5rem;
+    font-size: 1.1rem;
     font-weight: 600;
+    line-height: 1.5;
     color: #878787;
     margin-top: 0.25rem;
 }

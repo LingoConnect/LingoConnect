@@ -89,7 +89,7 @@ export default function PracticeTest() {
                     <button onClick={activeStopButton ? stopRecording : undefined}>
                         <img
                             style={activeStopButton ? {} : { opacity: '0.5' }}
-                            src={process.env.PUBLIC_URL + '/img/mic.png'}
+                            src={process.env.PUBLIC_URL + '/img/stop.png'}
                             alt="stop"
                         />
                     </button>
