@@ -46,11 +46,12 @@ export default function Practice() {
             setActiveSendButton(true);
         }
 
-        if (currentQuestionIndex === Questions.length) {
-            setActiveMicButton(false);
-            setActiveStopButton(false);
-            setActiveSendButton(false);
-        }
+        // if (currentQuestionIndex === Questions.length) {
+        //     setActiveMicButton(false);
+        //     setActiveStopButton(false);
+        //     setActiveSendButton(false);
+        // }
+
     }, [answerInput, currentQuestionIndex, Questions.length]);
 
     const startRecording = async () => {
