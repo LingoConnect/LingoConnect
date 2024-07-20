@@ -1,45 +1,29 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 import '../styles/practice.css';
-import { getFeedback, getAudioFeedback } from '../api/chat_api';
+import { getFeedback } from '../api/chat_api';
 import { getSubQuestion } from '../api/learning_content_api';
+import RecordRTC, { StereoAudioRecorder } from 'recordrtc';
 
 export default function Practice() {
     const { topic, question } = useParams();
     const [answerInput, setAnswerInput] = useState('');
-    const [audioText, setAudioText] = useState('');
     const [feedback, setFeedback] = useState('');
     const [Questions, setQuestions] = useState([]);
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [answers, setAnswers] = useState([]);
     const [feedbacks, setFeedbacks] = useState([]);
-    const [audioFeedback, setAudioFeedback] = useState('');
     const [isRecording, setIsRecording] = useState(false);
     const [activeMicButton, setActiveMicButton] = useState(true);
     const [activeStopButton, setActiveStopButton] = useState(false);
     const [activeSendButton, setActiveSendButton] = useState(false);
-    const audioChunksRef = useRef([]);
-    const audioContextRef = useRef(null);
-    const processorRef = useRef(null);
+    const [recorder, setRecorder] = useState(null);
+
+    useEffect(() => {   
+        setCurrentQuestionIndex(0);
+    }, []);
 
     useEffect(() => {
-        setCurrentQuestionIndex(0)
-    }, [])
-
-    useEffect(() => {
-
-        if (answerInput.trim() === '') {
-            setActiveSendButton(false);
-        } else {
-            setActiveSendButton(true);
-        }
-
-        if (currentQuestionIndex + 1 === Questions.length) {
-            setActiveMicButton(false);
-            setActiveStopButton(false);
-            setActiveSendButton(false);
-        }
-
         const fetchSubQuestion = async () => {
             const response = await getSubQuestion({ topic });
             if (response.status === 200) {
@@ -49,7 +33,86 @@ export default function Practice() {
             }
         };
         fetchSubQuestion();
-    }, [answerInput, topic, question, currentQuestionIndex]);
+    }, [topic, question]);
+
+    useEffect(() => {
+        if (answerInput.trim() === '') {
+            setActiveSendButton(false);
+        } else {
+            setActiveSendButton(true);
+        }
+
+        // if (currentQuestionIndex + 1 === Questions.length) {
+        //     setActiveMicButton(false);
+        //     setActiveStopButton(false);
+        //     setActiveSendButton(false);
+        // }
+    }, [answerInput, currentQuestionIndex, Questions.length]);
+
+    const startRecording = async () => {
+        setIsRecording(true);
+        setActiveMicButton(false);
+        setActiveStopButton(true);
+        setActiveSendButton(false);
+
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        const audioRecorder = new RecordRTC(stream, {
+            type: 'audio',
+            mimeType: 'audio/wav',
+            recorderType: StereoAudioRecorder,
+            desiredSampRate: 16000
+        });
+        audioRecorder.startRecording();
+        setRecorder(audioRecorder);
+    };
+
+    const stopRecording = async () => {
+        if (recorder) {
+            recorder.stopRecording(async () => {
+                const audioBlob = recorder.getBlob();
+                const arrayBuffer = await audioBlob.arrayBuffer();
+                const audioContext = new AudioContext();
+                const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
+
+                const wav = toWav(audioBuffer);
+                const wavFile = new File([wav], 'sound.wav', { type: 'audio/wav' });
+
+                // Send the audio file to the backend
+                onSubmitAudioFile(wavFile);
+
+                // Reset UI state
+                setIsRecording(false);
+                setActiveMicButton(true);
+                setActiveStopButton(false);
+                setActiveSendButton(true);
+            });
+        }
+    };
+
+    const onSubmitAudioFile = useCallback(async (audioFile) => {
+        if (audioFile) {
+            const formdata = new FormData();
+            formdata.append('sound', audioFile);
+    
+            // Log the FormData object
+            console.log('FormData object created.');
+            console.log('FormData contains: ', formdata.get('sound'));
+    
+            // try {
+            //     const response = await fetch(`${BASE_URL}/pronounceTest`, {
+            //         method: 'POST',
+            //         body: formdata,
+            //     });
+            //     const data = await response.json();
+            //     setScoreData(data); // Assuming you have this state
+            // } catch (error) {
+            //     console.error('Error:', error);
+            // }
+        } else {
+            console.log('no audio');
+        }
+    }, []);
+    
 
     const handleFeedback = async () => {
         if (answerInput.trim() !== '') {
@@ -62,11 +125,10 @@ export default function Practice() {
             const response = await getFeedback({ gptTitle, gptQuestion, gptUserAnswer });
             if (response.status === 200) {
                 console.log(response.data);
-                setFeedbacks([...feedbacks, { feedback: response.data, score: audioFeedback }]);
+                setFeedbacks([...feedbacks, { feedback: response.data }]);
                 setAnswers([...answers, answerInput]);
                 setAnswerInput('');
                 setFeedback('');
-                setAudioFeedback('');
                 setCurrentQuestionIndex(currentQuestionIndex + 1);
                 setActiveMicButton(true);
                 setActiveStopButton(false);
@@ -74,75 +136,6 @@ export default function Practice() {
                 alert("error");
             }
         }
-    }
-
-    const startRecording = () => {
-        setIsRecording(true);
-        setActiveMicButton(false);
-        setActiveStopButton(true);
-        setActiveSendButton(false);
-        // navigator.mediaDevices.getUserMedia({ audio: true })
-        //     .then(stream => {
-        //         audioContextRef.current = new (window.AudioContext || window.webkitAudioContext)();
-        //         const input = audioContextRef.current.createMediaStreamSource(stream);
-        //         processorRef.current = audioContextRef.current.createScriptProcessor(4096, 1, 1);
-
-        //         processorRef.current.onaudioprocess = e => {
-        //             const inputData = e.inputBuffer.getChannelData(0);
-        //             const buffer = new ArrayBuffer(inputData.length * 2);
-        //             const outputData = new DataView(buffer);
-
-        //             for (let i = 0; i < inputData.length; i++) {
-        //                 let s = Math.max(-1, Math.min(1, inputData[i]));
-        //                 outputData.setInt16(i * 2, s < 0 ? s * 0x8000 : s * 0x7FFF, true);
-        //             }
-
-        //             audioChunksRef.current.push(new Int16Array(buffer));
-        //         };
-
-        //         input.connect(processorRef.current);
-        //         processorRef.current.connect(audioContextRef.current.destination);
-
-        //         setTimeout(() => {
-        //             processorRef.current.disconnect();
-        //             input.disconnect();
-        //             setIsRecording(false);
-        //         }, 5000);
-        //     });
-    };
-
-    const stopRecording = async () => {
-
-        setActiveMicButton(false);
-        setActiveStopButton(false);
-
-        // const audioData = audioChunksRef.current.reduce((acc, chunk) => {
-        //     acc.push(...chunk);
-        //     return acc;
-        // }, []);
-
-        // const int16Array = new Int16Array(audioData);
-
-        // const requestData = {
-        //     short: 0,
-        //     char: "string",
-        //     int: 0,
-        //     long: 0,
-        //     float: 0,
-        //     double: 0,
-        //     direct: true,
-        //     readOnly: true,
-        //     audioData: Array.from(int16Array)
-        // };
-
-        // const response = await getAudioFeedback(requestData);
-        // if (response.status === 200) {
-        //     console.log(response.data);
-        //     setAudioText(response.data.text);
-        //     setAudioFeedback(response.data.score);
-        // } else {
-        //     alert("error");
-        // }
     };
 
     return (
@@ -160,15 +153,15 @@ export default function Practice() {
                             {index < answers.length && (
                                 <>
                                     <p className="answer-box">{answers[index]}</p>
-                                    <p className="feedback-box">{feedbacks[index].feedback}<br></br>{feedbacks[index].score}</p>
+                                    <p className="feedback-box">{feedbacks[index].feedback}</p>
                                 </>
                             )}
                         </React.Fragment>
                     ))
                 }
-                {
+                {/* {
                     currentQuestionIndex + 1 === Questions.length && <p>준비된 질문은 여기까지에요. 마이페이지에서 저장된 피드백들을 반복적으로 학습해보아요!</p>
-                }
+                } */}
             </div>
 
             <div className="practice-input">
@@ -181,7 +174,7 @@ export default function Practice() {
                             alt="mic"
                         />
                     </button>
-                    <button onClick={activeStopButton ? stopRecording : undefined} disabled={!audioChunksRef.current.length}>
+                    <button onClick={activeStopButton ? stopRecording : undefined} disabled={!isRecording}>
                         <img
                             style={activeStopButton ? {} : { opacity: '0.5' }}
                             src={process.env.PUBLIC_URL + '/img/mic.png'}
@@ -212,5 +205,52 @@ function AIChat({ question }) {
                 <h4>{question}</h4>
             </div>
         </div>
-    )
+    );
+}
+
+// Utility function to convert AudioBuffer to WAV format
+function toWav(audioBuffer) {
+    const numOfChan = audioBuffer.numberOfChannels;
+    const sampleRate = audioBuffer.sampleRate;
+    const length = audioBuffer.length * numOfChan * 2 + 44;
+    const buffer = new ArrayBuffer(length);
+    const view = new DataView(buffer);
+    const channels = [];
+    
+    let offset = 0;
+    let pos = 0;
+
+    function writeString(str) {
+        for (let i = 0; i < str.length; i++) {
+            view.setUint8(pos + i, str.charCodeAt(i));
+        }
+    }
+
+    writeString('RIFF');
+    view.setUint32(pos + 4, length - 8, true);
+    writeString('WAVE');
+    writeString('fmt ');
+    view.setUint32(pos + 16, 16, true);
+    view.setUint16(pos + 20, 1, true);
+    view.setUint16(pos + 22, numOfChan, true);
+    view.setUint32(pos + 24, sampleRate, true);
+    view.setUint32(pos + 28, sampleRate * 2 * numOfChan, true);
+    view.setUint16(pos + 32, numOfChan * 2, true);
+    view.setUint16(pos + 34, 16, true);
+    writeString('data');
+    view.setUint32(pos + 40, length - pos - 44, true);
+
+    for (let i = 0; i < numOfChan; i++) {
+        channels.push(audioBuffer.getChannelData(i));
+    }
+
+    while (pos < length) {
+        for (let i = 0; i < numOfChan; i++) {
+            const sample = Math.max(-1, Math.min(1, channels[i][pos / (numOfChan * 2)]));
+            view.setInt16(pos, sample < 0 ? sample * 0x8000 : sample * 0x7FFF, true);
+            pos += 2;
+        }
+    }
+
+    return buffer;
 }
