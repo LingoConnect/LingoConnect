@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import '../styles/mypage.css';
 import { SmallTitle } from '../components/title';
 
-export default function MyPageTest() {
+export default function MyPage() {
     const navigate = useNavigate();
 
     return (
