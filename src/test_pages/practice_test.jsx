@@ -16,6 +16,13 @@ export default function PracticeTest() {
     const navigate = useNavigate();
 
     useEffect(() => {
+        setCurrentQuestionIndex(0);
+        setActiveMicButton(true);
+        setActiveStopButton(false);
+        setActiveSendButton(false);
+    }, []);
+
+    useEffect(() => {
 
         if (answerInput.trim() === '') {
             setActiveSendButton(false);
@@ -23,7 +30,7 @@ export default function PracticeTest() {
             setActiveSendButton(true);
         }
 
-        if (currentQuestionIndex + 1 === test_questions.length ) {
+        if (currentQuestionIndex === test_questions.length ) {
             setActiveMicButton(false);
             setActiveStopButton(false);
             setActiveSendButton(false);
@@ -79,7 +86,7 @@ export default function PracticeTest() {
                     </React.Fragment>
                 ))}
                 {
-                    currentQuestionIndex + 1 === test_questions.length && 
+                    currentQuestionIndex === test_questions.length && 
                     <div className="practice-finish">
                         <p >준비된 질문은 여기까지에요.</p>
                         <p><span onClick={()=>navigate("/main")}>마이페이지</span>에서 저장된 피드백들을 반복적으로 학습해보아요!</p>
