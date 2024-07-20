@@ -44,7 +44,7 @@ export default function MainTest() {
                         <h4>김한솔</h4>
                         <h6>학습성취도:60%&nbsp;&nbsp;|&nbsp;&nbsp;내 발음 점수: 4.3</h6>
                     </div>
-                    <div className="main-profile-link" onClick={()=>navigate("/main")}>
+                    <div className="main-profile-link" onClick={()=>navigate("/mypage")}>
                         <p>●</p>
                         <p>●</p>
                         <p>●</p>

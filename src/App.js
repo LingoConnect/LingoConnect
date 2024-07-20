@@ -10,6 +10,8 @@ import Practice from './pages/practice';
 import MainTest from './test_pages/main_test';
 import QuestionTest from './test_pages/question_test';
 import PracticeTest from './test_pages/practice_test';
+import ResultTest from './test_pages/result_test';
+import MyPage from './test_pages/mypage_test';
 
 function App() {
   return (
@@ -29,6 +31,8 @@ function App() {
           <Route path="/main" element={<MainTest />} />
           <Route path="/main/:topic" element={<QuestionTest />} />
           <Route path="/main/:topic/:question" element={<PracticeTest />} />
+          <Route path="/main/:topic/:question/result" element={<ResultTest />} />
+          <Route path="/mypage" element={<MyPage />} />
 
         </Routes>
       </Router>

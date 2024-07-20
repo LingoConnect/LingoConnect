@@ -40,7 +40,7 @@
 .practice-chat {
     width: 100%;
     height: calc(100% - 100px);
-    overflow: scroll;
+    overflow-y: auto;
 }
 
 .ai-chat {
@@ -49,7 +49,7 @@
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
-    margin: 2rem 2rem 1rem 0;
+    margin: 1rem 0;
 }
 
 .ai-chat-img {
@@ -78,9 +78,10 @@
 	position: relative;
 	background-color: rgb(228, 222, 254);
 	border-radius: .4em;
-    width: 75%;
+    width: 70%;
     height: 7rem;
     padding: 1rem;
+    font-size: 1.2rem;
 }
 
 .ai-chat-dialogue:after {
@@ -97,9 +98,6 @@
 	margin-left: -16px;
 }
 
-.ai-chat-dialogue h4 {
-    font-size: 1.5rem;
-}
 
 
 .practice-input {
@@ -148,53 +146,92 @@
     object-fit: cover;
 }
 
-
-
-/* .practice-container {
+.practice-chat-answer {
     width: 100%;
-    height: 100%;
-    background-color: #FFFDF3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.answer-box {
+    align-self: flex-end;
     position: relative;
+    background-color: #FFF3B3;
+    border-radius: .4em;
+    width: 70%;
+    height: 3rem;
+    padding: 1rem;
+    margin-right: 3rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.answer-box:after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 50%;
+    width: 0;
+    height: 0;
+    border: 17px solid transparent;
+    border-left-color: #FFF3B3;
+    border-right: 0;
+    margin-top: -17px;
+    margin-right: -16px;
+}
+
+.feedback-box {
+    width: 80%;
+    color: blue;
+}
+
+.feedback-box img {
+    width: 5rem;
+    position: relative;
+    z-index: 1;
+}
+
+.feedback-box p{
+    background-color: white;
+    font-size: 1.2rem;
+    font-weight: 600;
+    line-height: 1.2;
+    padding: 1.2rem 0.6rem;
+    border: 3px solid #39085A;
+
+    position: relative;
+    bottom: 1rem;
+}
+
+.score-box {
+    width: 80%;
+    background-color: white;
+    color: red;
+}
+
+.score-box {
+    font-size: 1.2rem;
+    line-height: 1.2;
+    font-weight: 600;
+    padding: 0.6rem;
+    border: 3px solid #39085A;
+    border-radius: 10px;
+}
+
+.practice-finish {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    border: 1px solid black;
+    width: 70%;
+    margin: 1rem 15%;
+    padding: 0.5rem;
+    line-height: 1.5;
 }
 
-.practice-container input {
-    position: absolute;
-    width: 100%;
-    height: 50px;
-    bottom: 0;
-    left: 0;
-    border: none;
-    background-color: #FFEE94;
-}
-
-.question {
-    width: 60%;
-    height: auto;
-    background-color: #E4DEFE;
-    margin: 10px;
-    padding: 20px
-}
-
-.answer {
-    width: 60%;
-    height: auto;
-    background-color: #FFF3B3;
-    margin: 10px;
-    padding: 20px;
-} */
-
-.answer-box {
-    width: 300px;
-    background-color: #FFF3B3;
-    padding: 10px;
-    margin: 10px;
-}
-
-.feedback-box {
-    color: blue;
-    padding: 10px;
+.practice-finish span, .practice-finish h4{
+    cursor: pointer;
+    color: #39085A;
+    font-weight: bold;
 }
