@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import '../styles/practice.css';
-import { getFeedback } from '../api/chat_api';
+import { getFeedback, getAudioFeedback } from '../api/ai_api';
 import { getSubQuestion } from '../api/learning_content_api';
 import RecordRTC, { StereoAudioRecorder } from 'recordrtc';
 
@@ -81,10 +81,8 @@ export default function Practice() {
                 const wav = toWav(audioBuffer);
                 const wavFile = new File([wav], 'sound.wav', { type: 'audio/wav' });
 
-                // Send the audio file to the backend
                 onSubmitAudioFile(wavFile);
 
-                // Reset UI state
                 setIsRecording(false);
                 setActiveMicButton(false);
                 setActiveStopButton(false);
@@ -98,20 +96,25 @@ export default function Practice() {
             const formdata = new FormData();
             formdata.append('sound', audioFile);
 
-            // Log the FormData object
             console.log('FormData object created.');
             console.log('FormData contains: ', formdata.get('sound'));
 
+            // 오디오 파일 서버에 전송
             // try {
-            //     const response = await fetch(`${BASE_URL}/pronounceTest`, {
-            //         method: 'POST',
-            //         body: formdata,
-            //     });
-            //     const data = await response.json();
-            //     setScoreData(data); // Assuming you have this state
+            //     const question = Questions[currentQuestionIndex];
+            //     const formData = formdata.get('sound');
+            //     const response = await getAudioFeedback({topic, question, formData})
+            //     if (response.status === 200) {
+            //         const data = await response.json();
+            //          console.log(data);
+            //         setScoreData(data);
+            //     } else {
+            //         console.log("error");
+            //     }
             // } catch (error) {
             //     console.error('Error:', error);
             // }
+
         } else {
             console.log('no audio');
         }
@@ -170,11 +173,11 @@ export default function Practice() {
                     ))
                 }
                 {
-                    currentQuestionIndex === Questions.length && 
+                    currentQuestionIndex === Questions.length &&
                     <div className="practice-finish">
                         <p >준비된 질문은 여기까지에요.</p>
-                        <p><span onClick={()=>navigate("/main")}>마이페이지</span>에서 저장된 피드백들을 반복적으로 학습해보아요!</p>
-                        <h4 onClick={()=>navigate(`/main/${topic}/${question}/result`)}>❗피드백 보기❗</h4>
+                        <p><span onClick={() => navigate("/main")}>마이페이지</span>에서 저장된 피드백들을 반복적으로 학습해보아요!</p>
+                        <h4 onClick={() => navigate(`/main/${topic}/${question}/result`)}>❗피드백 보기❗</h4>
                     </div>
                 }
             </div>
