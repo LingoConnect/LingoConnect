@@ -11,7 +11,8 @@ export default function QuestionTest() {
     const [mainQuestions, setMainQuestions] = useState([]);
 
     const handleQuestionClick = (question) => {
-        navigate(`/main/${topic}/${question}`);
+        const id = 1;
+        navigate(`/main/${topic}/${question}-${id}`);
     }
 
     useEffect(() => {

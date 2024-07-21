@@ -9,8 +9,10 @@ export default function Question() {
     const { topic } = useParams();
     const [mainQuestions, setMainQuestions] = useState([]);
 
-    const handleQuestionClick = (question) => {
-        navigate(`/main/${topic}/${question}`);
+    const handleQuestionClick = (element) => {
+        const question = element.question;
+        const id = element.mainQuestionId;
+        navigate(`/main/${topic}/${id}/${question}`);
     }
 
     useEffect(() => {
@@ -21,7 +23,7 @@ export default function Question() {
             }
         };
         fetchMainQuestion();
-    }, []);
+    }, [topic]);
 
     return (
         <div className="question-container">
@@ -30,7 +32,7 @@ export default function Question() {
             </div>
 
             <div className="question-back" onClick={() => navigate('/main')}>
-                <img src={process.env.PUBLIC_URL + '/img/arrow.png'} />
+                <img src={process.env.PUBLIC_URL + '/img/arrow.png'} alt="back" />
             </div>
 
             <div className="question-box">
@@ -39,7 +41,7 @@ export default function Question() {
                         <h4>{topic}</h4>
                     </div>
                     <div className="question-box-title-row2">
-                        <img src={process.env.PUBLIC_URL + '/img/cat.png'} />
+                        <img src={process.env.PUBLIC_URL + '/img/cat.png'} alt="cat" />
                         <h4>연습할 질문을 선택하세요!</h4>
                     </div>
                 </div>
@@ -48,8 +50,9 @@ export default function Question() {
                     mainQuestions.map((element, index) => {
                         return (
                             <div
+                                key={element.mainQuestionId}
                                 className="question-box-list-q"
-                                onClick={() => handleQuestionClick(element.question)}>
+                                onClick={() => handleQuestionClick(element)}>
                                 <div className="q-question">
                                     <h4>{index + 1}.&nbsp;</h4>
                                     <h5>{element.question}</h5>

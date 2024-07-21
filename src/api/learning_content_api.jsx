@@ -47,10 +47,10 @@ export const getMainQuestion = async ({ topic }) => {
     }
 };
 
-export const getSubQuestion = async ({ topic }) => {
+export const getSubQuestion = async ({ topic, id }) => {
     try {
         const encodedTopic = encodeURIComponent(topic);
-        const response = await axios.get(`${BASE_URL}/question/sub?topic=${encodedTopic}`,
+        const response = await axios.get(`${BASE_URL}/question/sub?topic=${encodedTopic}&mainQuestionId=${id}`,
             {
                 headers: {
                     'Accept': 'application/json',

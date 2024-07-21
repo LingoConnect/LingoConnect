@@ -7,6 +7,7 @@ import { getTopic } from '../api/learning_content_api';
 export default function Main() {
     const navigate = useNavigate();
     const [topics, setTopics] = useState([]);
+    const [profile, setProfile] = useState(true);
 
     const handleTopicClick = (topic) => {
         navigate(`/main/${topic}`);
@@ -27,27 +28,35 @@ export default function Main() {
         <div className="main-container">
             <div className="main-navbar">
                 <SmallTitle />
-                <div className="main-profile-box">
-                    <div className="main-profile-pic">
-                        <div className="main-profile-icon">
-                            <img src={process.env.PUBLIC_URL + '/img/deco.png'} />
-                            <p>●</p>
+                {profile == true ?
+                    (<div className="main-profile-box">
+                        <div className="main-profile-pic">
+                            <div className="main-profile-icon">
+                                <img src={process.env.PUBLIC_URL + '/img/deco.png'} />
+                                <p>●</p>
+                            </div>
+                            <div className="main-profile-img">
+                                <img src={process.env.PUBLIC_URL + '/img/profile.png'} />
+                            </div>
                         </div>
-                        <div className="main-profile-img">
-                            <img src={process.env.PUBLIC_URL + '/img/profile.png'}/>
+                        <div className="main-profile-dc">
+                            <p>배지(등급)</p>
+                            <h4>김한솔</h4>
+                            <h6>학습성취도:60%&nbsp;&nbsp;|&nbsp;&nbsp;내 발음 점수: 4.3</h6>
                         </div>
-                    </div>
-                    <div className="main-profile-dc">
-                        <p>배지(등급)</p>
-                        <h4>김한솔</h4>
-                        <h6>학습성취도:60%&nbsp;&nbsp;|&nbsp;&nbsp;내 발음 점수: 4.3</h6>
-                    </div>
-                    <div className="main-profile-link" onClick={()=>navigate("/mypage")}>
-                        <p>●</p>
-                        <p>●</p>
-                        <p>●</p>
-                    </div>
-                </div>
+                        <div className="main-profile-link">
+                            <h4 onClick={() => navigate("/mypage")}>MY</h4>
+                            <div
+                                className="main-profile-link_fold"
+                                onClick={() => setProfile(false)}>
+                                <p>접기&nbsp;▲</p>
+                            </div>
+                        </div>
+                    </div>)
+                    : (<div className="main-profile-foldbox">
+                        <p onClick={() => setProfile(true)}>펼치기&nbsp;▼</p>
+                    </div>)
+                }
             </div>
 
             <div className="main-topic">
