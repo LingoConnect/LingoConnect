@@ -12,7 +12,7 @@ export default function QuestionTest() {
 
     const handleQuestionClick = (question) => {
         const id = 1;
-        navigate(`/main/${topic}/${question}-${id}`);
+        navigate(`/main/${topic}/${question}`);
     }
 
     useEffect(() => {

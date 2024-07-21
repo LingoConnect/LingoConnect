@@ -91,10 +91,26 @@
     flex-direction: column;
     justify-content: center;
 
-    @media (max-height: 700px) {
+}
+
+@media (max-height: 700px) {
+    .main-profile-dc {
         width: 100%;
     }
 }
+
+@media (max-width: 700px) {
+    .main-profile-dc {
+        width: 60%;
+    }
+}
+
+@media (max-width: 700px) and (max-height: 700px) {
+    .main-profile-dc {
+        width: 30%;
+    }
+}
+
 
 .main-profile-dc p {
     width: fit-content;
