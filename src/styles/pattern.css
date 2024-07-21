@@ -1,0 +1,106 @@
+.pattern-container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow-y: auto;
+}
+
+.pattern-back {
+    cursor: pointer;
+    width: 20px;
+    position: absolute;
+    top: 25px;
+    left: 15px;
+    
+    @media (max-width: 600px) {
+        top: 4vw;
+    }
+}
+
+.pattern-navbar {
+    background-color: #FFE660;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+}
+
+.pattern-main {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 5vh 0;
+
+    @media (max-height: 700px) {
+        margin: 2vh 0;
+    }
+}
+
+.pattern-main img {
+    width: 20%;
+    transform: scale(-1, 1);
+    margin-bottom: 2vh;
+
+    @media (max-height: 700px) {
+        width: 15vh;
+    }
+}
+
+.pattern-main h4 {
+    font-family: "GmarketSansMedium";
+    font-weight: 500;
+    font-size: 1.5rem;
+    color: #746745;
+
+    @media (max-height: 700px) {
+        font-size: 3vh;
+    }
+}
+
+.pattern-list {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.pattern-list-box {
+    width: 30%;
+    height: 20vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;    
+}
+
+.pattern-list-box img {
+    cursor: pointer;
+    border-radius: 10px;
+    position: absolute;
+    top: 2.5vh;
+    width: 90%;
+    height: 15vh;
+    z-index: 0;
+    object-fit: cover;
+    opacity: 0.75;
+    transition: opacity 0.5s ease;
+}
+
+.pattern-list-box img:hover {
+    opacity: 1;
+}
+
+.pattern-list-box h4 {
+    position: relative;
+    z-index: 1;
+    font-size: 3.5vh;
+    color: white;
+    background-color: transparent;
+    margin: 5.5vh 0;
+}

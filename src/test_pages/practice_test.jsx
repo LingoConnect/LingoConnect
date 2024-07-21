@@ -63,7 +63,10 @@ export default function PracticeTest() {
     return (
         <div className="practice-container">
             <div className="practice-navbar">
-                <img src={process.env.PUBLIC_URL + '/img/arrow.png'} alt="arrow" />
+                <img 
+                    src={process.env.PUBLIC_URL + '/img/arrow.png'} 
+                    onClick={()=>navigate(`/main/${topic}`)}
+                    alt="arrow" />
                 <h4>주제: {topic}</h4>
             </div>
 
