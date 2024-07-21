@@ -25,3 +25,110 @@
     align-items: center;
     padding: 15px;
 }
+
+.feedbackquestion-main {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2vh;
+}
+
+.feedbackquestion-main h4 {
+    font-family: "GmarketSansMedium";
+    font-weight: 500;
+    font-size: 1.5rem;
+    color: #746745;
+    margin: 1vh;
+
+    @media (max-height: 700px) {
+        font-size: 3vh;
+    }    
+}
+
+.feedbackquestion-main p {
+    width: fit-content;
+    color: #746745;
+    background-color: white;
+    border: 1.5px solid #746745;
+    border-radius: 3px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    padding: 0.3rem 2rem 0.3rem 2rem;
+    margin-top: 1vh;
+
+    @media (max-height: 700px) {
+        font-size: 2.5vh;
+    }    
+}
+
+.feedbackquestion-order {
+    width: 90%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.feedbackquestion-order p {
+    cursor: pointer;
+    width: fit-content;
+    color: #746745;
+    font-size: 1.2rem;
+    font-weight: 700;
+
+    @media (max-height: 700px) {
+        font-size: 2.5vh;
+    }    
+}
+
+.feedbackquestion-list {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.feedbackquestion-list-q {
+    cursor: pointer;
+    width: 80%;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: top;
+    background-color: white;
+    border: 2px solid #746745;
+    border-radius: 5px;
+    margin: 1rem 0;
+    padding: 1rem 1.5rem 1rem 1.5rem;
+    transition: border 0.3s ease;
+}
+
+.feedbackquestion-list-q:hover {
+    border: 2px solid rgb(255, 238, 148);
+}
+
+.fq-question {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    max-width: 80%;
+}
+
+.fq-question h4, .fq-question h5 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    line-height: 1.5;
+    color:#746745;
+        
+}
+
+.feedbackquestion-list-q p{
+    font-size: 1.1rem;
+    font-weight: 600;
+    line-height: 1.5;
+    color: #878787;
+
+}

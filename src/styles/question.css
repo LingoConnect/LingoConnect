@@ -115,8 +115,7 @@
 }
 
 .q-question h4, .q-question h5 {
-    word-break: keep-all;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     font-weight: 600;
     line-height: 1.5;
     color:#746745;

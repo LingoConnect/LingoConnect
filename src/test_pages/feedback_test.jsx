@@ -26,7 +26,18 @@ export default function FeedbackTest() {
             </div>
 
             <div className="feedback-list">
-
+                {
+                    test_topics.map(function(element) {
+                        return (
+                            <div className="feedback-list-box">
+                                <img 
+                                    src={process.env.PUBLIC_URL + element.imgUrl}
+                                    onClick={()=> { handleTopicClick(element.topic)}} />
+                                <h4>{element.topic}</h4>
+                            </div>
+                        )
+                    })
+                }
             </div>
 
 
