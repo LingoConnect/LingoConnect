@@ -1,5 +1,5 @@
 # 🗣️ 링고커넥트 (LingoConnect)
-<img width="600" alt="스크린샷 2024-07-22 오전 3 17 38" src="https://github.com/user-attachments/assets/64db830a-dc2c-4673-8075-987d339e639c">
+![링고커넥트1](./images/링고커넥트1.png)
 
 ## 🔥 프로젝트 소개
 - 언어학습을 통해 지적장애인이 더 넓은 세상과 소통할 수 있도록 도와주는 서비스입니다.
@@ -12,7 +12,7 @@
 - 대화의 흐름뿐만 아니라 발음에 점수를 매겨 시각적으로 성취를 이룰 수 있습니다.
 - 마이페이지에서 학습자의 반복되는 부정적인 대화 패턴과 피드백을 제공합니다.
 
-<img width="600" alt="KakaoTalk_Photo_2024-07-22-03-25-56" src="https://github.com/user-attachments/assets/00b50fb7-d1c2-419b-8d8b-752516534c50">
+![링고커넥트2](./images/링고커넥트2.png)
 
 <br></br>
 ## 🚀 개발 기간
