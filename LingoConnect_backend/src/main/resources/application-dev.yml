@@ -1,0 +1,84 @@
+server:
+  port: ${SERVER_PORT:8080}
+  servlet:
+    context-path: ${SERVER_SERVLET_CONTEXT_PATH:/}
+  forward-headers-strategy: framework
+
+spring:
+  application:
+    name: ${APP_NAME:AppName}
+    description: ${APP_DESCRIPTION:App Description}
+  jpa:
+    hibernate:
+      ddl-auto: ${DB_DDL_AUTO:update}
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        show_sql: false
+        format_sql: true
+        globally_quoted_identifiers: true
+    open-in-view: false
+  datasource:
+    url: jdbc:postgresql://localhost:5432/lingoconnect
+    username: lingo
+    password: lingo
+    driver-class-name: org.postgresql.Driver
+
+  jackson:
+    mapper:
+      accept-case-insensitive-enums: true
+
+  liquibase:
+    enabled: ${LIQUIBASE_ENABLED:true}
+    change-log: classpath:/db/changelog/master.xml
+  docker:
+    compose:
+      lifecycle-management: none
+
+springdoc:
+  api-docs:
+    enabled: ${API_DOCS_ENABLED:true}
+    path: /api-docs
+  swagger-ui:
+    enabled: ${SWAGGER_ENABLED:true}
+    operationsSorter: alpha
+    tagsSorter: alpha
+    path: ${SWAGGER_PATH:/swagger-ui}
+  show-actuator: true
+
+openai:
+  api-key: dummy-key
+  base-url: https://api.openai.com/v1/assistants
+  instructions: >
+    You are an AI designed to help individuals with intellectual disabilities learn natural conversation. The user will provide you with a conversation that took place between a person with an intellectual disability and another person. Your task is to evaluate the conversation and provide feedback.
+
+    Routine:
+    The user inputs the conversation that took place with the individual with an intellectual disability.
+    Provide feedback based on the user's response:
+    "Well done! [Feedback based on the user's response]"
+
+    Example:
+    The user inputs the conversation that took place with the individual with an intellectual disability.
+    Topic: Everyday conversation practice
+    Friend: "What's your favorite activity at school?"
+    User: "I really like art class!"
+    Provide feedback based on the user's response:
+    "Well done! Sharing your interests with a friend can make the conversation more enjoyable."
+
+    Additional Notes:
+    All conversations must be conducted in Korean.
+    Learn everyday conversation data from the attached file.
+
+etri:
+  url: "http://aiopen.etri.re.kr:8000/WiseASR/PronunciationKor"
+  access-key: dummy-key
+  language-code: korean
+  file-path: audio/
+
+audio:
+  file-path: audio/
+
+image:
+  file-path: http://localhost:8080/img/
