@@ -9,10 +9,12 @@ export default function Start() {
     return (
         <div className='start-container'>
 
-            <BigTitle />
-            <div className="start-subtitle">
-                <h3>Lingo conntect</h3>
-                <h3>언어 학습을 통한 사회적 연결</h3>
+            <div className="start-title">
+                <BigTitle />
+                <div className="start-subtitle">
+                    <h3>Lingo conntect</h3>
+                    <h3>언어 학습을 통한 사회적 연결</h3>
+                </div>
             </div>
             <img src={process.env.PUBLIC_URL + '/img/mummy.png'}></img>
             {/* <img src={process.env.PUBLIC_URL + '/img/cat.png'}></img> */}

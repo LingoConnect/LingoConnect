@@ -3,7 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import '../styles/practice.css';
 import { getFeedback, getAudioFeedback } from '../api/ai_api';
 import { getSubQuestion } from '../api/learning_content_api';
-import RecordRTC, { StereoAudioRecorder } from 'recordrtc';
+// import RecordRTC, { StereoAudioRecorder } from 'recordrtc';
 
 export default function Practice() {
     const { topic, question } = useParams();
@@ -60,15 +60,15 @@ export default function Practice() {
         setActiveStopButton(true);
         setActiveSendButton(false);
 
-        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-        const audioRecorder = new RecordRTC(stream, {
-            type: 'audio',
-            mimeType: 'audio/wav',
-            recorderType: StereoAudioRecorder,
-            desiredSampRate: 16000
-        });
-        audioRecorder.startRecording();
-        setRecorder(audioRecorder);
+        // const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        // const audioRecorder = new RecordRTC(stream, {
+        //     type: 'audio',
+        //     mimeType: 'audio/wav',
+        //     recorderType: StereoAudioRecorder,
+        //     desiredSampRate: 16000
+        // });
+        // audioRecorder.startRecording();
+        // setRecorder(audioRecorder);
     };
 
     const stopRecording = async () => {

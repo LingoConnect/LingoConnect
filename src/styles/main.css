@@ -69,7 +69,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-
+    
     position: relative;
     right: 5%;
 }
@@ -79,13 +79,21 @@
     border-radius: 100%;
     width: 90%;
     object-fit: cover;
+
+    @media (max-height: 700px) {
+        width: 15vh;
+    }
 }
 
 .main-profile-dc {
-    width: 60%;
+    width: 90%;
     display: flex;
     flex-direction: column;
     justify-content: center;
+
+    @media (max-height: 700px) {
+        width: 100%;
+    }
 }
 
 .main-profile-dc p {
@@ -103,6 +111,10 @@
     font-size: 1.6rem;
     color: #746745;
     margin: 1rem 0;
+
+    @media (max-height: 700px) {
+        margin: 1vh 0;
+    }
 }
 
 .main-profile-dc h6 {
@@ -110,14 +122,54 @@
 }
 
 .main-profile-link {
-    cursor: pointer;
-    margin: 10px 0;
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0.8rem;
+    font-size: 0.8rem;
 }
 
-.main-profile-link p {
-    font-size: 0.5rem;
-    margin: 0.3rem;
+.main-profile-link h4 {
+    cursor: pointer;
+    padding: 0.3rem 1rem;
+    background-color: white;
+    border: 1.5px solid black;
+    border-radius: 3px;
+    transition: background-color 0.3s ease;
+}
+
+.main-profile-link h4:hover {
+    background-color: #FFE660;
+}
+
+.main-profile-link_fold {
+    cursor: pointer;
     color: #746745;
+    border-bottom: 1px solid #746745;
+}
+
+.main-profile-foldbox {
+    width: 90%;
+    height: auto;
+    border-radius: 20px;
+    background-color: transparent;
+    /* background-color: rgb(255, 249, 215); */
+    padding: 0 10px;
+    /* margin: 3vh auto 1vh auto; */
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.main-profile-foldbox p {
+    margin: 0.8rem;
+    font-size: 0.8rem;
+    width: fit-content;
+    cursor: pointer;
+    color: #746745;
+    border-bottom: 1px solid #746745;
 }
 
 .main-topic {

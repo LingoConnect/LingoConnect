@@ -11,8 +11,16 @@
   overflow-y: auto;
 }
 
+.start-title {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
 .start-subtitle {
-  margin: 1%;
+  margin: 5%;
   z-index: 5000;
 }
 
@@ -22,12 +30,21 @@
   font-family: 'NEXON Lv2 Gothic', sans-serif;
   margin: 0.8rem;
   text-align: center;
+
+  @media (min-height: 1100px) {
+    font-size: 2vh;
+    margin: 1vh;
+  }
 }
 
 .start-container img {
   width: 165px;
   margin: 3%;
   z-index: 5000;
+
+  @media (min-height: 1100px) {
+    width: 20vh;
+  }
 }
 
 .start-button-box {
@@ -36,6 +53,10 @@
 
   @media (max-width: 500px) {
     width: 60%;
+  }
+
+  @media (min-height: 1100px) {
+    width: 90%;
   }
 }
 
@@ -49,6 +70,11 @@
   padding: 10px;
   margin: 5px;
   font-size: 1.1rem;
+
+  @media (min-height: 500px) {
+    font-size: 2.2vh; 
+    margin: 0.8vh;
+  }
 }
 
 .search-box {
@@ -59,6 +85,10 @@
   align-items: center;
   font-size: 1rem;
   color: rgb(116, 103, 69);
+
+  @media (min-height: 1100px) {
+    font-size: 2vh;
+  }
 }
 
 .search-box p {
@@ -72,6 +102,11 @@
   justify-content: center;
   align-items: center;
   font-size: 1rem;
+
+  @media (min-height: 500px) {
+    font-size: 2vh; 
+    margin: 0.5vh;
+  }
 }
 
 .guest-login a {
