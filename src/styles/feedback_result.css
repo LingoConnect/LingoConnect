@@ -1,0 +1,120 @@
+.feedbackresult-container {
+    width: 100%;
+    height: 100vh;
+    position: relative;
+    overflow-y: hidden;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.feedbackresult-back {
+    cursor: pointer;
+    width: 20px;
+    position: absolute;
+    top: 25px;
+    left: 15px;
+    
+    @media (max-width: 600px) {
+        top: 4vw;
+    }
+}
+
+.feedbackresult-navbar {
+    background-color: #FFE660;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    flex-shrink: 0;
+}
+
+.feedbackresult-main {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2vh;
+    color: #746745;
+    font-size: 1.5rem;
+    text-align: center;
+    flex-grow: 1;
+    overflow-y: hidden;
+}
+
+.feedbackresult-main h4 {
+    font-family: "GmarketSansMedium";
+    font-weight: 500;
+    margin: 1vh;
+}
+
+
+.feedbackresult-main p {
+    width: fit-content;
+    background-color: white;
+    border: 1.5px solid #746745;
+    border-radius: 3px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    padding: 0.3rem 2rem 0.3rem 2rem;
+    margin-top: 0.5rem;
+}
+
+@media (max-height: 700px) {
+    .feedbackresult-main h4 {
+        font-size: 3vh;
+    }
+
+    .feedbackresult-main p {
+        font-size: 2.5vh;
+    }
+}
+
+@media (max-width: 700px) {
+    .feedbackresult-main h4 {
+        font-size: 1.2rem;
+    }
+    
+    .feedbackresult-main p {
+        font-size: 1rem;
+    }
+}
+
+.feedbackresult-box {
+    max-width: 100%;
+    height: 70vh;
+    margin: 5% 5% 0 5%;
+    background-color: #FEF8DE;
+    overflow-y: auto;
+
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.feedbackresult-box .feedback-box {
+    align-self: center;
+}
+
+.result-box-under {
+    width: 100%;
+    height: 5%;
+    flex-grow: 1;
+    overflow-y: hidden;
+    background-color: #FFFDF3;
+    position: relative;
+    z-index: 3;
+}
+
+.result-box-gradient {
+    width: 90%;
+    height: 12%;
+    background:
+         linear-gradient(180deg, rgba(254, 248, 222, 0.03) -4.17%, rgba(254, 248, 222, 0.5) 5.39%, rgba(254, 248, 222, 0.7) 11.65%, rgba(254, 248, 222, 0.95) 19.47%, #FEF8DE 28.86%);
+    position: absolute;
+    bottom: -3%;
+    left: 5%;
+    z-index: 2;
+}
