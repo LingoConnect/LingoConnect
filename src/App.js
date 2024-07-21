@@ -54,7 +54,7 @@ function App() {
           <Route path="/mypage" element={<MyPageTest />} />
           <Route path="/mypage/feedback" element={<FeedbackTest />} />
           <Route path="/mypage/feedback/:topic" element={<FeedbackQuestionTest />} />
-          <Route path="/mypage/feedback/:topic/:question" elemnt={<FeedbackResultTest />} />         
+          <Route path="/mypage/feedback/:topic/:question" element={<FeedbackResultTest />} />         
           <Route path="/mypage/pattern" element={<PatternTest />} /> 
           <Route path="/mypage/pattern/:topic" element={<PatternResultTest />} />
 
