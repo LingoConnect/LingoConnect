@@ -35,7 +35,7 @@ function App() {
           <Route path="/register" element={<Register />} />
 
           {/* 백엔드 서버 사용할 때 활성화하세요 */}
-          {/* <Route path="/main" element={<Main />} />
+          <Route path="/main" element={<Main />} />
           <Route path="/main/:topic" element={<Question />} />
           <Route path="/main/:topic/:id/:question" element={<Practice />} />
           <Route path="/main/:topic/:question/result" element={<Result />} />
@@ -44,10 +44,10 @@ function App() {
           <Route path="/mypage/feedback/:topic" element={<FeedbackQuestion />} />
           <Route path="/mypage/feedback/:topic/:question" elemnt={<FeedbackResult />} />         
           <Route path="/mypage/pattern" element={<Pattern />} /> 
-          <Route path="/mypage/pattern/:topic" element={<PatternResult />} /> */}
+          <Route path="/mypage/pattern/:topic" element={<PatternResult />} />
 
           {/* 백엔드 서버 사용하지 않을 때 활성화하세요 */}
-          <Route path="/main" element={<MainTest />} />
+          {/* <Route path="/main" element={<MainTest />} />
           <Route path="/main/:topic" element={<QuestionTest />} />
           <Route path="/main/:topic/:question" element={<PracticeTest />} />
           <Route path="/main/:topic/:question/result" element={<ResultTest />} />
@@ -56,7 +56,7 @@ function App() {
           <Route path="/mypage/feedback/:topic" element={<FeedbackQuestionTest />} />
           <Route path="/mypage/feedback/:topic/:question" element={<FeedbackResultTest />} />         
           <Route path="/mypage/pattern" element={<PatternTest />} /> 
-          <Route path="/mypage/pattern/:topic" element={<PatternResultTest />} />
+          <Route path="/mypage/pattern/:topic" element={<PatternResultTest />} /> */}
 
         </Routes>
       </Router>
