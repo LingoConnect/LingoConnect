@@ -1,0 +1,64 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  backend:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          java-version: '17'
+          distribution: 'adoptopenjdk'
+
+      - name: Build Backend
+        working-directory: LingoConnect_backend
+        run: ./mvnw clean install
+
+      # - name: Run Backend Tests
+      #   working-directory: LingoConnect_backend
+      #   run: ./mvnw test
+
+      - name: Deploy Backend
+        if: success()
+        run: |
+          # Deploy backend to AWS EC2
+          scp -i /path/to/your-key.pem -r LingoConnect_backend/target/*.jar ec2-user@your-backend-ec2-ip:/path/to/deployment/
+          ssh -i /path/to/your-key.pem ec2-user@your-backend-ec2-ip "cd /path/to/deployment && java -jar your-backend-app.jar"
+
+  frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Install Dependencies
+        working-directory: LingoConnect_frontend
+        run: npm install
+
+      # - name: Run Frontend Tests
+      #   working-directory: LingoConnect_frontend
+      #   run: npm test
+
+      - name: Build Frontend
+        working-directory: LingoConnect_frontend
+        run: npm run build
+
+      - name: Deploy Frontend
+        if: success()
+        run: |
+          # Deploy frontend to AWS S3 and invalidate CloudFront (example)
+          aws s3 sync LingoConnect_frontend/build s3://your-frontend-bucket/
+          aws cloudfront create-invalidation --distribution-id YOUR_DISTRIBUTION_ID --paths "/*"
