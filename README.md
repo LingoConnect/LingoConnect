@@ -33,3 +33,7 @@
 - Back-End
   - Language: Java
   - Framework: Spring
+<br></br>
+## ⚙️ 브랜치 전략
+1. **기능 개발**: `feature/` 브랜치에서 새로운 기능을 개발합니다. `release` 브랜치에서 분기하여 작업 후, `release` 브랜치로 병합합니다.
+2. **버그 수정 및 릴리스 준비**: `release` 브랜치에서 검토 후 `main` 브랜치에 병합합니다.
