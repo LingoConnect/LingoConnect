@@ -3,7 +3,7 @@
     height: 100%;
     position: relative;
     background-color: white;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
 .question-navbar {

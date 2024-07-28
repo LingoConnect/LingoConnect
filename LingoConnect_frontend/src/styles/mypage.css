@@ -239,7 +239,6 @@
 
 .mypage-feedback-topic {
     width: 28%;
-    cursor: pointer;
 
     display: flex;
     flex-direction: column;
@@ -257,11 +256,6 @@
     z-index: 0;
     object-fit: cover;
     opacity: 0.75;
-    transition: opacity 0.5s ease;
-}
-
-.mypage-feedback-topic img:hover {
-    opacity: 1;
 }
 
 .mypage-feedback-topic h4 {
