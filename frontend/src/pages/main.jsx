@@ -27,7 +27,6 @@ export default function Main() {
   return (
     <div className="main-container">
       <div className="main-navbar">
-        <SmallTitle />
         {profile === true ? (
           <div className="main-profile-box">
             <div className="main-profile-pic">

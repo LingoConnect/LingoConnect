@@ -7,7 +7,7 @@
 
 .PatternResult-back {
     cursor: pointer;
-    width: 20px;
+    width: fit-content;
     position: absolute;
     top: 25px;
     left: 15px;

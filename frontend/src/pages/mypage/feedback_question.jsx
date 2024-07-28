@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import '../../styles/feedback_question.css';
-import { SmallTitle } from '../../components/title';
 import { getMainQuestion } from '../../api/learning_content_api';
 
 export default function FeedbackQuestion() {
@@ -28,15 +27,7 @@ export default function FeedbackQuestion() {
 
   return (
     <div className="feedbackquestion-container">
-      <img
-        className="feedbackquestion-back"
-        src={process.env.PUBLIC_URL + '/img/arrow.png'}
-        onClick={() => navigate('/mypage/feedback')}
-        alt="뒤로가기 버튼"
-      />
-      <div className="feedbackquestion-navbar">
-        <SmallTitle />
-      </div>
+
       <div className="feedbackquestion-main">
         <h4>피드백 모아보기</h4>
         <p>{topic}</p>

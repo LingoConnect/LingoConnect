@@ -22,17 +22,7 @@ export default function MyPage() {
   return (
     <div className="mypage-container">
       <div className="mypage-navbar">
-        <div className="mypage-top">
-          <Top />
-          <div className="mypage-top-link">
-            <img
-              src={process.env.PUBLIC_URL + '/img/arrow.png'}
-              onClick={() => navigate('/main')}
-              alt="뒤로가기 버튼"
-            />
-            <h4>마이페이지</h4>
-          </div>
-        </div>
+        <Top />
         <div className="mypage-profile-box">
           <div className="mypage-profile-top">
             <img src={process.env.PUBLIC_URL + '/img/deco.png'} alt="" />
