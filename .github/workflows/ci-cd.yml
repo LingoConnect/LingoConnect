@@ -16,7 +16,7 @@ jobs:
         uses: actions/setup-java@v2
         with:
           java-version: "21"
-          distribution: "adoptopenjdk"
+          distribution: "temurin"
           
       - name: make application-prod.yml
         if: contains(github.ref, 'main')
