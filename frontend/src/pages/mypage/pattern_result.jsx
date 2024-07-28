@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import '../../styles/pattern_result.css';
 import { SmallTitle } from '../../components/title';
 import { getMyPattern } from '../../api/mypage_api';
+import { FaArrowLeftLong } from "react-icons/fa6";
 
 const test_mypage_pattern = [
   [
@@ -34,14 +35,11 @@ export default function PatternResult() {
 
   return (
     <div className="PatternResult-container">
-      <img
+      <div 
         className="PatternResult-back"
-        src={process.env.PUBLIC_URL + '/img/arrow.png'}
-        onClick={() => navigate('/mypage/pattern')}
-        alt="뒤로가기 버튼"
-      />
-      <div className="PatternResult-navbar">
-        <SmallTitle />
+        onClick={() => navigate(-1)}
+      >
+        <FaArrowLeftLong size={30} color='#746745' />
       </div>
 
       <div className="PatternResult-main">

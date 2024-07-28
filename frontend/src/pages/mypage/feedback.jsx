@@ -25,15 +25,6 @@ export default function Feedback({ path, title }) {
 
   return (
     <div className="feedback-container">
-      <img
-        className="feedback-back"
-        src={process.env.PUBLIC_URL + '/img/arrow.png'}
-        onClick={() => navigate('/mypage')}
-        alt="뒤로가기 버튼"
-      />
-      <div className="feedback-navbar">
-        <SmallTitle />
-      </div>
 
       <div className="feedback-main">
         <img src={process.env.PUBLIC_URL + '/img/cat.png'} alt="" />

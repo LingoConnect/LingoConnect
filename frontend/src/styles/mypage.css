@@ -9,53 +9,17 @@
     background-color: white;
 }
 
-.mypage-top {
-    width: 100%;
-}
+.mypage-navbar .top-container {
+    height: 500px;
 
-.mypage-top .top-container {
-    height: 800px;
-
-    @media (max-height: 700px),
-    (max-width: 700px) {
-        height: 70vh;
+    @media (max-height: 700px) , (max-width: 700px) {
+        height: 65vh;
     }
 }
 
-.mypage-top-link {
-    position: relative;
-    z-index: 1;
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
-    margin: 20px 0;
-}
-
-.mypage-top-link img {
-    cursor: pointer;
-    width: 1.3rem;
-    margin: 0 1.2rem;
-    opacity: 0.75;
-
-    position: relative;
-    bottom: 0.1rem;
-
-    @media(max-height: 700px) {
-        width: 0.8rem;
-        margin: 0 0.6rem;
-    }
-}
-
-.mypage-top-link h4 {
-    font-family: "Jua";
-    font-weight: 400;
-    font-size: 1.5rem;
-    color: #746745;
-
-    @media(max-height: 700px) {
-        font-size: 13px;
-    }
+.mypage-navbar .top-logo,
+.mypage-navbar .top-circle-container {
+    display: none;
 }
 
 .mypage-profile-box {
@@ -68,6 +32,7 @@
     border-radius: 20px;
     background-color: rgb(255, 249, 215);
     padding: 0 10px;
+    margin-top: 5px;
 
     display: flex;
     flex-direction: column;
@@ -113,6 +78,7 @@
     border: 3px solid rgb(251, 197, 93);
     border-radius: 100%;
     object-fit: cover;
+    width: 80px;
     aspect-ratio: 1/1;
     transform: scale(1.2);
 

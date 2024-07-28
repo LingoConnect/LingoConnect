@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import '../styles/question.css';
 import { SmallTitle } from '../components/title';
 import { getMainQuestion } from '../api/learning_content_api';
+import { FaArrowLeftLong } from 'react-icons/fa6';
 
 export default function Question() {
     const navigate = useNavigate();
@@ -27,13 +28,14 @@ export default function Question() {
 
     return (
         <div className="question-container">
-            <div className="question-navbar">
-                <SmallTitle />
+
+            <div 
+                className="question-back"
+                onClick={()=>navigate(-1)}
+            >
+                <FaArrowLeftLong size={30} color='#746745' />
             </div>
 
-            <div className="question-back" onClick={() => navigate('/main')}>
-                <img src={process.env.PUBLIC_URL + '/img/arrow.png'} alt="back" />
-            </div>
 
             <div className="question-box">
                 <div className="question-box-title">
