@@ -15,22 +15,22 @@ jobs:
       - name: Set up JDK
         uses: actions/setup-java@v2
         with:
-          java-version: '17'
-          distribution: 'adoptopenjdk'
+          java-version: "17"
+          distribution: "adoptopenjdk"
 
       - name: Build Backend
-        working-directory: LingoConnect_backend
+        working-directory: backend
         run: ./mvnw clean install
 
       # - name: Run Backend Tests
-      #   working-directory: LingoConnect_backend
+      #   working-directory: backend
       #   run: ./mvnw test
 
       - name: Deploy Backend
         if: success()
         run: |
           # Deploy backend to AWS EC2
-          scp -i /path/to/your-key.pem -r LingoConnect_backend/target/*.jar ec2-user@your-backend-ec2-ip:/path/to/deployment/
+          scp -i /path/to/your-key.pem -r backend/target/*.jar ec2-user@your-backend-ec2-ip:/path/to/deployment/
           ssh -i /path/to/your-key.pem ec2-user@your-backend-ec2-ip "cd /path/to/deployment && java -jar your-backend-app.jar"
 
   frontend:
@@ -42,18 +42,18 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '14'
+          node-version: "14"
 
       - name: Install Dependencies
-        working-directory: LingoConnect_frontend
+        working-directory: frontend
         run: npm install
 
       # - name: Run Frontend Tests
-      #   working-directory: LingoConnect_frontend
+      #   working-directory: frontend
       #   run: npm test
 
       - name: Build Frontend
-        working-directory: LingoConnect_frontend
+        working-directory: frontend
         run: npm run build
 
       - name: Deploy Frontend
