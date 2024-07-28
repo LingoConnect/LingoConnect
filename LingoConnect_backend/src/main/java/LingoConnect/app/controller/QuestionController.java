@@ -147,7 +147,7 @@ public class QuestionController {
             // 이미지 URL로 변경
             topicObject.put(topic + "_image", imagePath + secondQuestionDTO.getImageName());
             topicObject.put("topic", topic);
-            topicObject.put("id", secondQuestionDTO.getId());
+            topicObject.put("subQuestion_id", secondQuestionDTO.getId());
 
             response.add(topicObject);
         }

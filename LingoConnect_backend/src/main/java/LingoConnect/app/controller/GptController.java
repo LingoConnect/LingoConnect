@@ -87,7 +87,7 @@ public class GptController {
             assistantId = "asst_72rWdwPlhnx8wsH6kSZ2Nypk";
         } else {
             // lingoConnect Ai를 새로 생성하는 경우
-            assistantId = gptService.getAssistantId("gpt-3.5-turbo-0125");
+            assistantId = gptService.getAssistantId("gpt-4o");
         }
 
         String gptFeedback = response(content, assistantId);

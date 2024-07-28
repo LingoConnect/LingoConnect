@@ -60,7 +60,8 @@
 
 .mypage-profile-box {
     position: relative;
-    left: 25%;
+    left: 50%;
+    transform: translate(-50%);
     z-index: 1;
     width: 50%;
     height: auto;
@@ -70,11 +71,10 @@
 
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: center;  
 
-    @media (max-height: 700px) and (max-width: 700px) {
-        left: 30%;
-        width: 40%;
+    @media (max-width: 700px) {
+        width: 60%;
     }
 }
 
@@ -101,22 +101,20 @@
 }
 
 .mypage-profile-img {
-    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
     position: relative;
-    bottom: 1.5rem;
+    bottom: 2rem;
 }
 
 .mypage-profile-img img {
     border: 3px solid rgb(251, 197, 93);
     border-radius: 100%;
-    width: 40%;
     object-fit: cover;
-    margin-bottom: 0.5rem;
+    aspect-ratio: 1/1;
+    transform: scale(1.2);
 
     @media (max-height: 700px),
     (max-width: 700px) {
@@ -164,25 +162,19 @@
     align-items: center;
     background: linear-gradient(to bottom, #776BFF, #BCB7FF);
     border-radius: 10px;
-    width: 7rem;
-    height: 7rem;
-
-    @media (max-height: 700px) {
-        width: 3.5rem;
-        height: 3.5rem;
-        margin: 1% 1rem;
-    }
+    width: 18%;
+    padding: 10px 5px;
 }
 
 .mypage-dcbox p {
     font-family: "Jua";
     font-weight: 400;
-    font-size: 1.4rem;
+    font-size: 1rem;
     line-height: 25px;
     color: white;
 
     @media (max-height: 700px) {
-        font-size: 0.7rem;
+        font-size: 1rem;
         line-height: 1.5;
     }
 }
