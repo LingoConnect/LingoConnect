@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import '../../styles/pattern_result.css';
-import { SmallTitle } from '../../components/title';
 import { getMyPattern } from '../../api/mypage_api';
 import { FaArrowLeftLong } from "react-icons/fa6";
 

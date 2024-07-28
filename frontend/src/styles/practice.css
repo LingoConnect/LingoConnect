@@ -219,19 +219,60 @@
 }
 
 .practice-finish {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10% 10% 5% 10%;
+    line-height: 1.7;
+}
+
+.practice-finish-top {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    border: 1px solid black;
-    width: 70%;
-    margin: 1rem 15%;
-    padding: 0.5rem;
-    line-height: 1.5;
+    color: #FF2E00;
+    font-size: 1.2rem;
+    gap: 7px;
+    margin-bottom: 2%;
 }
 
-.practice-finish span, .practice-finish h4{
-    cursor: pointer;
-    color: #39085A;
-    font-weight: bold;
+.practice-finish-middle,
+.practice-finish-bottom {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 2px solid #39085A;
+    border-radius: 10px;
+    background-color: white;
+    margin-top: 3%;
+    padding: 1rem 0;
+    font-size: 1.2rem;
 }
+
+.practice-finish-bottom-link {
+    margin-top: 3%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.practice-finish-bottom-link h4 {
+    cursor: pointer;
+    color: white;
+    padding: 0.3% 5%;
+    margin-top: 2%;
+    background-color: #FF6948;
+    border: 2px solid #FF6948;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+
+    &:hover {
+        background-color: white;
+        color: #39085A;
+    }
+}
+
