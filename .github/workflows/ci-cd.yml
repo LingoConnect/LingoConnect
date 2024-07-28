@@ -26,10 +26,6 @@ jobs:
           echo "${{ secrets.YML_PROD }}" > ./application-prod.yml
         shell: bash
 
-        # gradle build
-      - name: Build with Gradle
-        run: ./gradlew build -x test
-        
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
