@@ -171,6 +171,31 @@
     border-bottom: 1px solid #746745;
 }
 
+.main-tutorial-button {
+    max-width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    margin: 3vh 5% 1vh 5%;
+}
+
+.main-tutorial-button p {
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 5px;
+    padding: 0 2px;
+    font-family: "GmarketSansMedium";
+    font-size: 1rem;
+    color: #000AFF;
+    transition: color 0.3s ease;
+    
+    &:hover{
+        color: #8588e6;
+    }
+}
+
 .main-topic {
     height: fit-content;
     background-color: rgb(255, 253, 243);
@@ -179,7 +204,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin: 8vh 5% 10% 5%;
+    margin: 0 5% 10vh 5%;
 
     /* font-size: 100vw; */
 }

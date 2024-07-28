@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import '../../styles/practice.css';
 import { getFeedback, getAudioFeedback } from '../../api/ai_api';
 import { getSubQuestion } from '../../api/learning_content_api';
+import { HiOutlineLightBulb } from "react-icons/hi";
 
 const PracticeContent = forwardRef((_, ref) => {
   const { topic, question, id } = useParams();
@@ -233,12 +234,24 @@ const PracticeContent = forwardRef((_, ref) => {
         ))}
         {currentQuestionIndex === Questions.length && (
           <div className="practice-finish">
-            <p>준비된 질문은 여기까지에요.</p>
-            <p>
-              <span onClick={() => navigate('/main')}>마이페이지</span>에서 저장된 피드백들을
-              반복적으로 학습해보아요!
-            </p>
-            <h4 onClick={() => navigate(`/mypage/feedback`)}>❗마이페이지 피드백 모아보기❗</h4>
+            <div className="practice-finish-top">
+              <HiOutlineLightBulb size={40} color='#FF2E00' />
+              <p>학습 완료!</p>
+            </div>
+            <div className="practice-finish-middle">
+              <p>준비한 질문은 여기까지에요.</p>
+              <p style={{color: '#FF2E00'}}>위에서 한 대화 내용을 한 번 더 검토해 봅시다!</p>
+            </div>
+            <div className="practice-finish-bottom">
+              <p>그리고</p>
+              <p><span style={{color: '#FF2E00'}}>마이페이지</span>에서 저장된 피드백들을</p>
+              <p>반복적으로 학습해보아요!</p>
+
+              <div className="practice-finish-bottom-link">
+                <h4 onClick={()=>navigate('/mypage/feedback')}>피드백 보기</h4>
+                <h4 onClick={()=>navigate(-1)}>나가기</h4>
+              </div>
+            </div>
           </div>
         )}
         <div ref={ref} />

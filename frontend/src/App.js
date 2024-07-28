@@ -117,7 +117,7 @@ function AppContent() {
           element={<Feedback path="feedback" title="피드백 모아보기" />}
         />
         <Route path="/mypage/feedback/:topic" element={<FeedbackQuestion />} />
-        <Route path="/mypage/feedback/:topic/:question"  element={<FeedbackResult />} />
+        <Route path="/mypage/feedback/:topic/:id/:question"  element={<FeedbackResult />} />
         <Route
           path="/mypage/pattern"
           element={<Feedback path="pattern" title="자주 하는 실수(패턴) 분석" />}

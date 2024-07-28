@@ -1,6 +1,6 @@
 .feedbackresult-container {
     width: 100%;
-    height: 100vh;
+    height: 100%;
     position: relative;
     overflow-y: auto;
 
@@ -10,28 +10,15 @@
 
 .feedbackresult-back {
     cursor: pointer;
-    width: 20px;
     position: absolute;
-    top: 25px;
+    top: 15px;
     left: 15px;
     
     @media (max-width: 600px) {
-        top: 4vw;
+        top: 3vw;
     }
 }
 
-
-
-
-.feedbackresult-navbar {
-    background-color: #FFE660;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    padding: 15px;
-    flex-shrink: 0;
-}
 
 .feedbackresult-main {
     width: 100%;
@@ -43,7 +30,6 @@
     color: #746745;
     font-size: 1.5rem;
     text-align: center;
-    flex-grow: 1;
 }
 
 .feedbackresult-main h4 {
@@ -147,23 +133,22 @@
     background-color: white;
     margin: 1%;
     transition: all 0.5s ease;
-}
 
-.feedbackresult-index-middle p:hover {
-    background-color: #f0bd56;
-    border: 2px solid #f0bd56;
-    color: white;
+    &:hover {
+        background-color: #f0bd56;
+        border: 2px solid #f0bd56;
+        color: white;
+    }
 }
 
 .feedbackresult-box {
     max-width: 100%;
     height: fit-content;
-    margin: 0 5% 5% 5%;
+    margin: 0 5% 100px 5%;
     background-color: #FEF8DE;
 
     display: flex;
     flex-direction: column;
-    flex-grow: 1;
 }
 
 .feedbackresult-box .feedback-box {

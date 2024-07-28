@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import '../../styles/feedback_result.css';
 import { AIChat, UserChat, AIFeedback } from '../practice/practice';
+import { FaArrowLeftLong } from "react-icons/fa6";
 
 export default function FeedbackResult() {
     const [answers, setAnswers] = useState(['수학이 제일 좋아']);
@@ -13,6 +14,12 @@ export default function FeedbackResult() {
     
     return (
         <div className="feedbackresult-container">
+            <div 
+                className="feedbackresult-back"
+                onClick={() => navigate(-1)}
+            >
+                <FaArrowLeftLong size={30} color='#746745' />
+            </div>
             <div className="feedbackresult-main">
                 <h4>피드백 모아보기</h4>
                 <p>{topic}</p>
@@ -63,7 +70,7 @@ export default function FeedbackResult() {
                 <AIFeedback index={0} feedbacks={feedbacks} />
                 <AIChat question={question} />
                 <UserChat index={0} answers={answers} />
-                <AIFeedback index={0} feedbacks={feedbacks} />
+                <AIFeedback index={0} feedbacks={feedbacks} />  
             </div>
 {/* 
             <div className="result-box-gradient">
