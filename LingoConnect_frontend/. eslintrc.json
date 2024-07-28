@@ -14,7 +14,11 @@
   },
   "plugins": ["react"],
   "rules": {
-    "react/react-in-jsx-scope": "off"
+    "react/react-in-jsx-scope": "off",
+    "no-unused-vars": "warn",
+    "jsx-a11y/alt-text": "warn",
+    "eqeqeq": "warn",
+    "react-hooks/exhaustive-deps": "warn"
   },
   "settings": {
     "react": {
