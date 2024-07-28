@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import '../styles/result.css';
+import '../../styles/result.css';
 
 export default function Result() {
     const navigate = useNavigate();

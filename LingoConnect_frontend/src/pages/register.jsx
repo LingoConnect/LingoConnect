@@ -2,10 +2,12 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import '../styles/register.css';
 import Top from '../components/top';
+import {Modal} from './login';
 
 export default function Register() {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+    const [modal, setModal] = useState(true);
 
     const navigate = useNavigate();
 
@@ -38,6 +40,10 @@ export default function Register() {
                     <button>회원가입</button>
                 </div>
             </div>
+            {
+                modal && <Modal setModal={setModal} />
+            }
+
         </div>
     )
 }

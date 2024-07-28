@@ -99,7 +99,7 @@
 
 .login-submit-icon {
     width: 65%;
-    max-width: 400px;
+    max-width: 300px;
     display: flex;
     flex-direction: row;
     justify-content: space-evenly; 
@@ -109,7 +109,7 @@
     background-color: transparent;
     border: none;
     width: fit-content;
-    margin: 10px 0 10px 0;
+    margin: 5px 0;
 }
 
 .login-submit-icon img {
@@ -133,3 +133,43 @@
     font-size: 1.1rem;
     font-family: "Gugi";
 } */
+
+.guest-modal {
+    width: 70%;
+    max-width: 500px;
+    height: auto;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    font-family: "Jua";
+    box-shadow: 0 0 5px lightgrey;
+    border-radius: 20px;
+    font-size: 1.2rem;
+    line-height: 1.5;
+}
+
+.guest-modal div {
+    width: 80%;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.guest-modal button {
+    margin: 10px;
+    background-color: #FFE660;
+    border: none;
+    font-family: "Jua";
+    padding: 5px 10px;
+    border-radius: 10px;
+    font-size: 1.1rem;
+}
