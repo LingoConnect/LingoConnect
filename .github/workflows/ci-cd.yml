@@ -37,7 +37,7 @@ jobs:
       - name: Run Tests
         working-directory: backend
         run: |
-          docker-compose run backend ./mvnw clean test
+          docker-compose run api ./mvnw clean test
 
       - name: Tear down Docker Compose
         working-directory: backend
