@@ -37,7 +37,7 @@ jobs:
       - name: Run Tests
         working-directory: backend
         run: |
-          docker-compose exec api ./gradlew clean test
+          docker-compose exec -T api ./gradlew clean test
 
       - name: Tear down Docker Compose
         working-directory: backend
