@@ -28,15 +28,15 @@ export default function Main() {
     <div className="main-container">
       <div className="main-navbar">
         <SmallTitle />
-        {profile == true ? (
+        {profile === true ? (
           <div className="main-profile-box">
             <div className="main-profile-pic">
               <div className="main-profile-icon">
-                <img src={process.env.PUBLIC_URL + '/img/deco.png'} />
+                <img src={process.env.PUBLIC_URL + '/img/deco.png'} alt="" />
                 <p>●</p>
               </div>
               <div className="main-profile-img">
-                <img src={process.env.PUBLIC_URL + '/img/이루매.jpeg'} />
+                <img src={process.env.PUBLIC_URL + '/img/이루매.jpeg'} alt="프로필" />
               </div>
             </div>
             <div className="main-profile-dc">
@@ -60,7 +60,7 @@ export default function Main() {
 
       <div className="main-topic">
         <div className="main-topic-title">
-          <img src={process.env.PUBLIC_URL + '/img/mummy.png'} />
+          <img src={process.env.PUBLIC_URL + '/img/mummy.png'} alt="" />
           <h4>학습할 주제를 선택하세요!</h4>
         </div>
         {topics.map(function (element, index) {
@@ -71,7 +71,12 @@ export default function Main() {
                 handleTopicClick(element.topic);
               }}
             >
-              <img src={element.image_url} className="main-topic-box-img" loading="lazy" />
+              <img
+                src={element.image_url}
+                className="main-topic-box-img"
+                loading="lazy"
+                alt="주제 사진"
+              />
               <h4>{element.topic}</h4>
             </div>
           );
