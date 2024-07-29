@@ -169,19 +169,22 @@ const PracticeContent = forwardRef((_, ref) => {
 
             const sound = new File([wavBlob], "soundBlob.wav", { lastModified: new Date().getTime(), type: "audio/wav" });
 
-          const audioResponse = await getAudioFeedback(formData);
-          if (audioResponse.status === 200) {
-            const data = await audioResponse.json();
-            console.log(data);
-          } else {
-            console.log('Error:', audioResponse.status);
-          }
+            const question = Questions[currentQuestionIndex];
+            const formData = new FormData();
+            formData.append('audio', sound);
+
+            const audioResponse = await getAudioFeedback(formData);
+            if (audioResponse.status === 200) {
+                const data = await audioResponse.json();
+                console.log(data);
+            } else {
+                console.log("Error:", audioResponse.status);
+            }
         } catch (error) {
             console.error('Error submitting audio file:', error);
         }
-      }
     }
-
+}
     const currentQuestion = Questions[currentQuestionIndex];
     const gptTitle = '주제: ' + topic + '\n';
     const gptQuestion = '친구: ' + currentQuestion + '\n';
