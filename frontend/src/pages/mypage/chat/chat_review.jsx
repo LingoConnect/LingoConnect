@@ -1,14 +1,14 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../../styles/feedback.css';
-import { getTopic } from '../../api/learning_content_api';
+import '../../../styles/chat_review.css';
+import { getTopic } from '../../../api/learning_content_api';
 
-export default function Feedback({ path, title }) {
+export default function ChatReview({ path, title }) {
   const navigate = useNavigate();
   const [topics, setTopics] = useState([]);
 
   const handleTopicClick = (topic) => {
-    navigate(`/mypage/${path}/${topic}`);
+    navigate(`/mypage/${path}`, { state: { topic } });
   };
 
   useEffect(() => {

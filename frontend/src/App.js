@@ -1,37 +1,38 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import React, { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import './App.css';
 import Start from './pages/start';
 import Login from './pages/login';
 import Register from './pages/register';
-import Main from './pages/main';
-import Question from './pages/question';
-import Practice from './pages/practice';
+import Chat from './pages/chat/chat';
+import ChatQuestion from './pages/chat/chat_question';
+import ChatPractice from './pages/chat/chat_practice';
 import MyPage from './pages/mypage/mypage';
-import Feedback from './pages/mypage/feedback';
-import FeedbackQuestion from './pages/mypage/feedback_question';
-import FeedbackResult from './pages/mypage/feedback_result';
-import PatternResult from './pages/mypage/pattern_result';
+import ChatReview from './pages/mypage/chat/chat_review';
+import ChatReviewQuestion from './pages/mypage/chat/chat_review_question';
+import ChatReviewPractice from './pages/mypage/chat/chat_review_practice';
+import ChatPatternPractice from './pages/mypage/chat/chat_pattern_practice';
 import { SmallTitle, BigTitle } from './components/title';
 import { FaHashtag } from 'react-icons/fa6';
 import { CgProfile, CgClipboard } from 'react-icons/cg';
 import { TbMessage2Exclamation, TbLogout } from 'react-icons/tb';
 import { PiQuestionBold } from 'react-icons/pi';
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 function AppContent() {
   const navigate = useNavigate();
   const location = useLocation();
+  const isMyPage = location.pathname === '/mypage';
+  const [menuOpen, setMenuOpen] = useState(false);
   const isNoNavPage =
     location.pathname === '/' ||
     location.pathname === '/login' ||
     location.pathname === '/register' ||
-    /^\/main\/[^/]+\/[^/]+\/[^/]+$/.test(location.pathname);
-  const isMyPage = location.pathname === '/mypage';
-  const [menuOpen, setMenuOpen] = useState(false);
+    location.pathname === '/study/chat/practice';
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
+  };
+  const closeMenu = () => {
+    setMenuOpen(false);
   };
 
   return (
@@ -52,7 +53,7 @@ function AppContent() {
               <ul className="navbar-menu-toplist">
                 <li
                   onClick={() => {
-                    navigate('/main');
+                    navigate('/study/chat');
                     toggleMenu();
                   }}
                 >
@@ -70,7 +71,7 @@ function AppContent() {
                 </li>
                 <li
                   onClick={() => {
-                    navigate('/mypage/feedback');
+                    navigate('/mypage/chat-review');
                     toggleMenu();
                   }}
                 >
@@ -79,7 +80,7 @@ function AppContent() {
                 </li>
                 <li
                   onClick={() => {
-                    navigate('/mypage/pattern');
+                    navigate('/mypage/chat-pattern');
                     toggleMenu();
                   }}
                 >
@@ -123,27 +124,28 @@ function AppContent() {
         </div>
       )}
 
-      <Routes>
-        <Route path="/" element={<Start />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-
-        <Route path="/main" element={<Main />} />
-        <Route path="/main/:topic" element={<Question />} />
-        <Route path="/main/:topic/:id/:question" element={<Practice />} />
-        <Route path="/mypage" element={<MyPage />} />
-        <Route
-          path="/mypage/feedback"
-          element={<Feedback path="feedback" title="피드백 모아보기" />}
-        />
-        <Route path="/mypage/feedback/:topic" element={<FeedbackQuestion />} />
-        <Route path="/mypage/feedback/:topic/:id/:question" element={<FeedbackResult />} />
-        <Route
-          path="/mypage/pattern"
-          element={<Feedback path="pattern" title="자주 하는 실수(패턴) 분석" />}
-        />
-        <Route path="/mypage/pattern/:topic" element={<PatternResult />} />
-      </Routes>
+      <div className="content-container" onClick={closeMenu}>
+        <Routes>
+          <Route path="/" element={<Start />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/study/chat" element={<Chat />} />
+          <Route path="/study/chat/question" element={<ChatQuestion />} />
+          <Route path="/study/chat/practice" element={<ChatPractice />} />
+          <Route path="/mypage" element={<MyPage />} />
+          <Route
+            path="/mypage/chat-review"
+            element={<ChatReview path="chat-review/question" title="피드백 모아보기" />}
+          />
+          <Route path="/mypage/chat-review/question" element={<ChatReviewQuestion />} />
+          <Route path="/mypage/chat-review/practice" element={<ChatReviewPractice />} />
+          <Route
+            path="/mypage/chat-pattern"
+            element={<ChatReview path="chat-pattern/practice" title="자주 하는 실수(패턴) 분석" />}
+          />
+          <Route path="/mypage/chat-pattern/practice" element={<ChatPatternPractice />} />
+        </Routes>
+      </div>
     </div>
   );
 }

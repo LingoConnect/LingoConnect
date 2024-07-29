@@ -1,15 +1,26 @@
-import React, { useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import '../../styles/feedback_result.css';
-import { AIChat, UserChat, AIFeedback } from '../practice';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
+import '../../../styles/chat_review_practice.css';
+import { AIChat, UserChat, AIFeedback } from '../../chat/chat_practice';
 import { FaArrowLeftLong } from 'react-icons/fa6';
+import { getMyFeedback } from '../../../api/mypage_api';
 
-export default function FeedbackResult() {
-  const answers = ['수학이 제일 좋아'];
-  const feedbacks = ['잘했어요!'];
-  const [index, setIndex] = useState(1);
-  const { topic, question } = useParams();
+export default function ReviewResult() {
+  const location = useLocation();
   const navigate = useNavigate();
+  const [index, setIndex] = useState(1);
+  const { topic, id, question } = location.state || {};
+  const [myFeedback, setMyFeedback] = useState([]);
+
+  useEffect(() => {
+    const fetchMyFeedback = async () => {
+      const response = await getMyFeedback({ topic, id });
+      if (response.status === 200) {
+        setMyFeedback(response.data);
+      }
+    };
+    fetchMyFeedback();
+  }, [topic, id]);
 
   return (
     <div className="feedbackresult-container">
@@ -67,24 +78,16 @@ export default function FeedbackResult() {
       </div>
 
       <div className="feedbackresult-box">
-        {/* <h5>{index+1}</h5> */}
-        <AIChat question={question} />
-        <UserChat index={0} answers={answers} />
-        <AIFeedback index={0} feedbacks={feedbacks} />
-        <AIChat question={question} />
-        <UserChat index={0} answers={answers} />
-        <AIFeedback index={0} feedbacks={feedbacks} />
-        <AIChat question={question} />
-        <UserChat index={0} answers={answers} />
-        <AIFeedback index={0} feedbacks={feedbacks} />
+        {myFeedback.map((element, index) => {
+          return (
+            <>
+              <AIChat question={element.question} />
+              <UserChat index={index} answers={element.answer} />
+              <AIFeedback index={index} feedback={element.feedback} />
+            </>
+          );
+        })}
       </div>
-      {/* 
-            <div className="result-box-gradient">
-                <p></p>
-            </div>
-            <div className="result-box-under">
-                <p></p>
-            </div> */}
     </div>
   );
 }

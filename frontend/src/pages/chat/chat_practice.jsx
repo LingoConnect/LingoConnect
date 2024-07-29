@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useRef, forwardRef } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import '../styles/practice.css';
-import { getFeedback, getAudioFeedback } from '../api/ai_api';
-import { getSubQuestion } from '../api/learning_content_api';
+import { useNavigate, useLocation } from 'react-router-dom';
+import '../../styles/chat_practice.css';
+import { getFeedback, getAudioFeedback } from '../../api/ai_api';
+import { getSubQuestion } from '../../api/learning_content_api';
 import { HiOutlineLightBulb } from 'react-icons/hi';
 
 const PracticeContent = forwardRef((_, ref) => {
-  const { topic, question, id } = useParams();
+  const location = useLocation();
+  const { topic, question, id } = location.state || {};
   const navigate = useNavigate();
   const [answerInput, setAnswerInput] = useState('');
   const [score, setScore] = useState('');
@@ -252,7 +253,7 @@ const PracticeContent = forwardRef((_, ref) => {
               <p>반복적으로 학습해보아요!</p>
 
               <div className="practice-finish-bottom-link">
-                <h4 onClick={() => navigate('/mypage/feedback')}>피드백 보기</h4>
+                <h4 onClick={() => navigate('/mypage/chat-review')}>피드백 보기</h4>
                 <h4 onClick={() => navigate(-1)}>나가기</h4>
               </div>
             </div>
@@ -323,9 +324,7 @@ export function AIChat({ question }) {
 
 export function UserChat({ index, answers }) {
   return (
-    <div className="answer-box">
-      <p>{answers[index]}</p>
-    </div>
+    <div className="answer-box">{answers && answers.length > 0 && <p>{answers[index]}</p>}</div>
   );
 }
 
@@ -333,7 +332,7 @@ export function AIFeedback({ index, feedbacks }) {
   return (
     <div className="feedback-box">
       <img src={process.env.PUBLIC_URL + '/img/cat.png'} alt="cat" />
-      <p>{feedbacks[index].feedback}</p>
+      {feedbacks && feedbacks.length > 0 && <p>{feedbacks[index].feedback}</p>}
     </div>
   );
 }
@@ -341,12 +340,12 @@ export function AIFeedback({ index, feedbacks }) {
 export function ScoreBox({ index, feedbacks }) {
   return (
     <div className="score-box">
-      <p>{feedbacks[index].score}</p>
+      {feedbacks && feedbacks.length > 0 && <p>{feedbacks[index].score}</p>}
     </div>
   );
 }
 
-export default function Practice() {
+export default function ChatPractice() {
   const messageEndRef = useRef(null);
 
   return <PracticeContent ref={messageEndRef} />;
