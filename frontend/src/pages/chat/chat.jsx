@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../styles/main.css';
-import { AiOutlineQuestionCircle } from "react-icons/ai";
-import { getTopic } from '../api/learning_content_api';
+import '../../styles/chat.css';
+import { AiOutlineQuestionCircle } from 'react-icons/ai';
+import { getTopic } from '../../api/learning_content_api';
 
-export default function Main() {
+export default function Chat() {
   const navigate = useNavigate();
   const [topics, setTopics] = useState([]);
   const [profile, setProfile] = useState(true);
 
   const handleTopicClick = (topic) => {
-    navigate(`/main/${topic}`);
+    navigate('/study/chat/question', { state: { topic } });
   };
 
   useEffect(() => {
@@ -58,7 +58,9 @@ export default function Main() {
       </div>
 
       <div className="main-tutorial-button">
-        <p><AiOutlineQuestionCircle size={20} /> 앱 사용법 보기</p>
+        <p>
+          <AiOutlineQuestionCircle size={20} /> 앱 사용법 보기
+        </p>
       </div>
 
       <div className="main-topic">

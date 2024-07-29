@@ -28,7 +28,7 @@ export default function Start() {
           <p>비밀번호 찾기</p>
         </div>
         <div className="guest-login">
-          <Link to="/main">
+          <Link to="/study/chat">
             <p>비회원으로 로그인</p>
           </Link>
         </div>

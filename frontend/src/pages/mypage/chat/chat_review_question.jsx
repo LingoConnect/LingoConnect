@@ -1,18 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import '../../styles/feedback_question.css';
-import { getMainQuestion } from '../../api/learning_content_api';
+import { useNavigate, useLocation } from 'react-router-dom';
+import '../../../styles/chat_review_question.css';
+import { getMainQuestion } from '../../../api/learning_content_api';
 
-export default function FeedbackQuestion() {
+export default function ReviewQuestion() {
   const navigate = useNavigate();
-  const { topic } = useParams();
+  const location = useLocation();
+  const { topic } = location.state || {};
   const [isLatest, setIsLatest] = useState(true);
   const [mainQuestions, setMainQuestions] = useState([]);
 
   const handleQuestionClick = (element) => {
     const question = element.question;
     const id = element.mainQuestionId;
-    navigate(`/mypage/feedback/${topic}/${id}/${question}`);
+    navigate('/mypage/chat-review/practice', { state: { topic, id, question } });
   };
 
   useEffect(() => {
@@ -27,7 +28,6 @@ export default function FeedbackQuestion() {
 
   return (
     <div className="feedbackquestion-container">
-
       <div className="feedbackquestion-main">
         <h4>피드백 모아보기</h4>
         <p>{topic}</p>

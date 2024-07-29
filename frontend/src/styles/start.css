@@ -1,10 +1,10 @@
 .start-container {
-  background-color: #FFE660;
+  background-color: #ffe660;
   width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
   padding: 5%;
   position: relative;
@@ -62,7 +62,7 @@
 
 .start-container button {
   width: 100%;
-  font-family: "Jua", sans-serif;
+  font-family: 'Jua', sans-serif;
   color: #746745;
   border: none;
   background-color: white;
@@ -72,7 +72,7 @@
   font-size: 1.1rem;
 
   @media (min-height: 500px) {
-    font-size: 2.2vh; 
+    font-size: 2.2vh;
     margin: 0.8vh;
   }
 }
@@ -104,7 +104,7 @@
   font-size: 1rem;
 
   @media (min-height: 500px) {
-    font-size: 2vh; 
+    font-size: 2vh;
     margin: 0.5vh;
   }
 }
@@ -116,7 +116,6 @@
   margin: 8px;
 }
 
-
 .start-circle-container {
   position: absolute;
   width: 100%;
@@ -126,7 +125,7 @@
   grid-template-rows: repeat(13, 1fr);
 }
 
-.start-circle-container .circle.big:nth-child(1){
+.start-circle-container .circle.big:nth-child(1) {
   grid-column: 6 / span 4;
   grid-row: 6 / span 4;
 
@@ -174,7 +173,7 @@
 
   @media (max-width: 600px) {
     width: 100px;
-    grid-column: 10  / span 1;
+    grid-column: 10 / span 1;
   }
 }
 

@@ -60,10 +60,14 @@ export default function MyPage() {
           </div>
         </div>
         <div className="mypage-feedback">
-          <MyFeedbackBox title="피드백 모아보기" navigate_url="/mypage/feedback" topics={topics} />
+          <MyFeedbackBox
+            title="피드백 모아보기"
+            navigate_url="/mypage/chat-review"
+            topics={topics}
+          />
           <MyFeedbackBox
             title="자주 하는 실수(패턴) 분석"
-            navigate_url="/mypage/pattern"
+            navigate_url="/mypage/chat-pattern"
             topics={topics}
           />
         </div>
