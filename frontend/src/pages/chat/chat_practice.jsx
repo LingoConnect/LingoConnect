@@ -166,19 +166,18 @@ const PracticeContent = forwardRef((_, ref) => {
         try {
           const response = await fetch(audioUrl);
           const blob = await response.blob();
-          const sound = new File([blob], 'soundBlob.wav', {
+
+          const wavBlob = await convertBlobToWav(blob);
+          const sound = new File([wavBlob], 'soundBlob.wav', {
             lastModified: new Date().getTime(),
             type: 'audio/wav',
           });
-
+          const question = Questions[currentQuestionIndex];
           const formData = new FormData();
           formData.append('audio', sound);
-
           const audioResponse = await getAudioFeedback(formData);
           if (audioResponse.status === 200) {
-            const data = await audioResponse.data;
-            setAnswerInput(data.text);
-            setScore(`발음평가 점수: ${data.score}/5`);
+            const data = await audioResponse.json();
             console.log(data);
           } else {
             console.log('Error:', audioResponse.status);
@@ -196,19 +195,60 @@ const PracticeContent = forwardRef((_, ref) => {
     const gptUserAnswer = '사용자: ' + answerInput;
     console.log(gptTitle, gptQuestion, gptUserAnswer);
 
-    const response = await getFeedback({ gptTitle, gptQuestion, gptUserAnswer });
-    if (response.status === 200) {
-      console.log(response.data);
-      setFeedbacks([...feedbacks, { feedback: response.data, score: score }]);
-      setAnswers([...answers, answerInput]);
-      setScore('');
-      setCurrentQuestionIndex(currentQuestionIndex + 1);
-      setActiveMicButton(true);
-      setActiveStopButton(false);
-    } else {
-      alert('error');
-    }
+    // const response = await getFeedback({ gptTitle, gptQuestion, gptUserAnswer });
+    // if (response.status === 200) {
+    //   console.log(response.data);
+    //   setFeedbacks([...feedbacks, { feedback: response.data, score: score }]);
+    //   setAnswers([...answers, answerInput]);
+    //   setScore('');
+    //   setCurrentQuestionIndex(currentQuestionIndex + 1);
+    //   setActiveMicButton(true);
+    //   setActiveStopButton(false);
+    // } else {
+    //   alert('error');
+    // }
     setAnswerInput('');
+  };
+
+  const convertBlobToWav = async (blob) => {
+    const audioContext = new (window.AudioContext || window.webkitAudioContext)({
+      sampleRate: 16000,
+    });
+    const arrayBuffer = await blob.arrayBuffer();
+    const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
+    const numberOfChannels = audioBuffer.numberOfChannels;
+    const length = audioBuffer.length * numberOfChannels * 2 + 44;
+    const buffer = new ArrayBuffer(length);
+    const view = new DataView(buffer);
+    // Write WAV header
+    writeString(view, 0, 'RIFF');
+    view.setUint32(4, 36 + audioBuffer.length * numberOfChannels * 2, true);
+    writeString(view, 8, 'WAVE');
+    writeString(view, 12, 'fmt ');
+    view.setUint32(16, 16, true);
+    view.setUint16(20, 1, true);
+    view.setUint16(22, numberOfChannels, true);
+    view.setUint32(24, 16000, true); // sampleRate = 16000
+    view.setUint32(28, 16000 * 2 * numberOfChannels, true); // byteRate = sampleRate * blockAlign
+    view.setUint16(32, numberOfChannels * 2, true); // blockAlign = numberOfChannels * bytesPerSample
+    view.setUint16(34, 16, true); // bitsPerSample
+    writeString(view, 36, 'data');
+    view.setUint32(40, audioBuffer.length * numberOfChannels * 2, true);
+    // Write PCM samples
+    const offset = 44;
+    for (let i = 0; i < audioBuffer.length; i++) {
+      for (let channel = 0; channel < numberOfChannels; channel++) {
+        const sample = audioBuffer.getChannelData(channel)[i];
+        const intSample = sample < 0 ? sample * 32768 : sample * 32767; // Convert sample to 16-bit PCM
+        view.setInt16(offset + (i * numberOfChannels + channel) * 2, intSample, true);
+      }
+    }
+    return new Blob([buffer], { type: 'audio/wav' });
+  };
+  const writeString = (view, offset, string) => {
+    for (let i = 0; i < string.length; i++) {
+      view.setUint8(offset + i, string.charCodeAt(i));
+    }
   };
 
   return (
