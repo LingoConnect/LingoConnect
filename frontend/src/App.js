@@ -6,7 +6,7 @@ import Login from './pages/login';
 import Register from './pages/register';
 import Main from './pages/main';
 import Question from './pages/question';
-import Practice from './pages/practice/practice';
+import Practice from './pages/practice';
 import MyPage from './pages/mypage/mypage';
 import Feedback from './pages/mypage/feedback';
 import FeedbackQuestion from './pages/mypage/feedback_question';

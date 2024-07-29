@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import '../../styles/feedback_result.css';
-import { AIChat, UserChat, AIFeedback } from '../practice/practice';
+import { AIChat, UserChat, AIFeedback } from '../practice';
 import { FaArrowLeftLong } from 'react-icons/fa6';
 
 export default function FeedbackResult() {
