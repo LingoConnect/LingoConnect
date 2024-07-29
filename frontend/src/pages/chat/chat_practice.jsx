@@ -195,18 +195,18 @@ const PracticeContent = forwardRef((_, ref) => {
     const gptUserAnswer = '사용자: ' + answerInput;
     console.log(gptTitle, gptQuestion, gptUserAnswer);
 
-    // const response = await getFeedback({ gptTitle, gptQuestion, gptUserAnswer });
-    // if (response.status === 200) {
-    //   console.log(response.data);
-    //   setFeedbacks([...feedbacks, { feedback: response.data, score: score }]);
-    //   setAnswers([...answers, answerInput]);
-    //   setScore('');
-    //   setCurrentQuestionIndex(currentQuestionIndex + 1);
-    //   setActiveMicButton(true);
-    //   setActiveStopButton(false);
-    // } else {
-    //   alert('error');
-    // }
+    const response = await getFeedback({ gptTitle, gptQuestion, gptUserAnswer });
+    if (response.status === 200) {
+      console.log(response.data);
+      setFeedbacks([...feedbacks, { feedback: response.data, score: score }]);
+      setAnswers([...answers, answerInput]);
+      setScore('');
+      setCurrentQuestionIndex(currentQuestionIndex + 1);
+      setActiveMicButton(true);
+      setActiveStopButton(false);
+    } else {
+      alert('error');
+    }
     setAnswerInput('');
   };
 
