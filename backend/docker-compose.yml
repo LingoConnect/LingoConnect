@@ -31,9 +31,9 @@ services:
     deploy:
       resources:
         limits:
-          memory: 2g  # 메모리 제한을 4GB로 설정
+          memory: 4g  # 메모리 제한을 4GB로 설정
         reservations:
-          memory: 1g  # 예약 메모리를 2GB로 설정
+          memory: 2g  # 예약 메모리를 2GB로 설정
 
 networks:
   backend:
