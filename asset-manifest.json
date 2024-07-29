@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/LingoConnect/static/css/main.24ed84a6.css",
-    "main.js": "/LingoConnect/static/js/main.7a804b26.js",
-    "static/js/453.c3497b63.chunk.js": "/LingoConnect/static/js/453.c3497b63.chunk.js",
-    "index.html": "/LingoConnect/index.html",
-    "main.24ed84a6.css.map": "/LingoConnect/static/css/main.24ed84a6.css.map",
-    "main.7a804b26.js.map": "/LingoConnect/static/js/main.7a804b26.js.map",
-    "453.c3497b63.chunk.js.map": "/LingoConnect/static/js/453.c3497b63.chunk.js.map"
+    "main.css": "/lingo-connect.com/static/css/main.24ed84a6.css",
+    "main.js": "/lingo-connect.com/static/js/main.56bc8c06.js",
+    "static/js/453.c3497b63.chunk.js": "/lingo-connect.com/static/js/453.c3497b63.chunk.js",
+    "index.html": "/lingo-connect.com/index.html",
+    "main.24ed84a6.css.map": "/lingo-connect.com/static/css/main.24ed84a6.css.map",
+    "main.56bc8c06.js.map": "/lingo-connect.com/static/js/main.56bc8c06.js.map",
+    "453.c3497b63.chunk.js.map": "/lingo-connect.com/static/js/453.c3497b63.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.24ed84a6.css",
-    "static/js/main.7a804b26.js"
+    "static/js/main.56bc8c06.js"
   ]
 }
