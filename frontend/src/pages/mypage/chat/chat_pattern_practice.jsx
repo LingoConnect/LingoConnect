@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import '../../styles/pattern_result.css';
-import { getMyPattern } from '../../api/mypage_api';
-import { FaArrowLeftLong } from "react-icons/fa6";
+import { useNavigate, useLocation } from 'react-router-dom';
+import '../../../styles/chat_pattern_practice.css';
+import { getMyPattern } from '../../../api/mypage_api';
+import { FaArrowLeftLong } from 'react-icons/fa6';
 
 const test_mypage_pattern = [
   [
@@ -16,9 +16,10 @@ const test_mypage_pattern = [
   ],
 ];
 
-export default function PatternResult() {
+export default function PatternPractice() {
   const navigate = useNavigate();
-  const { topic } = useParams();
+  const location = useLocation();
+  const { topic } = location.state || {};
   const [index, setIndex] = useState(0);
   const [patterns, setPatterns] = useState('');
 
@@ -34,11 +35,8 @@ export default function PatternResult() {
 
   return (
     <div className="PatternResult-container">
-      <div 
-        className="PatternResult-back"
-        onClick={() => navigate(-1)}
-      >
-        <FaArrowLeftLong size={30} color='#746745' />
+      <div className="PatternResult-back" onClick={() => navigate(-1)}>
+        <FaArrowLeftLong size={30} color="#746745" />
       </div>
 
       <div className="PatternResult-main">

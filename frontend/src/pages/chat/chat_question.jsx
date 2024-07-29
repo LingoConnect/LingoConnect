@@ -1,18 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import '../styles/question.css';
-import { getMainQuestion } from '../api/learning_content_api';
+import { useNavigate, useLocation } from 'react-router-dom';
+import '../../styles/chat_question.css';
+import { getMainQuestion } from '../../api/learning_content_api';
 import { FaArrowLeftLong } from 'react-icons/fa6';
 
-export default function Question() {
+export default function ChatQuestion() {
   const navigate = useNavigate();
-  const { topic } = useParams();
+  const location = useLocation();
+  const { topic } = location.state || {};
   const [mainQuestions, setMainQuestions] = useState([]);
 
   const handleQuestionClick = (element) => {
     const question = element.question;
     const id = element.mainQuestionId;
-    navigate(`/main/${topic}/${id}/${question}`);
+    navigate('/study/chat/practice', { state: { topic, id, question } });
   };
 
   useEffect(() => {
