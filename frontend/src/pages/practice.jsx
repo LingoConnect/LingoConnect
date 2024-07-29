@@ -175,7 +175,9 @@ const PracticeContent = forwardRef((_, ref) => {
 
           const audioResponse = await getAudioFeedback(formData);
           if (audioResponse.status === 200) {
-            const data = await audioResponse.json();
+            const data = await audioResponse.data;
+            setAnswerInput(data.text);
+            setScore(`발음평가 점수: ${data.score}/5`);
             console.log(data);
           } else {
             console.log('Error:', audioResponse.status);
