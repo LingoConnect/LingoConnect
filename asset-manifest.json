@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/LingoConnect_frontend/static/css/main.02959e20.css",
-    "main.js": "/LingoConnect_frontend/static/js/main.985c8545.js",
-    "static/js/453.c3497b63.chunk.js": "/LingoConnect_frontend/static/js/453.c3497b63.chunk.js",
-    "index.html": "/LingoConnect_frontend/index.html",
-    "main.02959e20.css.map": "/LingoConnect_frontend/static/css/main.02959e20.css.map",
-    "main.985c8545.js.map": "/LingoConnect_frontend/static/js/main.985c8545.js.map",
-    "453.c3497b63.chunk.js.map": "/LingoConnect_frontend/static/js/453.c3497b63.chunk.js.map"
+    "main.css": "/LingoConnect-frontend/static/css/main.24ed84a6.css",
+    "main.js": "/LingoConnect-frontend/static/js/main.f1ee61d4.js",
+    "static/js/453.c3497b63.chunk.js": "/LingoConnect-frontend/static/js/453.c3497b63.chunk.js",
+    "index.html": "/LingoConnect-frontend/index.html",
+    "main.24ed84a6.css.map": "/LingoConnect-frontend/static/css/main.24ed84a6.css.map",
+    "main.f1ee61d4.js.map": "/LingoConnect-frontend/static/js/main.f1ee61d4.js.map",
+    "453.c3497b63.chunk.js.map": "/LingoConnect-frontend/static/js/453.c3497b63.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.02959e20.css",
-    "static/js/main.985c8545.js"
+    "static/css/main.24ed84a6.css",
+    "static/js/main.f1ee61d4.js"
   ]
 }
