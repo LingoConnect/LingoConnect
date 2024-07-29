@@ -45,6 +45,7 @@ jobs:
       - name: Build the project
         working-directory: backend
         run: ./gradlew build --no-daemon
+
   backend-test:
     runs-on: ubuntu-latest
     needs: backend-build
@@ -77,6 +78,7 @@ jobs:
       - name: Run Tests
         working-directory: backend
         run: ./gradlew test --no-daemon
+
   backend-deploy:
     runs-on: ubuntu-latest
     needs: backend-test
@@ -134,3 +136,4 @@ jobs:
         with:
           github_token: ${{ secrets.LINGOCONNECT_TOKEN }}
           publish_dir: ./frontend/build
+          cname: "lingo-connect.com"
