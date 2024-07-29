@@ -172,12 +172,11 @@ const PracticeContent = forwardRef((_, ref) => {
             lastModified: new Date().getTime(),
             type: 'audio/wav',
           });
-          const question = Questions[currentQuestionIndex];
           const formData = new FormData();
           formData.append('audio', sound);
           const audioResponse = await getAudioFeedback(formData);
           if (audioResponse.status === 200) {
-            const data = await audioResponse.json();
+            const data = await audioResponse.data;
             console.log(data);
           } else {
             console.log('Error:', audioResponse.status);
