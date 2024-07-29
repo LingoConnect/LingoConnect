@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../../styles/feedback.css';
-import { SmallTitle } from '../../components/title';
 import { getTopic } from '../../api/learning_content_api';
 
 export default function Feedback({ path, title }) {
@@ -25,7 +24,6 @@ export default function Feedback({ path, title }) {
 
   return (
     <div className="feedback-container">
-
       <div className="feedback-main">
         <img src={process.env.PUBLIC_URL + '/img/cat.png'} alt="" />
         <h4>{title}</h4>

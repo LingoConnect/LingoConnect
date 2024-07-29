@@ -4,7 +4,7 @@ import '../../styles/mypage.css';
 import Top from '../../components/top';
 import Portal from '../../components/Portal';
 import { getTopic } from '../../api/learning_content_api';
-import { AiOutlinePicture } from "react-icons/ai";
+import { AiOutlinePicture } from 'react-icons/ai';
 
 export default function MyPage() {
   const [topics, setTopics] = useState([]);
@@ -12,7 +12,7 @@ export default function MyPage() {
 
   const handlePictureClick = () => {
     setPicture(!picture);
-  }
+  };
 
   useEffect(() => {
     const fetchTopics = async () => {
@@ -38,7 +38,8 @@ export default function MyPage() {
             <img
               onClick={() => handlePictureClick()}
               src={process.env.PUBLIC_URL + '/img/이루매.jpeg'}
-              alt="프로필" />
+              alt="프로필"
+            />
           </div>
           <div className="mypage-profile-name">
             <h4>링구</h4>
@@ -68,22 +69,25 @@ export default function MyPage() {
         </div>
       </div>
 
-      {
-        picture &&
+      {picture && (
         <Portal>
           <div className="mypage-picture-setting">
-            <h4 className="mypage-picture-setting-title"> <AiOutlinePicture size={33} />프로필 사진 설정</h4>
+            <h4 className="mypage-picture-setting-title">
+              {' '}
+              <AiOutlinePicture size={33} />
+              프로필 사진 설정
+            </h4>
             <div className="mypage-picture-setting-list">
               <h4>사진 찍기</h4>
               <h4>앨범에서 사진 선택</h4>
-              <h4 style={{marginBottom:'0'}}>기본 이미지 적용</h4>
+              <h4 style={{ marginBottom: '0' }}>기본 이미지 적용</h4>
             </div>
             <div className="mypage-picture-setting-close">
-              <p onClick={()=>setPicture()}>닫기</p>
+              <p onClick={() => setPicture()}>닫기</p>
             </div>
           </div>
         </Portal>
-      }
+      )}
     </div>
   );
 }
