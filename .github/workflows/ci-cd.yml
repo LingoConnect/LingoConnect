@@ -17,7 +17,7 @@ jobs:
         with:
           java-version: "21"
           distribution: "temurin"
-          
+
       - name: Cache Gradle packages
         uses: actions/cache@v2
         with:
@@ -57,7 +57,7 @@ jobs:
         with:
           java-version: "21"
           distribution: "temurin"
-          
+
       - name: Cache Gradle packages
         uses: actions/cache@v2
         with:
@@ -73,7 +73,7 @@ jobs:
           key: ${{ runner.os }}-gradle-wrapper-${{ hashFiles('**/gradle/wrapper/gradle-wrapper.properties') }}
           restore-keys: |
             ${{ runner.os }}-gradle-wrapper-
-      
+
       - name: Run Tests
         working-directory: backend
         run: ./gradlew test --no-daemon
@@ -83,7 +83,7 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-      
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
@@ -95,7 +95,6 @@ jobs:
       - name: Tear down Docker Compose
         working-directory: backend
         run: docker-compose down
-
 
       # Uncomment the following lines when you're ready to deploy the backend
       # - name: Deploy Backend
@@ -129,10 +128,9 @@ jobs:
         working-directory: frontend
         run: npm run build
 
-      # Uncomment the following lines when you're ready to deploy the frontend
-      # - name: Deploy Frontend
-      #   if: success()
-      #   run: |
-      #     # Deploy frontend to AWS S3 and invalidate CloudFront
-      #     aws s3 sync LingoConnect_frontend/build s3://your-frontend-bucket/
-      #     aws cloudfront create-invalidation --distribution-id YOUR_DISTRIBUTION_ID --paths "/*"
+      - name: Deploy to GitHub Pages
+        if: success()
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.LINGOCONNECT_TOKEN }}
+          publish_dir: ./frontend/build
