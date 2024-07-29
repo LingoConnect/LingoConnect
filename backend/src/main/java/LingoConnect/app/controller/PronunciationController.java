@@ -106,10 +106,11 @@ public class PronunciationController {
 
         try {
             // Convert wav to pcm
-            convertWavToPcm(wavFile, pcmFile);
+            convertWavToPcm(wavFile, pcmFile,PCM_FORMAT);
 
-            String evaluated = pronunciationEvalService.evaluate(wavFile.getName());
-            String text = sttService.speechToText(wavFile.getName());
+            log.info("pcm 파일로 전환 완료");
+            String evaluated = pronunciationEvalService.evaluate(pcmFile.getName());
+            String text = sttService.speechToText(pcmFile.getName());
 
             log.info("evaluated : {}", evaluated);
             log.info("text : {}", text);
@@ -134,128 +135,128 @@ public class PronunciationController {
             true,  // signed
             false  // bigEndian
     );
-    public static void convertWavToPcm(File wavFile, File pcmFile) throws IOException {
-        try (FileInputStream wavStream = new FileInputStream(wavFile);
-             FileOutputStream pcmStream = new FileOutputStream(pcmFile)) {
-
-            byte[] header = new byte[44];
-            if (wavStream.read(header) != 44) {
-                throw new IOException("Invalid WAV file header");
-            }
-
-            // Extract the number of channels, sample rate, and bits per sample
-            int channels = ByteBuffer.wrap(header, 22, 2).order(ByteOrder.LITTLE_ENDIAN).getShort();
-            int sampleRate = ByteBuffer.wrap(header, 24, 4).order(ByteOrder.LITTLE_ENDIAN).getInt();
-            int bitsPerSample = ByteBuffer.wrap(header, 34, 2).order(ByteOrder.LITTLE_ENDIAN).getShort();
-
-            System.out.println("Channels: " + channels);
-            System.out.println("Sample Rate: " + sampleRate);
-            System.out.println("Bits Per Sample: " + bitsPerSample);
-
-            // Calculate the byte rate and block align
-            int byteRate = sampleRate * channels * bitsPerSample / 8;
-            int blockAlign = channels * bitsPerSample / 8;
-
-            System.out.println("Byte Rate: " + byteRate);
-            System.out.println("Block Align: " + blockAlign);
-
-            // Skip the rest of the header and extract the PCM data
-            byte[] buffer = new byte[1024];
-            int bytesRead;
-            while ((bytesRead = wavStream.read(buffer)) != -1) {
-                pcmStream.write(buffer, 0, bytesRead);
-            }
-        }
-    }
-//    public static void convertWavToPcm(File wavFile, File pcmFile, AudioFormat pcmFormat) throws IOException, UnsupportedAudioFileException {
-//        try (AudioInputStream wavAudioStream = AudioSystem.getAudioInputStream(wavFile);
-//             AudioInputStream pcmAudioStream = AudioSystem.getAudioInputStream(pcmFormat, wavAudioStream);
-//             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-//             FileOutputStream fileOutputStream = new FileOutputStream(pcmFile)) {
+//    public static void convertWavToPcm(File wavFile, File pcmFile) throws IOException {
+//        try (FileInputStream wavStream = new FileInputStream(wavFile);
+//             FileOutputStream pcmStream = new FileOutputStream(pcmFile)) {
 //
-//            // Read the converted PCM audio stream and write it to the output stream
+//            byte[] header = new byte[44];
+//            if (wavStream.read(header) != 44) {
+//                throw new IOException("Invalid WAV file header");
+//            }
+//
+//            // Extract the number of channels, sample rate, and bits per sample
+//            int channels = ByteBuffer.wrap(header, 22, 2).order(ByteOrder.LITTLE_ENDIAN).getShort();
+//            int sampleRate = ByteBuffer.wrap(header, 24, 4).order(ByteOrder.LITTLE_ENDIAN).getInt();
+//            int bitsPerSample = ByteBuffer.wrap(header, 34, 2).order(ByteOrder.LITTLE_ENDIAN).getShort();
+//
+//            System.out.println("Channels: " + channels);
+//            System.out.println("Sample Rate: " + sampleRate);
+//            System.out.println("Bits Per Sample: " + bitsPerSample);
+//
+//            // Calculate the byte rate and block align
+//            int byteRate = sampleRate * channels * bitsPerSample / 8;
+//            int blockAlign = channels * bitsPerSample / 8;
+//
+//            System.out.println("Byte Rate: " + byteRate);
+//            System.out.println("Block Align: " + blockAlign);
+//
+//            // Skip the rest of the header and extract the PCM data
 //            byte[] buffer = new byte[1024];
 //            int bytesRead;
-//            while ((bytesRead = pcmAudioStream.read(buffer)) != -1) {
-//                byteArrayOutputStream.write(buffer, 0, bytesRead);
+//            while ((bytesRead = wavStream.read(buffer)) != -1) {
+//                pcmStream.write(buffer, 0, bytesRead);
 //            }
-//
-//            // Convert the byte array output stream to byte array
-//            byte[] audioBytes = byteArrayOutputStream.toByteArray();
-//
-//            // Write the byte array to the output file
-//            fileOutputStream.write(audioBytes);
 //        }
 //    }
-//
-//    //바이트 배열을 Raw 파일로 저장
-//    //Save byte array as Raw file
-//    public void saveRaw(File file, String targetPath) throws UnsupportedAudioFileException {
-//        OutputStream output = null;
-//
-//        try {
-//            output = new FileOutputStream(targetPath + ".raw");
-//        } catch (FileNotFoundException e) {
-//            // TODO Auto-generated catch block
-//            e.printStackTrace();
-//        }
-//
-//        try {
-//            //핵심 코드
-//            output.write(formatWavToRaw(changeFormat(AudioToByte(file), FORMAT)));
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
-//
-//    //Wav 파일에서 헤더 제거
-//    //Strip the header from the WAV file
-//    public byte[] formatWavToRaw(@NotNull final byte[] audioFileContent) {
-//        log.info("formatWavToRaw");
-//        return Arrays.copyOfRange(audioFileContent, 44, audioFileContent.length);
-//    }
-//
-//    //기존의 Wav 파일(바이트 배열) 을 다른 형식의 Wav 형식 (바이트 배열) 로 변환
-//    //WAV to WAV (different audio format)
-//    public byte[] changeFormat(@NotNull final byte[] audioFileContent, @NotNull final AudioFormat audioFormat)
-//            throws IOException, UnsupportedAudioFileException {
-//        log.info("changeFormat");
-//        try (final AudioInputStream originalAudioStream = AudioSystem
-//                .getAudioInputStream(new ByteArrayInputStream(audioFileContent));
-//             final AudioInputStream formattedAudioStream = AudioSystem.getAudioInputStream(audioFormat,
-//                     originalAudioStream);
-//             final AudioInputStream lengthAddedAudioStream = new AudioInputStream(formattedAudioStream, audioFormat,
-//                     audioFileContent.length);
-//             final ByteArrayOutputStream convertedOutputStream = new ByteArrayOutputStream()) {
-//            AudioSystem.write(lengthAddedAudioStream, AudioFileFormat.Type.WAVE, convertedOutputStream);
-//            return convertedOutputStream.toByteArray();
-//        }
-//    }
-//
-//    //기존의 wav 파일을 바이트 배열로 변환
-//    //Convert existing wav file to byte array
-//    public byte[] AudioToByte(File file) {
-//        log.info("AudioToByte");
-//        try {
-//            File inFile = file;
-//            fstream = new FileInputStream(inFile);
-//
-//            ByteArrayOutputStream out = new ByteArrayOutputStream();
-//            BufferedInputStream in = new BufferedInputStream(fstream);
-//
-//            while ((read = in.read(buff)) > 0) {
-//                out.write(buff, 0, read);
-//            }
-//            out.flush();
-//            audioBytes = out.toByteArray();
-//
-//            // Do something with the stream
-//        } catch (FileNotFoundException ex) {
-//
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        return audioBytes;
-//    }
+    public static void convertWavToPcm(File wavFile, File pcmFile, AudioFormat pcmFormat) throws IOException, UnsupportedAudioFileException {
+        try (AudioInputStream wavAudioStream = AudioSystem.getAudioInputStream(wavFile);
+             AudioInputStream pcmAudioStream = AudioSystem.getAudioInputStream(pcmFormat, wavAudioStream);
+             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+             FileOutputStream fileOutputStream = new FileOutputStream(pcmFile)) {
+
+            // Read the converted PCM audio stream and write it to the output stream
+            byte[] buffer = new byte[1024];
+            int bytesRead;
+            while ((bytesRead = pcmAudioStream.read(buffer)) != -1) {
+                byteArrayOutputStream.write(buffer, 0, bytesRead);
+            }
+
+            // Convert the byte array output stream to byte array
+            byte[] audioBytes = byteArrayOutputStream.toByteArray();
+
+            // Write the byte array to the output file
+            fileOutputStream.write(audioBytes);
+        }
+    }
+
+    //바이트 배열을 Raw 파일로 저장
+    //Save byte array as Raw file
+    public void saveRaw(File file, String targetPath) throws UnsupportedAudioFileException {
+        OutputStream output = null;
+
+        try {
+            output = new FileOutputStream(targetPath + ".pcm");
+        } catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        try {
+            //핵심 코드
+            output.write(formatWavToRaw(changeFormat(AudioToByte(file), PCM_FORMAT)));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    //Wav 파일에서 헤더 제거
+    //Strip the header from the WAV file
+    public byte[] formatWavToRaw(@NotNull final byte[] audioFileContent) {
+        log.info("formatWavToRaw");
+        return Arrays.copyOfRange(audioFileContent, 44, audioFileContent.length);
+    }
+
+    //기존의 Wav 파일(바이트 배열) 을 다른 형식의 Wav 형식 (바이트 배열) 로 변환
+    //WAV to WAV (different audio format)
+    public byte[] changeFormat(@NotNull final byte[] audioFileContent, @NotNull final AudioFormat audioFormat)
+            throws IOException, UnsupportedAudioFileException {
+        log.info("changeFormat");
+        try (final AudioInputStream originalAudioStream = AudioSystem
+                .getAudioInputStream(new ByteArrayInputStream(audioFileContent));
+             final AudioInputStream formattedAudioStream = AudioSystem.getAudioInputStream(audioFormat,
+                     originalAudioStream);
+             final AudioInputStream lengthAddedAudioStream = new AudioInputStream(formattedAudioStream, audioFormat,
+                     audioFileContent.length);
+             final ByteArrayOutputStream convertedOutputStream = new ByteArrayOutputStream()) {
+            AudioSystem.write(lengthAddedAudioStream, AudioFileFormat.Type.WAVE, convertedOutputStream);
+            return convertedOutputStream.toByteArray();
+        }
+    }
+
+    //기존의 wav 파일을 바이트 배열로 변환
+    //Convert existing wav file to byte array
+    public byte[] AudioToByte(File file) {
+        log.info("AudioToByte");
+        try {
+            File inFile = file;
+            fstream = new FileInputStream(inFile);
+
+            ByteArrayOutputStream out = new ByteArrayOutputStream();
+            BufferedInputStream in = new BufferedInputStream(fstream);
+
+            while ((read = in.read(buff)) > 0) {
+                out.write(buff, 0, read);
+            }
+            out.flush();
+            audioBytes = out.toByteArray();
+
+            // Do something with the stream
+        } catch (FileNotFoundException ex) {
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return audioBytes;
+    }
 
 }

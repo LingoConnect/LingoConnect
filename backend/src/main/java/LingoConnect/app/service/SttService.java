@@ -46,6 +46,7 @@ public class SttService {
         Map<String, String> argument = new HashMap<>();
 
         String completeFilePath = audioFilePath + fileName;
+        log.info(completeFilePath);
         try {
             Path path = Paths.get(completeFilePath);
             byte[] audioBytes = Files.readAllBytes(path);
@@ -69,6 +70,9 @@ public class SttService {
             con.setDoOutput(true);
             con.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
             con.setRequestProperty("Authorization", accessKey);
+
+            con.setConnectTimeout(10000); // 10 seconds
+            con.setReadTimeout(10000);    // 10 seconds
 
             DataOutputStream wr = new DataOutputStream(con.getOutputStream());
             wr.write(gson.toJson(request).getBytes("UTF-8"));
