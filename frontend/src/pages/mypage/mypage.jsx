@@ -2,11 +2,17 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../../styles/mypage.css';
 import Top from '../../components/top';
+import Portal from '../../components/Portal';
 import { getTopic } from '../../api/learning_content_api';
+import { AiOutlinePicture } from 'react-icons/ai';
 
 export default function MyPage() {
-  const navigate = useNavigate();
   const [topics, setTopics] = useState([]);
+  const [picture, setPicture] = useState(false);
+
+  const handlePictureClick = () => {
+    setPicture(!picture);
+  };
 
   useEffect(() => {
     const fetchTopics = async () => {
@@ -22,24 +28,18 @@ export default function MyPage() {
   return (
     <div className="mypage-container">
       <div className="mypage-navbar">
-        <div className="mypage-top">
-          <Top />
-          <div className="mypage-top-link">
-            <img
-              src={process.env.PUBLIC_URL + '/img/arrow.png'}
-              onClick={() => navigate('/main')}
-              alt="뒤로가기 버튼"
-            />
-            <h4>마이페이지</h4>
-          </div>
-        </div>
+        <Top />
         <div className="mypage-profile-box">
           <div className="mypage-profile-top">
             <img src={process.env.PUBLIC_URL + '/img/deco.png'} alt="" />
             <p>초보</p>
           </div>
           <div className="mypage-profile-img">
-            <img src={process.env.PUBLIC_URL + '/img/이루매.jpeg'} alt="프로필" />
+            <img
+              onClick={() => handlePictureClick()}
+              src={process.env.PUBLIC_URL + '/img/이루매.jpeg'}
+              alt="프로필"
+            />
           </div>
           <div className="mypage-profile-name">
             <h4>링구</h4>
@@ -68,6 +68,26 @@ export default function MyPage() {
           />
         </div>
       </div>
+
+      {picture && (
+        <Portal>
+          <div className="mypage-picture-setting">
+            <h4 className="mypage-picture-setting-title">
+              {' '}
+              <AiOutlinePicture size={33} />
+              프로필 사진 설정
+            </h4>
+            <div className="mypage-picture-setting-list">
+              <h4>사진 찍기</h4>
+              <h4>앨범에서 사진 선택</h4>
+              <h4 style={{ marginBottom: '0' }}>기본 이미지 적용</h4>
+            </div>
+            <div className="mypage-picture-setting-close">
+              <p onClick={() => setPicture()}>닫기</p>
+            </div>
+          </div>
+        </Portal>
+      )}
     </div>
   );
 }
