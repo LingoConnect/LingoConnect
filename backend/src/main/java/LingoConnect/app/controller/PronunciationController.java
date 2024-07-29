@@ -108,6 +108,7 @@ public class PronunciationController {
             // Convert wav to pcm
             convertWavToPcm(wavFile, pcmFile);
 
+            log.info("pcm 파일로 전환 완료");
             String evaluated = pronunciationEvalService.evaluate(wavFile.getName());
             String text = sttService.speechToText(wavFile.getName());
 

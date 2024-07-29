@@ -71,6 +71,10 @@ public class PronunciationEvalService {
             con.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
             con.setRequestProperty("Authorization", accessKey);
 
+            // Set connection and read timeouts
+            con.setConnectTimeout(10000); // 10 seconds
+            con.setReadTimeout(10000);    // 10 seconds
+
             DataOutputStream wr = new DataOutputStream(con.getOutputStream());
             wr.write(gson.toJson(request).getBytes("UTF-8"));
             wr.flush();
@@ -90,7 +94,12 @@ public class PronunciationEvalService {
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {
-            e.printStackTrace();
+            if (e instanceof java.net.SocketTimeoutException) {
+                log.error("etri 응답 없음");
+                return "2.5";
+            } else {
+                e.printStackTrace();
+            }
         }
         return responBody;
     }
