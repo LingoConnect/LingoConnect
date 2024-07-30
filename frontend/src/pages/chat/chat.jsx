@@ -3,14 +3,29 @@ import { useNavigate } from 'react-router-dom';
 import '../../styles/chat.css';
 import { AiOutlineQuestionCircle } from 'react-icons/ai';
 import { getTopic } from '../../api/learning_content_api';
+import Portal from '../../components/Portal';
+import { MdOutlineSubdirectoryArrowRight } from "react-icons/md";
+import { FaArrowsAltV } from "react-icons/fa";
+import { GiClick } from "react-icons/gi";
 
 export default function Chat() {
   const navigate = useNavigate();
   const [topics, setTopics] = useState([]);
   const [profile, setProfile] = useState(true);
+  const [isTutorial, setIsTutorial] = useState(false);
+  const [count, setCount] = useState(4);
 
   const handleTopicClick = (topic) => {
     navigate('/study/chat/question', { state: { topic } });
+  };
+
+  const handleTutorialClick = () => {
+    setIsTutorial(!isTutorial);
+    setCount(4);
+  }
+  
+  const handleCountClick = () => {
+    setCount(prevCount => prevCount - 1); 
   };
 
   useEffect(() => {
@@ -58,7 +73,9 @@ export default function Chat() {
       </div>
 
       <div className="main-tutorial-button">
-        <p>
+        <p 
+          onClick={()=>handleTutorialClick()}
+          style={{ color: isTutorial ? 'white' : '#000AFF' }}>
           <AiOutlineQuestionCircle size={20} /> 앱 사용법 보기
         </p>
       </div>
@@ -87,6 +104,89 @@ export default function Chat() {
           );
         })}
       </div>
+      
+      {isTutorial && count > 0 &&
+        <Portal>
+          <div className="main-tutorial">
+
+            {/* 첫번째 튜토리얼 */}
+            {count === 4 && (
+              <div className="main-page">
+                <div 
+                  className="background"
+                  onClick={()=>handleCountClick()}
+                >
+                  <div className="main-RowBox mainBox1">
+                    <div className="Icon mainIcon1" />
+                    <p>
+                      <MdOutlineSubdirectoryArrowRight size={35}/>
+                      나의 정보를 볼 수 있는 화면이에요!
+                    </p>
+                  </div>
+                </div>
+              </div>  
+            )}
+
+            {/* 두번째 튜토리얼 */}
+            {count === 3 && (
+              <div className="main-page">
+                <div 
+                  className="background"
+                  onClick={()=>handleCountClick()}
+                >
+                  <div className="main-RowBox mainBox2">
+                    <p>
+                      학습 주제를 고를 수 있는 화면이에요!
+                    </p>
+                    <div className="Icon mainIcon2" />
+                  </div>    
+                </div>
+              </div>
+            )}
+
+            {/* 세번째 튜토리얼 */}
+            {count === 2 && (
+              <div className="main-page">
+                <div 
+                  className="background3"
+                  onClick={()=>handleCountClick()}  
+                >
+                  <div className="main-RowBox mainBox3">
+                    <p>
+                      <FaArrowsAltV size={35} />
+                      화면을 위아래로 움직여보세요!
+                    </p>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* 네번째 튜토리얼 */}
+            {count === 1 && (
+              <div className="main-page">
+                <div 
+                  className="background"
+                  onClick={()=> {
+                    handleCountClick();
+                    setIsTutorial(false);                    
+                  }}
+                >
+                  <div className="main-RowBox mainBox4">
+                    <p>
+                      '일상'을 눌러볼까요?
+                    </p>
+                    <div className="Icon mainIcon4">
+                      <GiClick size={45} color='black'/>  
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+        </Portal>
+      }
+
+      
     </div>
   );
 }

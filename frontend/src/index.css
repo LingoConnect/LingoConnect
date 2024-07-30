@@ -26,13 +26,18 @@ html {
   }
 }
 
-#root,
-#portal-root {
+#root {
   width: 100%;
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+#portal-root {
+  display: flex;
+  justify-content: center;
+  align-items: center;  
 }
 
 * {
