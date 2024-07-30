@@ -188,13 +188,13 @@ const PracticeContent = forwardRef((_, ref) => {
       setOnRec(false);
     }
 
+    let questionClass = 'sub';
+    if (currentQuestionIndex === 0) {
+      questionClass = 'main';
+    }
     const currentQuestion = Questions[currentQuestionIndex];
-    const gptTitle = '주제: ' + topic + '\n';
-    const gptQuestion = '친구: ' + currentQuestion + '\n';
-    const gptUserAnswer = '사용자: ' + answerInput;
-    console.log(gptTitle, gptQuestion, gptUserAnswer);
 
-    const response = await getFeedback({ gptTitle, gptQuestion, gptUserAnswer });
+    const response = await getFeedback({ topic, currentQuestion, answerInput, questionClass });
     if (response.status === 200) {
       console.log(response.data);
       setFeedbacks([...feedbacks, { feedback: response.data, score: score }]);
