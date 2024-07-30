@@ -35,6 +35,11 @@ html {
   align-items: center;
 }
 
+* {
+  word-break: keep-all;
+  line-height: 1.3;
+}
+
 div,
 nav,
 input,
