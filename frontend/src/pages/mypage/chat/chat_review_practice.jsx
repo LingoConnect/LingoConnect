@@ -8,19 +8,20 @@ import { getMyFeedback } from '../../../api/mypage_api';
 export default function ReviewResult() {
   const location = useLocation();
   const navigate = useNavigate();
-  const [index, setIndex] = useState(1);
-  const { topic, id, question } = location.state || {};
+  // const [index, setIndex] = useState(1);
+  const { topic, question } = location.state || {};
   const [myFeedback, setMyFeedback] = useState([]);
 
   useEffect(() => {
     const fetchMyFeedback = async () => {
-      const response = await getMyFeedback({ topic, id });
+      const response = await getMyFeedback({ topic });
       if (response.status === 200) {
+        console.log(response.data);
         setMyFeedback(response.data);
       }
     };
     fetchMyFeedback();
-  }, [topic, id]);
+  }, [topic]);
 
   return (
     <div className="feedbackresult-container">
@@ -33,7 +34,7 @@ export default function ReviewResult() {
         <h4>Q. {question}?</h4>
       </div>
 
-      <div className="feedbackresult-index">
+      {/* <div className="feedbackresult-index">
         <div className="feedbackresult-index-left">
           {index > 1 && (
             <h4
@@ -75,15 +76,17 @@ export default function ReviewResult() {
             </h4>
           )}
         </div>
-      </div>
+      </div> */}
 
       <div className="feedbackresult-box">
-        {myFeedback.map((element, index) => {
+        {myFeedback.map((element) => {
+          const questionWithoutPrefix = element.question.replace(/^질문:\s*/, '');
+          const userAnswerWithoutPrefix = element.userAnswer.replace(/^지적장애인:\s*/, '');
           return (
             <>
-              <AIChat question={element.question} />
-              <UserChat index={index} answers={element.answer} />
-              <AIFeedback index={index} feedback={element.feedback} />
+              <AIChat question={questionWithoutPrefix} />
+              <UserChat index={0} answers={[userAnswerWithoutPrefix]} />
+              <AIFeedback index={0} feedbacks={[{ feedback: element.feedback }]} />
             </>
           );
         })}

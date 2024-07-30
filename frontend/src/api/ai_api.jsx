@@ -2,18 +2,22 @@ import axios from 'axios';
 
 const BASE_URL = 'http://localhost:8080';
 
-export const getFeedback = async ({ gptTitle, gptQuestion, gptUserAnswer }) => {
+export const getFeedback = async ({ topic, currentQuestion, answerInput, questionClass }) => {
   try {
-    console.log(gptTitle, gptQuestion, gptUserAnswer);
-    const encodedTitle = encodeURIComponent(gptTitle);
-    const encodedQuestion = encodeURIComponent(gptQuestion);
-    const encodedUserAnswer = encodeURIComponent(gptUserAnswer);
+    const encodedTitle = encodeURIComponent(topic);
+    const encodedQuestion = encodeURIComponent(currentQuestion);
+    const encodedUserAnswer = encodeURIComponent(answerInput);
+    const encodedQuestionClass = encodeURIComponent(questionClass);
+
+    console.log(topic, currentQuestion, answerInput, questionClass);
+
     const response = await axios.get(
-      `${BASE_URL}/openai/?title=${encodedTitle}&question=${encodedQuestion}&userAnswer=${encodedUserAnswer}`,
+      `${BASE_URL}/openai/?title=${encodedTitle}&question=${encodedQuestion}&userAnswer=${encodedUserAnswer}&questionClass=${encodedQuestionClass}`,
       {
-        gptTitle,
-        gptQuestion,
-        gptUserAnswer,
+        title: topic,
+        question: currentQuestion,
+        userAnswer: answerInput,
+        questionClass: questionClass,
       },
       {
         headers: {

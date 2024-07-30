@@ -1,120 +1,121 @@
 .login-container {
-    width: 100%;
-    height: 100%;
-    overflow-x: hidden;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    position: relative;
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  background-color: #fffdf3;
 }
 
 .login-top {
-    position: absolute;
-    width: 100%;
+  position: absolute;
+  width: 100%;
 }
 
 .login-login {
-    width: 100%;
-    height: 100vh;
-    margin: 0 auto 0 auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+  width: 100%;
+  height: 100vh;
+  margin: 0 auto 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 
-    @media (max-height: 870px) {
-        margin-top: 240px;    
-        justify-content: flex-start;    
-    }
+  @media (max-height: 870px) {
+    margin-top: 240px;
+    justify-content: flex-start;
+  }
 }
 
 .login-back {
-    cursor: pointer;
-    width: fit-content;
-    position: absolute;
-    top: 190px;
-    left: 10%;
+  cursor: pointer;
+  width: fit-content;
+  position: absolute;
+  top: 190px;
+  left: 10%;
 }
 
 .login-back img {
-    width: 30px;
-    object-fit: cover;
+  width: 30px;
+  object-fit: cover;
 }
 
 .login-submit {
-    width: 100%;
-    height: fit-content;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .login-submit h2 {
-    width: 65%;
-    max-width: 400px;
-    font-family: "Gugi";
-    font-size: 2.8rem;
-    margin: 20px;
+  width: 65%;
+  max-width: 400px;
+  font-family: 'Gugi';
+  font-size: 2.8rem;
+  margin: 20px;
 
-    @media (max-width: 700px) {
-        width: 75%;
-    }
+  @media (max-width: 700px) {
+    width: 75%;
+  }
 }
 
 .login-submit input {
-    background-color: #FFF3B3;
-    border: none;
-    border-radius: 50px;
-    width: 65%;
-    max-width: 400px;
-    height: 25%;
-    margin: 5px;
-    padding: 1.1rem 20px;
-    font-family: "Jua";
-    font-size: 1.1rem;
+  background-color: #fff3b3;
+  border: none;
+  border-radius: 50px;
+  width: 65%;
+  max-width: 400px;
+  height: 25%;
+  margin: 5px;
+  padding: 1.1rem 20px;
+  font-family: 'Jua';
+  font-size: 1.1rem;
 
-    @media (max-width: 700px) {
-        width: 75%;
-    }
+  @media (max-width: 700px) {
+    width: 75%;
+  }
 }
 
 .login-submit input::placeholder {
-    color: #746745;
+  color: #746745;
 }
 
 .login-submit button {
-    background-color: #FFE660;
-    border: none;
-    border-radius: 50px;
-    width: 65%;
-    max-width: 400px;
-    padding: 1.1rem 0;
-    margin: 20px;
-    font-size: 1.1rem;
-    font-family: "Gugi";
+  background-color: #ffe660;
+  border: none;
+  border-radius: 50px;
+  width: 65%;
+  max-width: 400px;
+  padding: 1.1rem 0;
+  margin: 20px;
+  font-size: 1.1rem;
+  font-family: 'Gugi';
 
-    @media (max-width: 700px) {
-        width: 75%;
-    }
+  @media (max-width: 700px) {
+    width: 75%;
+  }
 }
 
 .login-submit-icon {
-    width: 65%;
-    max-width: 300px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly; 
+  width: 65%;
+  max-width: 300px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
 }
 
 .login-submit-icon button {
-    background-color: transparent;
-    border: none;
-    width: fit-content;
-    margin: 5px 0;
+  background-color: transparent;
+  border: none;
+  width: fit-content;
+  margin: 5px 0;
 }
 
 .login-submit-icon img {
-    width: 40px;
-    object-fit: cover;
+  width: 40px;
+  object-fit: cover;
 }
 /*
 
@@ -135,41 +136,41 @@
 } */
 
 .guest-modal {
-    width: 70%;
-    max-width: 500px;
-    height: auto;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: white;
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    font-family: "Jua";
-    box-shadow: 0 0 5px lightgrey;
-    border-radius: 20px;
-    font-size: 1.2rem;
-    line-height: 1.5;
+  width: 70%;
+  max-width: 500px;
+  height: auto;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  font-family: 'Jua';
+  box-shadow: 0 0 5px lightgrey;
+  border-radius: 20px;
+  font-size: 1.2rem;
+  line-height: 1.5;
 }
 
 .guest-modal div {
-    width: 80%;
-    height: 30px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20px;
+  width: 80%;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
 }
 
 .guest-modal button {
-    margin: 10px;
-    background-color: #FFE660;
-    border: none;
-    font-family: "Jua";
-    padding: 5px 10px;
-    border-radius: 10px;
-    font-size: 1.1rem;
+  margin: 10px;
+  background-color: #ffe660;
+  border: none;
+  font-family: 'Jua';
+  padding: 5px 10px;
+  border-radius: 10px;
+  font-size: 1.1rem;
 }

@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  backend:
+  backend-build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -17,14 +17,74 @@ jobs:
         with:
           java-version: "21"
           distribution: "temurin"
-          
-      - name: make application-prod.yml
+
+      - name: Cache Gradle packages
+        uses: actions/cache@v2
+        with:
+          path: ~/.gradle/caches
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
+      - name: Cache Gradle wrapper
+        uses: actions/cache@v2
+        with:
+          path: ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-wrapper-${{ hashFiles('**/gradle/wrapper/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-wrapper-
+
+      - name: Make application-prod.yml
         if: contains(github.ref, 'main')
         run: |
           cd ./backend/src/main/resources
           touch ./application-prod.yml
           echo "${{ secrets.YML_PROD }}" > ./application-prod.yml
         shell: bash
+
+      - name: Build the project
+        working-directory: backend
+        run: ./gradlew build --no-daemon
+
+  backend-test:
+    runs-on: ubuntu-latest
+    needs: backend-build
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          java-version: "21"
+          distribution: "temurin"
+
+      - name: Cache Gradle packages
+        uses: actions/cache@v2
+        with:
+          path: ~/.gradle/caches
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
+      - name: Cache Gradle wrapper
+        uses: actions/cache@v2
+        with:
+          path: ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-wrapper-${{ hashFiles('**/gradle/wrapper/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-wrapper-
+
+      - name: Run Tests
+        working-directory: backend
+        run: ./gradlew test --no-daemon
+
+  backend-deploy:
+    runs-on: ubuntu-latest
+    needs: backend-test
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
@@ -33,11 +93,6 @@ jobs:
         working-directory: backend
         run: |
           docker-compose up --build -d
-
-      - name: Run Tests
-        working-directory: backend
-        run: |
-          docker-compose exec -T api ./gradlew clean test
 
       - name: Tear down Docker Compose
         working-directory: backend
@@ -75,10 +130,10 @@ jobs:
         working-directory: frontend
         run: npm run build
 
-      # Uncomment the following lines when you're ready to deploy the frontend
-      # - name: Deploy Frontend
-      #   if: success()
-      #   run: |
-      #     # Deploy frontend to AWS S3 and invalidate CloudFront
-      #     aws s3 sync LingoConnect_frontend/build s3://your-frontend-bucket/
-      #     aws cloudfront create-invalidation --distribution-id YOUR_DISTRIBUTION_ID --paths "/*"
+      - name: Deploy to GitHub Pages
+        if: success()
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.LINGOCONNECT_TOKEN }}
+          publish_dir: ./frontend/build
+          cname: "lingo-connect.com"

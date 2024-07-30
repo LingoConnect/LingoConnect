@@ -1,276 +1,338 @@
-* {
-    word-break: keep-all;
-}
-
 .main-container {
-    width: 100%;
-    height: 100%;
-    position: relative;
-    background-color: white;
-    overflow-y: auto;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  background-color: white;
+  overflow-y: auto;
 }
 
 .main-navbar {
-    background-color: #FFE660;
-    display: flex;
-    flex-direction: column;
-    justify-content: start;
-    align-items: center;
-    padding: 1vh;
-    border-radius: 0 0 20px 20px;
-    position: sticky;
-    top: 0;
-    z-index: 10;
+  background-color: #ffe660;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  border-radius: 0 0 20px 20px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
 }
 
 .main-profile-box {
-    width: 90%;
-    height: auto;
-    border-radius: 20px;
-    background-color: rgb(255, 249, 215);
-    padding: 0 10px;
-    margin: 1vh auto 1vh auto;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+  width: 90%;
+  height: auto;
+  border-radius: 20px;
+  background-color: rgb(255, 249, 215);
+  padding: 0 10px;
+  margin: 1vh auto;
+  display: flex;
+  justify-content: space-between;
 }
 
 .main-profile-pic {
-    width: 30%;
-    aspect-ratio: 1/1;
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    margin: 1.2rem 5% 1.2rem 1%;
+  width: 30%;
+  aspect-ratio: 1/1;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
 
-    @media (max-width: 700px) {
-        width: 40%;
-    }
-    @media (max-width: 600px) {
-        width: 50%;
-    }
+  @media (max-width: 700px) {
+    width: 40%;
+  }
+  @media (max-width: 600px) {
+    width: 50%;
+  }
 }
 
 .main-profile-icon {
-    width: 25%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin: 0;
-    z-index: 1;
+  width: 25%;
+  height: 90%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin: 0;
+  z-index: 1;
 }
 
 .main-profile-icon img {
-    width: 100%;
+  width: 100%;
 }
 
 .main-profile-icon p {
-    color:rgb(255, 238, 148);
-    font-size: 1rem;
-    width: fit-content;
+  color: rgb(255, 238, 148);
+  font-size: 1rem;
+  width: fit-content;
 }
 
 .main-profile-img {
-    width: 75%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0;
+  width: 75%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 20px;
 }
 
 .main-profile-img img {
-    border: 3px solid rgb(251, 197, 93);
-    border-radius: 100%;
-    object-fit: cover;
-    width: 100%;
-    aspect-ratio: 1/1;
+  border: 3px solid rgb(251, 197, 93);
+  border-radius: 100%;
+  object-fit: cover;
+  width: 100%;
+  aspect-ratio: 1/1;
 }
 
 .main-profile-dc {
-    width: 90%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
-
 .main-profile-dc p {
-    width: fit-content;
-    background-color: rgb(80, 17, 215);
-    color: white;
-    border-radius: 3px;
-    font-size: 0.8rem;
-    padding: 0.3rem 1.2rem;
+  width: fit-content;
+  background-color: rgb(80, 17, 215);
+  color: white;
+  border-radius: 3px;
+  font-size: 0.8rem;
+  padding: 0.3rem 1.2rem;
 }
 
 .main-profile-dc h4 {
-    font-family: "Jua";
-    font-weight: 400;
-    font-size: 1.6rem;
-    color: #746745;
-    margin: 1rem 0;
+  font-family: 'Jua';
+  font-weight: 400;
+  font-size: 1.6rem;
+  color: #746745;
+  margin: 1rem 0;
 
-    @media (max-height: 700px) {
-        margin: 1vh 0;
-    }
+  @media (max-height: 700px) {
+    margin: 1vh 0;
+  }
 }
 
 .main-profile-dc h6 {
-    font-size: 0.8rem;
+  font-size: 0.8rem;
 }
 
 .main-profile-link {
-    width: fit-content;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    margin: 0.8rem;
-    font-size: 0.8rem;
+  width: fit-content;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0.8rem;
+  font-size: 0.8rem;
 }
 
 .main-profile-link h4 {
-    cursor: pointer;
-    padding: 0.3rem 1rem;
-    background-color: white;
-    border: 1.5px solid black;
-    border-radius: 3px;
-    transition: background-color 0.3s ease;
+  cursor: pointer;
+  padding: 0.3rem 1rem;
+  background-color: white;
+  border: 1.5px solid black;
+  border-radius: 3px;
+  transition: background-color 0.3s ease;
 }
 
 .main-profile-link h4:hover {
-    background-color: #FFE660;
+  background-color: #ffe660;
 }
 
 .main-profile-link_fold {
-    cursor: pointer;
-    color: #746745;
-    border-bottom: 1px solid #746745;
+  width: 35px;
+  height: 15px;
+  cursor: pointer;
+  background-color: #ffe660;
+  position: absolute;
+  bottom: -15px;
+  left: 50%;
+  z-index: 500;
+  transform: translate(-50%, 0);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  border-radius: 0 0 12px 12px;
+  clip-path: polygon(0 0, 100% 0, 90% 100%, 10% 100%);
 }
 
-.main-profile-foldbox {
-    width: 90%;
-    height: auto;
-    border-radius: 20px;
-    background-color: transparent;
-    /* background-color: rgb(255, 249, 215); */
-    padding: 0 10px;
-    /* margin: 3vh auto 1vh auto; */
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-}
-
-.main-profile-foldbox p {
-    margin: 0.8rem;
-    font-size: 0.8rem;
-    width: fit-content;
-    cursor: pointer;
-    color: #746745;
-    border-bottom: 1px solid #746745;
+.main-profile-link_fold p {
+  transform: rotate(90deg);
+  font-weight: 900;
+  font-family: 'Jua';
 }
 
 .main-tutorial-button {
-    max-width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-    margin: 3vh 5% 1vh 5%;
+  max-width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  margin: 3vh 5% 1vh 5%;
 }
 
 .main-tutorial-button p {
-    cursor: pointer;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 5px;
-    padding: 0 2px;
-    font-family: "GmarketSansMedium";
-    font-size: 1rem;
-    color: #000AFF;
-    transition: color 0.3s ease;
-    
-    &:hover{
-        color: #8588e6;
-    }
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 5px;
+  padding: 0 2px;
+  font-family: 'GmarketSansMedium';
+  font-size: 1rem;
 }
 
 .main-topic {
-    height: fit-content;
-    background-color: rgb(255, 253, 243);
-    border: 2px solid rgb(255, 247, 207);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin: 0 5% 10vh 5%;
-
-    /* font-size: 100vw; */
+  height: fit-content;
+  background-color: rgb(255, 253, 243);
+  border: 2px solid rgb(255, 247, 207);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0 5% 10vh 5%;
 }
 
 .main-topic-title {
-    width: 100%;
-    padding: 2vh 2.5% 2vh 2.5%;
+  width: 100%;
+  padding: 2vh 2.5% 2vh 2.5%;
 
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
 
 .main-topic-title img {
-    width: 5.5rem;
-    margin-right: 6%;
+  width: 5.5rem;
+  margin-right: 6%;
 }
 
 .main-topic-title h4 {
-    font-size: 2rem;
-    font-weight: 600;
-    color: rgb(116, 103, 69);
-
-    position: relative;
-    top: 1rem;
+  font-size: 1.7rem;
+  font-weight: 600;
+  color: rgb(116, 103, 69);
+  position: relative;
+  top: 1rem;
 }
 
 .main-topic-box {
-    width: 90%;
-    text-align: center;
-    margin: 2vh 5% 2vh 5%;
-    cursor: pointer;
+  width: 90%;
+  text-align: center;
+  margin: 2vh 5% 2vh 5%;
+  cursor: pointer;
 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    border: 9px solid rgb(255, 238, 148);
-    border-radius: 10px;
-    position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 9px solid rgb(255, 238, 148);
+  border-radius: 10px;
+  position: relative;
 }
 
 .main-topic-box-img {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 0;
-    object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  object-fit: cover;
 }
 
 .main-topic-box h4 {
-    position: relative;
-    z-index: 1;
-    font-size: 3.5rem;
-    color: white;
-    text-shadow: 4px 4px 4.9px rgba(0, 0, 0, 0.5);
-    background-color: rgba(255, 255, 255, 0.25);
-    padding: 10% 0;
-    width: 100%;
-    text-align: center;
-    transition: background-color 0.5s ease;
+  position: relative;
+  z-index: 1;
+  font-size: 3rem;
+  color: white;
+  text-shadow: 4px 4px 4.9px rgba(0, 0, 0, 0.5);
+  background-color: rgba(255, 255, 255, 0.25);
+  padding: 10% 0;
+  width: 100%;
+  text-align: center;
+  transition: background-color 0.5s ease;
 }
 
 .main-topic-box h4:hover {
-    background-color: transparent;    
+  background-color: transparent;
+}
+
+.background {
+  cursor: pointer;
+  box-sizing: border-box;
+  mix-blend-mode: hard-light;
+  background-color: rgba(0, 0, 0, 0.7);
+  width: 100%;
+  max-width: 800px;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  z-index: 6000;
+}
+
+.main-RowBox {
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: rgb(128, 128, 128);
+  font-size: 2rem;
+  position: relative;
+}
+
+.Icon {
+  background-color: rgb(128, 128, 128);
+  width: 100%;
+}
+
+.mainBox1 {
+  margin: 0 5%;
+  top: 8%;
+}
+
+.mainIcon1 {
+  height: 21vh;
+  border-radius: 20px;
+}
+
+.mainBox2 {
+  margin: 0 3%;
+  top: 31%;
+}
+
+.mainIcon2 {
+  margin-top: 2%;
+  height: 80vh;
+  overflow-y: hidden;
+}
+
+.background3 {
+  cursor: pointer;
+  box-sizing: border-box;
+  mix-blend-mode: hard-light;
+  background-color: rgba(0, 0, 0, 0.7);
+  width: 100%;
+  max-width: 800px;
+  height: 33%;
+  position: fixed;
+  top: 0;
+  z-index: 6000;
+  
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding-bottom: 2%;
+}
+
+.mainBox4 {
+  margin: 0 5%;
+  top: 50%;
+}
+
+.mainIcon4 {
+  height: 20vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+  padding: 0 2%;
 }
