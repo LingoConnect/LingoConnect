@@ -1,6 +1,7 @@
 package LingoConnect.app.service;
 
 import LingoConnect.app.dto.SecondQuestionDTO;
+import LingoConnect.app.dto.TopQuestionDTO;
 import LingoConnect.app.entity.SecondQuestion;
 import LingoConnect.app.entity.TopQuestion;
 import LingoConnect.app.repository.SecondQuestionRepository;
@@ -75,6 +76,13 @@ public class SecondQuestionService {
                 .topQuestion(topQuestion)
                 .imageName(secondQuestionDTO.getImageName())
                 .build();
+    }
+
+    public SecondQuestionDTO findByQuestion(String question) {
+        SecondQuestion secondQuestion = secondQuestionRepository.findByQuestion(question)
+                .orElseThrow(() -> new IllegalArgumentException("No SecondQuestion found with second question"));
+
+        return toDto(secondQuestion);
     }
 
     public ArrayList<SecondQuestionDTO> findByTopQuestionId(Long topQuestionId){

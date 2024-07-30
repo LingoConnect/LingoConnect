@@ -1,19 +1,16 @@
 package LingoConnect.app.controller;
 
-import LingoConnect.app.response.SuccessResponse;
+import LingoConnect.app.dto.response.SuccessResponse;
 import LingoConnect.app.service.PronunciationEvalService;
 import LingoConnect.app.service.SttService;
-import LingoConnect.app.utils.AudioFileUtils;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import io.swagger.v3.core.util.Json;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.transaction.Transactional;
 import jakarta.validation.constraints.NotNull;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -25,14 +22,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.sound.sampled.*;
 import java.io.*;
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.Arrays;
-import java.util.List;
 
 @RestController
 @Slf4j
