@@ -2,17 +2,13 @@ import axios from 'axios';
 
 const BASE_URL = 'http://localhost:8080';
 
-export const getMyFeedback = async ({ topic, id }) => {
+export const getMyFeedback = async ({ topic }) => {
   try {
-    const encodedTopic = encodeURIComponent(topic);
-    const response = await axios.get(
-      `${BASE_URL}/question/sub?topic=${encodedTopic}&mainQuestionId=${id}`,
-      {
-        headers: {
-          Accept: 'application/json',
-        },
-      }
-    );
+    const response = await axios.post(`${BASE_URL}/feedback/?mainQuestionId=${topic}`, {
+      headers: {
+        Accept: 'application/json',
+      },
+    });
     return { status: response.status, data: response.data };
   } catch (error) {
     if (axios.isAxiosError(error) && error.reposne) {
@@ -26,17 +22,13 @@ export const getMyFeedback = async ({ topic, id }) => {
   }
 };
 
-export const getMyPattern = async ({ topic }) => {
+export const getMyPattern = async () => {
   try {
-    const encodedTopic = encodeURIComponent(topic);
-    const response = await axios.get(
-      `${BASE_URL}/question/sub?topic=${encodedTopic}&mainQuestionId`,
-      {
-        headers: {
-          Accept: 'application/json',
-        },
-      }
-    );
+    const response = await axios.get(`${BASE_URL}/openai/analysis`, {
+      headers: {
+        Accept: 'application/json',
+      },
+    });
     return { status: response.status, data: response.data };
   } catch (error) {
     if (axios.isAxiosError(error) && error.reposne) {
