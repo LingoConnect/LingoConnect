@@ -12,4 +12,6 @@ import java.util.Optional;
 @Repository
 public interface SecondQuestionRepository extends JpaRepository<SecondQuestion, Long> {
     ArrayList<SecondQuestion> findAllByTopQuestion(TopQuestion topQuestion);
+
+    Optional<SecondQuestion> findByQuestion(String question);
 }

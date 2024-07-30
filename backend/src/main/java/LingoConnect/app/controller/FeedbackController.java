@@ -1,8 +1,8 @@
 package LingoConnect.app.controller;
 
-import LingoConnect.app.response.SuccessResponse;
-import LingoConnect.app.utils.AudioFileUtils;
-import com.google.gson.JsonObject;
+import LingoConnect.app.dto.FeedbackDTO;
+import LingoConnect.app.dto.response.SuccessResponse;
+import LingoConnect.app.service.FeedbackService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -10,13 +10,12 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -24,10 +23,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/feedback")
 @RequiredArgsConstructor
 public class FeedbackController {
+
+    private final FeedbackService feedbackService;
+
     @PostMapping("/")
     @Transactional
     @Operation(
-            summary = "피드백을 통해 사용자의 패턴 분석",
+            summary = "질문, 사용자의 답변, 피드백을 모두 조회",
             responses = {
                     @ApiResponse(
                             responseCode = "200",
@@ -55,7 +57,11 @@ public class FeedbackController {
                     )
             }
     )
-    public ResponseEntity<?> getPattern() {
+    public ResponseEntity<?> getHistory(@RequestParam(name = "mainQuestionId") String mainQuestionId) {
+        FeedbackDTO feedbackDTO = feedbackService.findById(Long.valueOf(mainQuestionId));
+
+
+
         return ResponseEntity.ok().body("test");
     }
 }

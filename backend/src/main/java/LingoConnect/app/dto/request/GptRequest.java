@@ -1,4 +1,4 @@
-package LingoConnect.app.request;
+package LingoConnect.app.dto.request;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
@@ -17,7 +17,7 @@ public class GptRequest {
             description = "title",
             type = "String",
             requiredMode = Schema.RequiredMode.REQUIRED,
-            example = "주제: 일상 대화 연습\n")
+            example = "주제: 운동\n")
     private String title;
 
     @NotBlank(message = "{not_blank}")
@@ -37,4 +37,13 @@ public class GptRequest {
             requiredMode = Schema.RequiredMode.REQUIRED,
             example = "지적장애인: 나는 미술 수업을 정말 좋아해!")
     private String userAnswer;
+
+    @NotBlank(message = "{not_blank}")
+    @Schema(
+            name = "questionClass",
+            description = "main or sub question",
+            type = "String",
+            requiredMode = Schema.RequiredMode.REQUIRED,
+            example = "main")
+    private String questionClass;
 }

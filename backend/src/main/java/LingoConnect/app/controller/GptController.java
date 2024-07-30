@@ -1,22 +1,21 @@
 package LingoConnect.app.controller;
 
 import LingoConnect.app.dto.FeedbackDTO;
-import LingoConnect.app.request.GptRequest;
-import LingoConnect.app.response.SuccessResponse;
+import LingoConnect.app.dto.SecondQuestionDTO;
+import LingoConnect.app.dto.TopQuestionDTO;
+import LingoConnect.app.dto.request.GptRequest;
+import LingoConnect.app.dto.response.SuccessResponse;
 import LingoConnect.app.service.FeedbackService;
 import LingoConnect.app.service.GptService;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import LingoConnect.app.service.SecondQuestionService;
+import LingoConnect.app.service.TopQuestionService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.ErrorResponse;
@@ -34,6 +33,8 @@ public class GptController {
 
     private final GptService gptService;
     private final FeedbackService feedbackService;
+    private final TopQuestionService topQuestionService;
+    private final SecondQuestionService secondQuestionService;
 
     private int flag = 0;
 
@@ -71,6 +72,7 @@ public class GptController {
     )
     public ResponseEntity<?> getAiResponse(@ModelAttribute GptRequest gptRequest) throws InterruptedException {
         count++;
+        Long topQuestionId = null;
         if(count>5){
             return ResponseEntity.ok().body("과금 방지 제한");
         }
@@ -78,6 +80,15 @@ public class GptController {
         String topic = gptRequest.getTitle();
         String question = gptRequest.getQuestion();
         String userAnswer = gptRequest.getUserAnswer();
+        String questionClass = gptRequest.getQuestionClass();
+
+        if(questionClass.equals("main")) {
+            TopQuestionDTO byQuestion = topQuestionService.findByQuestion(question);
+            topQuestionId = byQuestion.getId();
+        } else {
+            SecondQuestionDTO byQuestion = secondQuestionService.findByQuestion(question);
+            topQuestionId = byQuestion.getTopQuestionId();
+        }
 
         String content = topic + question + userAnswer;
 
@@ -98,6 +109,7 @@ public class GptController {
                 .topic(topic)
                 .question(question)
                 .userAnswer(userAnswer)
+                .topQuestionId(topQuestionId)
                 .feedback(gptFeedback)
                 .build();
 

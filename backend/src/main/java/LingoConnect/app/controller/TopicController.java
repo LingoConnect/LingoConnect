@@ -1,6 +1,6 @@
 package LingoConnect.app.controller;
 
-import LingoConnect.app.response.SuccessResponse;
+import LingoConnect.app.dto.response.SuccessResponse;
 import LingoConnect.app.service.TopQuestionService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;

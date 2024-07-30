@@ -2,7 +2,7 @@ package LingoConnect.app.controller;
 
 import LingoConnect.app.dto.SecondQuestionDTO;
 import LingoConnect.app.dto.TopQuestionDTO;
-import LingoConnect.app.response.SuccessResponse;
+import LingoConnect.app.dto.response.SuccessResponse;
 import LingoConnect.app.service.SecondQuestionService;
 import LingoConnect.app.service.TopQuestionService;
 import com.google.gson.*;
