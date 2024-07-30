@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -56,6 +57,7 @@ public class FeedbackService {
                 .userAnswer(feedback.getUserAnswer())
                 .feedback(feedback.getFeedback())
                 .topQuestionId(feedback.getTopQuestion().getId())
+                .id(feedback.getId())
                 .build();
         return feedbackDTO;
     }
@@ -91,6 +93,20 @@ public class FeedbackService {
                 .orElseThrow(() -> new IllegalArgumentException("No feedback found with id: " + id));
 
         return toDto(feedback);
+    }
+
+    public ArrayList<FeedbackDTO> findByTopQuestionId(Long id){
+        TopQuestion topQuestion = topQuestionRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("No TopQuestion found with id: " + id));
+
+        List<Feedback> feedbacks = feedbackRepository.findByTopQuestion(topQuestion);
+        ArrayList<FeedbackDTO> dtos = new ArrayList<>();
+
+        for(Feedback feedback : feedbacks){
+            dtos.add(toDto(feedback));
+        }
+
+        return dtos;
     }
 
     @Transactional

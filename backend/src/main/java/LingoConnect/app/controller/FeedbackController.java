@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
+
 @RestController
 @Slf4j
 @RequestMapping("/feedback")
@@ -58,10 +60,8 @@ public class FeedbackController {
             }
     )
     public ResponseEntity<?> getHistory(@RequestParam(name = "mainQuestionId") String mainQuestionId) {
-        FeedbackDTO feedbackDTO = feedbackService.findById(Long.valueOf(mainQuestionId));
+        ArrayList<FeedbackDTO> feedbackDTOS = feedbackService.findByTopQuestionId(Long.valueOf(mainQuestionId));
 
-
-
-        return ResponseEntity.ok().body("test");
+        return ResponseEntity.ok().body(feedbackDTOS);
     }
 }
