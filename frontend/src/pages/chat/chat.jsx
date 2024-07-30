@@ -45,14 +45,14 @@ export default function Chat() {
             </div>
             <div className="main-profile-link">
               <h4 onClick={() => navigate('/mypage')}>MY</h4>
-              <div className="main-profile-link_fold" onClick={() => setProfile(false)}>
-                <p>접기&nbsp;▲</p>
-              </div>
+            </div>
+            <div className="main-profile-link_fold" onClick={() => setProfile(false)}>
+              <p>&#60;</p>
             </div>
           </div>
         ) : (
-          <div className="main-profile-foldbox">
-            <p onClick={() => setProfile(true)}>펼치기&nbsp;▼</p>
+          <div className="main-profile-link_fold" onClick={() => setProfile(true)}>
+            <p>&#62;</p>
           </div>
         )}
       </div>
