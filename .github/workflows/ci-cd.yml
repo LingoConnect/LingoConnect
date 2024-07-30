@@ -121,10 +121,9 @@ jobs:
         working-directory: frontend
         run: npm install
 
-      # Uncomment the following lines when you're ready to run frontend tests
-      # - name: Run Frontend Tests
-      #   working-directory: frontend
-      #   run: npm test
+      - name: Run Frontend Tests
+        working-directory: frontend
+        run: npm test
 
       - name: Build Frontend
         working-directory: frontend
