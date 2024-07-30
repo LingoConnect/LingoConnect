@@ -114,4 +114,14 @@ public class FeedbackService {
         feedbackRepository.deleteById(id);
     }
 
+    public ArrayList<FeedbackDTO> findAll() {
+        List<Feedback> all = feedbackRepository.findAll();
+        ArrayList<FeedbackDTO> dtos = new ArrayList<>();
+
+        for(Feedback feedback : all){
+            dtos.add(toDto(feedback));
+        }
+
+        return dtos;
+    }
 }

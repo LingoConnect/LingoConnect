@@ -24,6 +24,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
+
 
 @RestController
 @Slf4j
@@ -117,9 +119,75 @@ public class GptController {
         return ResponseEntity.ok().body(gptFeedback);
     }
 
+    @GetMapping("/analysis")
+    @Transactional
+    @Operation(
+            summary = "GPT에게 패턴 분석 요청",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Successful operation",
+                            content = @Content(
+                                    mediaType = "application/json",
+                                    schema = @Schema(implementation = SuccessResponse.class)
+                            )
+                    ),
+                    @ApiResponse(
+                            responseCode = "400",
+                            description = "Bad request",
+                            content = @Content(
+                                    mediaType = MediaType.APPLICATION_JSON_VALUE,
+                                    schema = @Schema(implementation = ErrorResponse.class)
+                            )
+                    ),
+                    @ApiResponse(
+                            responseCode = "401",
+                            description = "Bad credentials",
+                            content = @Content(
+                                    mediaType = MediaType.APPLICATION_JSON_VALUE,
+                                    schema = @Schema(implementation = ErrorResponse.class)
+                            )
+                    )
+            }
+    )
+    public ResponseEntity<?> getAiResponse() throws InterruptedException {
+        // ToDo 일단 파라미터 없이 구성, 나중에 user 생기면 userId를 파라미터로 받아야함
+
+        count++;
+        Long topQuestionId = null;
+
+        if(count>5){
+            return ResponseEntity.ok().body("과금 방지 제한");
+        }
+
+        ArrayList<FeedbackDTO> all = feedbackService.findAll();
+
+        ArrayList<String> request = new ArrayList<>();
+        for(FeedbackDTO feedbackDTO : all){
+            String topic = feedbackDTO.getTopic();
+            String question = feedbackDTO.getQuestion();
+            String userAnswer = feedbackDTO.getUserAnswer();
+            String feedback = "피드백: " + feedbackDTO.getFeedback();
+
+            String content = topic + question + userAnswer + feedback;
+            request.add(content);
+        }
+
+        String assistantId = "asst_iaOj1eHcmliGcrUdwWiVeZJp";
+        return ResponseEntity.ok().body(response(request, assistantId));
+    }
     private String response(String content, String assistantId) throws InterruptedException {
         String threadId = gptService.createThreadAndGetId();
         String messageId = gptService.createMessageAndGetId(threadId, content);
+        String runId = gptService.createRun(threadId, assistantId);
+        return gptService.getResponse(threadId, runId);
+    }
+
+    private String response(ArrayList<String> content, String assistantId) throws InterruptedException {
+        log.info("content: {}", String.valueOf(content));
+
+        String threadId = gptService.createThreadAndGetId();
+        String messageId = gptService.createMessageAndGetId(threadId, String.valueOf(content));
         String runId = gptService.createRun(threadId, assistantId);
         return gptService.getResponse(threadId, runId);
     }
