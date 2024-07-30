@@ -79,9 +79,9 @@ public class GptController {
             return ResponseEntity.ok().body("과금 방지 제한");
         }
 
-        String topic = gptRequest.getTitle();
+        String topic = "주제: " + gptRequest.getTitle() + "\n ";
         String question = gptRequest.getQuestion();
-        String userAnswer = gptRequest.getUserAnswer();
+        String userAnswer = "지적장애인: " + gptRequest.getUserAnswer() + "\n";
         String questionClass = gptRequest.getQuestionClass();
 
         if(questionClass.equals("main")) {
@@ -91,6 +91,8 @@ public class GptController {
             SecondQuestionDTO byQuestion = secondQuestionService.findByQuestion(question);
             topQuestionId = byQuestion.getTopQuestionId();
         }
+
+        question = "질문: " + question + "\n ";
 
         String content = topic + question + userAnswer;
 
