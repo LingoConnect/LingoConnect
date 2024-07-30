@@ -31,7 +31,8 @@ function AppContent() {
     location.pathname === '/' ||
     location.pathname === '/login' ||
     location.pathname === '/register' ||
-    location.pathname === '/study/chat/practice';
+    location.pathname === '/study/chat/practice' ||
+    location.pathname === '/tutorial/chat/practice';
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
   };

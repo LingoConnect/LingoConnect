@@ -1,14 +1,10 @@
-import { useState, useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import '../../styles/chat_pattern_practice.css';
 import { FaArrowLeftLong } from 'react-icons/fa6';
 
 export default function TutorialPatternPractice() {
   const navigate = useNavigate();
-  const location = useLocation();
-  const { topic } = location.state || {};
-  // const [index, setIndex] = useState(0);
-  const [pattern, setPattern] = useState('');
+  const pattern = '질문에 대해 단답형으로 대답하는 경향이 있습니다. 대답을 할 때 두세 문장 이상으로 대답해보는 연습을 해보아요!';
 
   return (
     <div className="PatternResult-container">
@@ -18,25 +14,20 @@ export default function TutorialPatternPractice() {
 
       <div className="PatternResult-main">
         <h4>자주 하는 실수(패턴) 분석</h4>
-        <p>{topic}</p>
+        <p>학교</p>
       </div>
 
-      {/* <div className="PatternResult-index">
-        <p>
-          {index + 1}/{patterns.length}
-        </p>
-      </div> */}
-
-      {/* <div className="PatternResult-card">
-        <ResultCard index={index} setIndex={setIndex} />
-      </div> */}
-
-      <div className="PatternResult-card">
+      <div className="PatternResult-card" style={{marginTop: '8vh'}}>
         <ResultCard pattern={pattern} />
       </div>
 
       <div className="PatternResult-img">
-        <img src={process.env.PUBLIC_URL + '/img/mummy.png'} alt="" />
+        <img 
+          src={process.env.PUBLIC_URL + '/img/mummy.png'} 
+          alt="" 
+          onClick={()=>navigate('/tutorial/mypage/chat-review')}
+          style={{cursor:'pointer'}}
+        />
       </div>
     </div>
   );
@@ -45,43 +36,10 @@ export default function TutorialPatternPractice() {
 function ResultCard({ pattern }) {
   return (
     <div className="resultcard-container">
-      {/* 왼쪽으로 넘김 */}
-      {/* <div className="resultcard-left">
-        {index !== 0 && (
-          <h4
-            onClick={(e) => {
-              if (index > 0) {
-                setIndex(index - 1);
-              }
-              e.stopPropagation();
-            }}
-          >
-            &lt;
-          </h4>
-        )}
-      </div> */}
-
-      {/* 카드 내용 */}
       <div className="resultcard-card">
         <img src={process.env.PUBLIC_URL + '/img/light.png'} alt="" />
         <h4>{pattern}</h4>
       </div>
-
-      {/* 오른쪽으로 넘김 */}
-      {/* <div className="resultcard-right">
-        {index !== test_mypage_pattern[1].length - 1 && (
-          <h4
-            onClick={(e) => {
-              if (index < 100) {
-                setIndex(index + 1);
-              }
-              e.stopPropagation();
-            }}
-          >
-            &gt;
-          </h4>
-        )}
-      </div> */}
     </div>
   );
 }
