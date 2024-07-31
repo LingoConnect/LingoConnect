@@ -37,3 +37,21 @@
 ## ⚙️ 브랜치 전략
 1. **기능 개발**: `feature/` 브랜치에서 새로운 기능을 개발합니다. `release` 브랜치에서 분기하여 작업 후, `release` 브랜치로 병합합니다.
 2. **버그 수정 및 릴리스 준비**: `release` 브랜치에서 검토 후 `main` 브랜치에 병합합니다.
+## frontend local
+### 프로젝트 가져오기
+```
+git clone https://github.com/LingoConnect/LingoConnect.git
+cd LingoConnect
+cd frontend
+```
+### forntend 디렉토리 최상단에 `.env` 파일 생성
+```
+NODE_ENV : 개발 환경을 지정합니다.
+BASE_URL : API 서버의 기본 URL을 설정합니다
+```
+### 프로젝트 실행
+```
+npm install
+npm start
+```
+
