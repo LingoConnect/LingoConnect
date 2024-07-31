@@ -18,7 +18,7 @@ public class TtsService {
     }
 
     public String makeAudio(String text, String audioName) {
-        String completeFilePath = filePath + "/" + audioName;
+        String completeFilePath = filePath + audioName;
 
         byte[] audio = openAiClient.getAudio(text);
         try (FileOutputStream fos = new FileOutputStream(completeFilePath)) {
