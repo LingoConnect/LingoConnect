@@ -168,3 +168,23 @@
     width: 15vh;
   }
 }
+
+/* 튜토리얼용 */
+
+@keyframes patternMainFlash {
+  0% {
+    background-color: white; 
+  }
+
+  50% {
+    background-color: #f4e1766c;
+  }
+
+  100% {
+    background-color: white;
+  }
+}
+
+.tutorial-main {
+  animation: patternMainFlash 1s infinite;
+}
