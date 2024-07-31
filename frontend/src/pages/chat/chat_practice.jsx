@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, forwardRef } from 'react';
+import React, { useState, useEffect, useCallback, useRef, forwardRef } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import '../../styles/chat_practice.css';
 import { getFeedback, getAudioFeedback } from '../../api/ai_api';
@@ -61,6 +61,30 @@ const ChatPracticeContent = forwardRef((_, ref) => {
     fetchSubQuestion();
   }, [topic, id, question]);
 
+  const fetchAndPlayTTS = useCallback(
+    async (index) => {
+      if (Questions.length > 0 && index < Questions.length) {
+        const text = Questions[index];
+        try {
+          const { status, data } = await getTTS({ text });
+          if (status === 200) {
+            const url = URL.createObjectURL(data);
+            setTtsUrls((prevUrls) => {
+              const newUrls = [...prevUrls];
+              newUrls[index] = url;
+              return newUrls;
+            });
+          } else {
+            console.error('Failed to fetch TTS audio:', status);
+          }
+        } catch (error) {
+          console.error('Error fetching TTS:', error);
+        }
+      }
+    },
+    [Questions]
+  );
+
   useEffect(() => {
     if (currentQuestionIndex !== Questions.length) {
       setActiveSendButton(answerInput.trim() !== '');
@@ -73,7 +97,7 @@ const ChatPracticeContent = forwardRef((_, ref) => {
 
   useEffect(() => {
     fetchAndPlayTTS(currentQuestionIndex);
-  }, [currentQuestionIndex, Questions]);
+  }, [currentQuestionIndex, fetchAndPlayTTS]);
 
   useEffect(() => {
     if (ref.current) {
@@ -312,27 +336,6 @@ const ChatPracticeContent = forwardRef((_, ref) => {
   const writeString = (view, offset, string) => {
     for (let i = 0; i < string.length; i++) {
       view.setUint8(offset + i, string.charCodeAt(i));
-    }
-  };
-
-  const fetchAndPlayTTS = async (index) => {
-    if (Questions.length > 0 && index < Questions.length) {
-      const text = Questions[index];
-      try {
-        const { status, data } = await getTTS({ text });
-        if (status === 200) {
-          const url = URL.createObjectURL(data);
-          setTtsUrls((prevUrls) => {
-            const newUrls = [...prevUrls];
-            newUrls[index] = url;
-            return newUrls;
-          });
-        } else {
-          console.error('Failed to fetch TTS audio:', status);
-        }
-      } catch (error) {
-        console.error('Error fetching TTS:', error);
-      }
     }
   };
 
