@@ -19,22 +19,19 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "cross-env NODE_ENV=development react-scripts start",
-    "build": "cross-env NODE_ENV=production react-scripts build",
-    "test": "cross-env NODE_ENV=test react-scripts test --transformIgnorePatterns \"node_modules/(?!axios)/\"",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --transformIgnorePatterns \"node_modules/(?!axios)/\"",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
-    "lint": "cross-env NODE_ENV=development eslint ."
+    "lint": "eslint ."
   },
   "eslintConfig": {
     "extends": [
       "react-app",
       "react-app/jest"
-    ],
-    "env": {
-      "NODE_ENV": "development"
-    }
+    ]
   },
   "browserslist": {
     "production": [
@@ -53,7 +50,6 @@
     "@eslint/js": "^9.8.0",
     "babel-jest": "^29.7.0",
     "babel-preset-react-app": "^10.0.1",
-    "cross-env": "^7.0.3",
     "eslint": "^8.57.0",
     "eslint-config-react-app": "^7.0.1",
     "eslint-plugin-jsx-a11y": "^6.9.0",
