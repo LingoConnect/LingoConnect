@@ -127,7 +127,7 @@ jobs:
 
       - name: Build Frontend
         working-directory: frontend
-        run: npm run build
+        run: cross-env NODE_ENV=production npm run build
 
       - name: Deploy to GitHub Pages
         if: success()
