@@ -12,6 +12,10 @@ import ChatReview from './pages/mypage/chat/chat_review';
 import ChatReviewQuestion from './pages/mypage/chat/chat_review_question';
 import ChatReviewPractice from './pages/mypage/chat/chat_review_practice';
 import ChatPatternPractice from './pages/mypage/chat/chat_pattern_practice';
+import TutorialChat from './pages/tutorial/tutorial_chat';
+import TutorialChatPractice from './pages/tutorial/tutorial_chat_practice';
+import TutorialReviewResult from './pages/tutorial/tutorial_chat_review_practice';
+import TutorialPatternPractice from './pages/tutorial/tutorial_chat_pattern_practice';
 import { SmallTitle, BigTitle } from './components/title';
 import { FaHashtag } from 'react-icons/fa6';
 import { CgProfile, CgClipboard } from 'react-icons/cg';
@@ -27,7 +31,8 @@ function AppContent() {
     location.pathname === '/' ||
     location.pathname === '/login' ||
     location.pathname === '/register' ||
-    location.pathname === '/study/chat/practice';
+    location.pathname === '/study/chat/practice' ||
+    location.pathname === '/tutorial/chat/practice';
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
   };
@@ -144,6 +149,11 @@ function AppContent() {
             element={<ChatReview path="chat-pattern/practice" title="자주 하는 실수(패턴) 분석" />}
           />
           <Route path="/mypage/chat-pattern/practice" element={<ChatPatternPractice />} />
+
+          <Route path="/tutorial/chat" element={<TutorialChat />} />
+          <Route path="/tutorial/chat/practice" element={<TutorialChatPractice />} />
+          <Route path="/tutorial/mypage/chat-review" element={<TutorialReviewResult />} />
+          <Route path="/tutorial/mypage/chat-pattern" element={<TutorialPatternPractice />} />
         </Routes>
       </div>
     </div>

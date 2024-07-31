@@ -61,7 +61,7 @@ export function Modal({ setModal }) {
       <p style={{ marginTop: '15px' }}>입장하기 버튼을 클릭하시면,</p>
       <p>비회원으로 입장하실 수 있습니다.</p>
       <div>
-        <button onClick={() => navigate('/main')}>입장하기</button>
+        <button onClick={() => navigate('/study/chat')}>입장하기</button>
         <button onClick={() => setModal(false)}>닫기</button>
       </div>
     </div>

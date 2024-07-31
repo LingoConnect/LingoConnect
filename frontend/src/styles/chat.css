@@ -19,12 +19,12 @@
 }
 
 .main-profile-box {
-  width: 90%;
+  max-width: 100%;
   height: auto;
   border-radius: 20px;
   background-color: rgb(255, 249, 215);
   padding: 0 10px;
-  margin: 1vh auto;
+  margin: 1vh 5vw;
   display: flex;
   justify-content: space-between;
 }
@@ -166,6 +166,7 @@
   flex-direction: row;
   justify-content: flex-end;
   margin: 3vh 5% 1vh 5%;
+  color: rgb(0, 10, 255);
 }
 
 .main-tutorial-button p {
@@ -253,86 +254,4 @@
 
 .main-topic-box h4:hover {
   background-color: transparent;
-}
-
-.background {
-  cursor: pointer;
-  box-sizing: border-box;
-  mix-blend-mode: hard-light;
-  background-color: rgba(0, 0, 0, 0.7);
-  width: 100%;
-  max-width: 800px;
-  height: 100%;
-  position: fixed;
-  top: 0;
-  z-index: 6000;
-}
-
-.main-RowBox {
-  max-width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  color: rgb(128, 128, 128);
-  font-size: 2rem;
-  position: relative;
-}
-
-.Icon {
-  background-color: rgb(128, 128, 128);
-  width: 100%;
-}
-
-.mainBox1 {
-  margin: 0 5%;
-  top: 8%;
-}
-
-.mainIcon1 {
-  height: 21vh;
-  border-radius: 20px;
-}
-
-.mainBox2 {
-  margin: 0 3%;
-  top: 31%;
-}
-
-.mainIcon2 {
-  margin-top: 2%;
-  height: 80vh;
-  overflow-y: hidden;
-}
-
-.background3 {
-  cursor: pointer;
-  box-sizing: border-box;
-  mix-blend-mode: hard-light;
-  background-color: rgba(0, 0, 0, 0.7);
-  width: 100%;
-  max-width: 800px;
-  height: 33%;
-  position: fixed;
-  top: 0;
-  z-index: 6000;
-  
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  padding-bottom: 2%;
-}
-
-.mainBox4 {
-  margin: 0 5%;
-  top: 50%;
-}
-
-.mainIcon4 {
-  height: 20vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-end;
-  padding: 0 2%;
 }

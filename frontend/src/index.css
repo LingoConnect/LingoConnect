@@ -67,6 +67,14 @@ button {
   cursor: pointer;
 }
 
+.main-container, .question-container,
+.mypage-container, .feedback-container, .feedbackquestion-container
+.feedbackresult-container, .PatternResult-container{
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
 .background-circle-container {
   position: absolute;
   top: 0;
