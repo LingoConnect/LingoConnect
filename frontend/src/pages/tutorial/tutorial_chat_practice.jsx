@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../../styles/chat_practice.css';
 import { HiOutlineLightBulb } from 'react-icons/hi';
@@ -18,37 +18,49 @@ export default function TutorialChatPractice() {
         {
             index: 0,
             content: '친구가 질문을 했네요! 스피커 모양을 눌러 소리를 들을 수 있어요.',
-            top:'',
+            top: '',
             bottom: '70px'
         },
         {
             index: 1,
-            content: '오른쪽 아래에 보이는 마이크 버튼을 눌러 소리내어 답할 수 있어요. 이번엔 제가 대신 답할게요.',
-            top:'',
+            content: '오른쪽 아래에 보이는 마이크 버튼을 눌러 소리내어 답할 수 있어요!',
+            top: '',
             bottom: '70px'
         },
         {
             index: 2,
-            content: '답변에 대한 피드백과 발음 평가 점수가 나와요.',
-            top:'70px',
-            bottom: ''
+            content: '대답이 끝나면 마이크 버튼 옆의 네모 버튼을 눌러 녹음을 멈춰요.',
+            top: '',
+            bottom: '70px'
         },
         {
             index: 3,
-            content: '질문에 계속해서 답을 해볼까요?',
-            top:'70px',
-            bottom: ''
+            content: '그리고 이 화살표 버튼을 눌러 답변을 전송해요. 이번엔 제가 대신 답변할게요.',
+            top: '',
+            bottom: '70px'
         },
         {
             index: 4,
-            content: '학습이 끝났어요!',
-            top:'70px',
+            content: '답변하면 답변에 대한 피드백과 발음 평가 점수가 나와요!',
+            top: '70px',
             bottom: ''
         },
         {
             index: 5,
+            content: '질문에 계속해서 답을 해볼까요?',
+            top: '70px',
+            bottom: ''
+        },
+        {
+            index: 6,
+            content: '학습이 끝났어요!',
+            top: '70px',
+            bottom: ''
+        },
+        {
+            index: 7,
             content: '아래의 깜빡거리는 버튼을 눌러봅시다.',
-            top:'',
+            top: '',
             bottom: '50%'
         }
     ])
@@ -69,23 +81,23 @@ export default function TutorialChatPractice() {
             </div>
 
             <div className="practice-chat">
-                <AIChat questions={test_mainquestions[0]} />
-                {
-                    index > 1 &&
-                    <div className="practice-chat-answer">
-                        <UserChat answers={test_answers[0]} />
-                        <AIFeedback feedbacks={test_feedback[0]} />
-                        <ScoreBox scores={test_feedback[0]} score_feedbacks={test_score_feedbacks[0]} />
-                    </div>
-                }
-                {index > 2 && <AIChat questions={test_subquestions[0]} />}
+                <AIChat index={index} questions={test_mainquestions[0]} />
                 {
                     index > 3 &&
+                    <div className="practice-chat-answer">
+                        <UserChat answers={test_answers[0]} />
+                        <AIFeedback index={index} feedbacks={test_feedback[0]} />
+                        <ScoreBox index={index} scores={test_feedback[0]} score_feedbacks={test_score_feedbacks[0]} />
+                    </div>
+                }
+                {index > 4 && <AIChat index={index} questions={test_subquestions[0]} />}
+                {
+                    index > 5 &&
                     <>
                         <div className="practice-chat-answer">
                             <UserChat answers={test_answers[1]} />
-                            <AIFeedback feedbacks={test_feedback[1]} />
-                            <ScoreBox scores={test_feedback[1]} score_feedbacks={test_score_feedbacks[1]} />
+                            <AIFeedback index={index} feedbacks={test_feedback[1]} />
+                            <ScoreBox index={index} scores={test_feedback[1]} score_feedbacks={test_score_feedbacks[1]} />
                         </div>
                         <div className="practice-finish">
                             <div className="practice-finish-top">
@@ -104,8 +116,8 @@ export default function TutorialChatPractice() {
                                 <p>반복적으로 학습해보아요!</p>
 
                                 <div className="practice-finish-bottom-link">
-                                    <h4 
-                                        className={index === 5 ? 'tutorial-practice-box' : ''}
+                                    <h4
+                                        className={index === 7 ? 'tutorial-practice-box' : ''}
                                         onClick={() => navigate('/tutorial/mypage/chat-review')}>피드백 보기</h4>
                                     <h4>나가기</h4>
                                 </div>
@@ -113,21 +125,33 @@ export default function TutorialChatPractice() {
                         </div>
                     </>
                 }
+                <div ref={bottomRef} />
             </div>
 
-            <div ref={bottomRef} />
 
             <div className="practice-input">
                 <input />
                 <div className="practice-input-send">
                     <button>
-                        <img src={process.env.PUBLIC_URL + '/img/mic.png'} alt="mic" />
+                        <img
+                            className={index === 1 ? 'tutorial-button' : ''}
+                            src={process.env.PUBLIC_URL + '/img/mic.png'}
+                            alt="mic"
+                        />
                     </button>
                     <button>
-                        <img src={process.env.PUBLIC_URL + '/img/stop.png'} alt="stop" />
+                        <img
+                            className={index === 2 ? 'tutorial-button' : ''}
+                            src={process.env.PUBLIC_URL + '/img/stop.png'}
+                            alt="stop"
+                        />
                     </button>
                     <button>
-                        <img src={process.env.PUBLIC_URL + '/img/send.png'} alt="send" />
+                        <img
+                            className={index === 3 ? 'tutorial-button' : ''}
+                            src={process.env.PUBLIC_URL + '/img/send.png'}
+                            alt="send"
+                        />
                     </button>
                 </div>
             </div>
@@ -138,7 +162,7 @@ export default function TutorialChatPractice() {
     );
 }
 
-export function AIChat({ questions }) {
+export function AIChat({ index, questions }) {
     return (
         <div className="ai-chat">
             <div className="ai-chat-img">
@@ -147,7 +171,7 @@ export function AIChat({ questions }) {
             </div>
             <div className="ai-chat-dialogue">
                 <h4>{questions}</h4>
-                <HiSpeakerWave className='custom-audio-player' />
+                <HiSpeakerWave className={index === 0 ? 'custom-audio-player tutorial-audio' : 'custom-audio-player'} />
             </div>
         </div>
     );
@@ -161,35 +185,35 @@ export function UserChat({ answers }) {
     );
 }
 
-export function AIFeedback({ feedbacks }) {
+export function AIFeedback({ index, feedbacks }) {
     return (
-        <div className="feedback-box">
-            <div style={{height:'4rem'}} />
-            <p>{feedbacks.feedback}</p>
+        <div className='feedback-box'>
+            <div style={{ height: '4rem' }} />
+            <p className={index === 4 ? "tutorial-score" : ""}>{feedbacks.feedback}</p>
         </div>
     );
 }
 
-export function ScoreBox({ scores, score_feedbacks }) {
+export function ScoreBox({ index, scores, score_feedbacks }) {
     return (
-        <div className="score-box">
+        <div className={index === 4 ? "score-box tutorial-score" : "score-box"}>
             <p>{scores.score}</p>
             <p>{score_feedbacks}</p>
         </div>
     );
 }
 
-function Modal({index, setIndex, practiceTutorial}) {
+function Modal({ index, setIndex, practiceTutorial }) {
     return (
-        <div 
+        <div
             className="tutorialModal practice-modal"
-            style={{top: practiceTutorial[index].top, bottom: practiceTutorial[index].bottom}}
+            style={{ top: practiceTutorial[index].top, bottom: practiceTutorial[index].bottom }}
         >
             <img src={process.env.PUBLIC_URL + '/img/cat.png'} alt="튜토리얼" />
             <h4>{practiceTutorial[index].content}</h4>
-            <p 
-                onClick={()=> {if(index !== 5) {setIndex(index+1)}}}
-                style={{color: index === 5 ? 'white' : 'black'}}
+            <p
+                onClick={() => { if (index !== 7) { setIndex(index + 1) } }}
+                style={{ color: index === 7 ? 'white' : 'black' }}
             >다음 &gt;</p>
         </div>
     )

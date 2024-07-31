@@ -346,7 +346,7 @@
 
 /* 튜토리얼용 */
 
-@keyframes practiceFlash {
+@keyframes practiceBoxFlash {
   0% {
     background-color: #ff6948;
     color: white;
@@ -364,5 +364,59 @@
 }
 
 .tutorial-practice-box {
-  animation: practiceFlash 1s infinite;
+  animation: practiceBoxFlash 1s infinite;
+}
+
+@keyframes practiceAudioFlash {
+  0% {
+    color: transparent;
+  }
+
+  50% {
+    color: #39085a;
+  }
+
+  100% {
+    color: transparent;
+  }
+}
+
+.tutorial-audio {
+  animation: practiceAudioFlash 1s infinite;
+}
+
+@keyframes practiceButtonFlash {
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }  
+}
+
+.tutorial-button {
+  animation: practiceButtonFlash 1s infinite;
+}
+
+@keyframes practiceScoreFlash {
+  0% {
+    border-color: #39085a;
+  }
+
+  50% {
+    border-color: transparent;
+  }
+
+  100% {
+    border-color: #39085a;
+  }
+}
+
+.tutorial-score {
+  animation: practiceScoreFlash 1s infinite;
 }
