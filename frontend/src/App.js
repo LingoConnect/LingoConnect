@@ -97,7 +97,12 @@ function AppContent() {
 
             <div className="navbar-menu-bottom">
               <ul className="navbar-menu-bottomlist">
-                <li>
+                <li
+                  onClick={() => {
+                    navigate('/tutorial/chat');
+                    toggleMenu();
+                  }}
+                >                  
                   <PiQuestionBold size={30} color="#746745" />
                   <h4>앱 사용법 보기</h4>
                 </li>
