@@ -37,7 +37,7 @@ html {
 #portal-root {
   display: flex;
   justify-content: center;
-  align-items: center;  
+  align-items: center;
 }
 
 * {
@@ -67,9 +67,12 @@ button {
   cursor: pointer;
 }
 
-.main-container, .question-container,
-.mypage-container, .feedback-container, .feedbackquestion-container
-.feedbackresult-container, .PatternResult-container{
+.main-container,
+.question-container,
+.mypage-container,
+.feedback-container,
+.feedbackquestion-container .feedbackresult-container,
+.PatternResult-container {
   &::-webkit-scrollbar {
     display: none;
   }

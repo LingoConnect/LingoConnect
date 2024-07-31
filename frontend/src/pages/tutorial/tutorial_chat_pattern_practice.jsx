@@ -4,7 +4,8 @@ import { FaArrowLeftLong } from 'react-icons/fa6';
 
 export default function TutorialPatternPractice() {
   const navigate = useNavigate();
-  const pattern = '질문에 대해 단답형으로 대답하는 경향이 있습니다. 대답을 할 때 두세 문장 이상으로 대답해보는 연습을 해보아요!';
+  const pattern =
+    '질문에 대해 단답형으로 대답하는 경향이 있습니다. 대답을 할 때 두세 문장 이상으로 대답해보는 연습을 해보아요!';
 
   return (
     <div className="PatternResult-container">
@@ -17,16 +18,16 @@ export default function TutorialPatternPractice() {
         <p>학교</p>
       </div>
 
-      <div className="PatternResult-card" style={{marginTop: '8vh'}}>
+      <div className="PatternResult-card" style={{ marginTop: '8vh' }}>
         <ResultCard pattern={pattern} />
       </div>
 
       <div className="PatternResult-img">
-        <img 
-          src={process.env.PUBLIC_URL + '/img/mummy.png'} 
-          alt="" 
-          onClick={()=>navigate('/tutorial/mypage/chat-review')}
-          style={{cursor:'pointer'}}
+        <img
+          src={process.env.PUBLIC_URL + '/img/mummy.png'}
+          alt=""
+          onClick={() => navigate('/tutorial/mypage/chat-review')}
+          style={{ cursor: 'pointer' }}
         />
       </div>
     </div>

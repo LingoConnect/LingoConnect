@@ -3,14 +3,15 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import '../../styles/chat_practice.css';
 import { getFeedback, getAudioFeedback } from '../../api/ai_api';
 import { getSubQuestion } from '../../api/learning_content_api';
+import { getTTS } from '../../api/tts_api';
 import { HiOutlineLightBulb } from 'react-icons/hi';
+import { HiSpeakerWave } from 'react-icons/hi2';
 
 const ChatPracticeContent = forwardRef((_, ref) => {
   const location = useLocation();
   const { topic, question, id } = location.state || {};
   const navigate = useNavigate();
   const [answerInput, setAnswerInput] = useState('');
-  const [score, setScore] = useState('');
 
   const [Questions, setQuestions] = useState([]);
   const [answers, setAnswers] = useState([]);
@@ -22,20 +23,24 @@ const ChatPracticeContent = forwardRef((_, ref) => {
   const [activeStopButton, setActiveStopButton] = useState(false);
   const [activeSendButton, setActiveSendButton] = useState(false);
 
-  const [onRec, setOnRec] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const [onRec, setOnRec] = useState(false);
 
   const [stream, setStream] = useState(null);
   const [media, setMedia] = useState(null);
   const [audioUrl, setAudioUrl] = useState(null);
 
+  const [ttsUrls, setTtsUrls] = useState([]);
+
   useEffect(() => {
+    setCurrentQuestionIndex(0);
     setActiveMicButton(true);
     setActiveStopButton(false);
     setActiveSendButton(false);
   }, []);
 
   useEffect(() => {
-    setCurrentQuestionIndex(0);
     setActiveMicButton(true);
     setActiveStopButton(false);
     setActiveSendButton(false);
@@ -65,6 +70,10 @@ const ChatPracticeContent = forwardRef((_, ref) => {
       setActiveSendButton(false);
     }
   }, [answerInput, currentQuestionIndex, Questions.length]);
+
+  useEffect(() => {
+    fetchAndPlayTTS(currentQuestionIndex);
+  }, [currentQuestionIndex, Questions]);
 
   useEffect(() => {
     if (ref.current) {
@@ -151,9 +160,14 @@ const ChatPracticeContent = forwardRef((_, ref) => {
     setActiveSendButton(true);
   };
 
-  const handleFeedback = async () => {
-    if (onRec && audioUrl) {
+  const handleAudioFeedback = async () => {
+    console.log('getAudioFeedback call');
+    if (audioUrl) {
       try {
+        setIsLoading(true);
+        setActiveMicButton(false);
+        setActiveStopButton(false);
+        setActiveSendButton(false);
         const response = await fetch(audioUrl);
         const blob = await response.blob();
 
@@ -167,15 +181,60 @@ const ChatPracticeContent = forwardRef((_, ref) => {
         const audioResponse = await getAudioFeedback(formData);
         if (audioResponse && audioResponse.status === 200) {
           const data = await audioResponse.data;
+          const answerText = data.text;
+          const answerScore = data.score;
           console.log(data);
+
+          console.log('getFeedback call');
+
+          let questionClass = 'sub';
+          if (currentQuestionIndex === 0) {
+            questionClass = 'main';
+          }
+          const currentQuestion = Questions[currentQuestionIndex];
+
+          try {
+            setIsLoading(true);
+            const response = await getFeedback({
+              topic,
+              currentQuestion,
+              answerInput: answerText,
+              questionClass,
+            });
+            if (response && response.status === 200) {
+              console.log(response.data);
+              setFeedbacks([...feedbacks, { feedback: response.data, score: answerScore }]);
+              setAnswers([...answers, answerText]);
+              setCurrentQuestionIndex((prevIndex) => {
+                const newIndex = prevIndex + 1;
+                fetchAndPlayTTS(newIndex);
+                return newIndex;
+              });
+              setActiveMicButton(true);
+              setActiveStopButton(false);
+            } else {
+              alert('error');
+            }
+          } catch (error) {
+            console.error('Error fetching feedback:', error);
+          } finally {
+            setIsLoading(false);
+          }
+          setAnswerInput('');
         } else {
           console.log('Error:', audioResponse.status);
         }
       } catch (error) {
         console.error('Error submitting audio file:', error);
+      } finally {
+        setIsLoading(false);
       }
       setOnRec(false);
     }
+  };
+
+  const handleFeedback = async () => {
+    console.log('getFeedback call');
 
     let questionClass = 'sub';
     if (currentQuestionIndex === 0) {
@@ -183,17 +242,33 @@ const ChatPracticeContent = forwardRef((_, ref) => {
     }
     const currentQuestion = Questions[currentQuestionIndex];
 
-    const response = await getFeedback({ topic, currentQuestion, answerInput, questionClass });
-    if (response && response.status === 200) {
-      console.log(response.data);
-      setFeedbacks([...feedbacks, { feedback: response.data, score: score }]);
-      setAnswers([...answers, answerInput]);
-      setScore('');
-      setCurrentQuestionIndex(currentQuestionIndex + 1);
-      setActiveMicButton(true);
-      setActiveStopButton(false);
-    } else {
-      alert('error');
+    try {
+      setIsLoading(true);
+      console.log(answerInput);
+      const response = await getFeedback({
+        topic,
+        currentQuestion,
+        answerInput,
+        questionClass,
+      });
+      if (response && response.status === 200) {
+        console.log(response.data);
+        setFeedbacks([...feedbacks, { feedback: response.data, score: '' }]);
+        setAnswers([...answers, answerInput]);
+        setCurrentQuestionIndex((prevIndex) => {
+          const newIndex = prevIndex + 1;
+          fetchAndPlayTTS(newIndex);
+          return newIndex;
+        });
+        setActiveMicButton(true);
+        setActiveStopButton(false);
+      } else {
+        alert('error');
+      }
+    } catch (error) {
+      console.error('Error fetching feedback:', error);
+    } finally {
+      setIsLoading(false);
     }
     setAnswerInput('');
   };
@@ -240,6 +315,27 @@ const ChatPracticeContent = forwardRef((_, ref) => {
     }
   };
 
+  const fetchAndPlayTTS = async (index) => {
+    if (Questions.length > 0 && index < Questions.length) {
+      const text = Questions[index];
+      try {
+        const { status, data } = await getTTS({ text });
+        if (status === 200) {
+          const url = URL.createObjectURL(data);
+          setTtsUrls((prevUrls) => {
+            const newUrls = [...prevUrls];
+            newUrls[index] = url;
+            return newUrls;
+          });
+        } else {
+          console.error('Failed to fetch TTS audio:', status);
+        }
+      } catch (error) {
+        console.error('Error fetching TTS:', error);
+      }
+    }
+  };
+
   return (
     <div className="practice-container">
       <div className="practice-navbar">
@@ -254,12 +350,12 @@ const ChatPracticeContent = forwardRef((_, ref) => {
       <div className="practice-chat">
         {Questions.slice(0, currentQuestionIndex + 1).map((question, index) => (
           <React.Fragment key={index}>
-            <AIChat question={question} />
+            <AIChat question={question} ttsUrl={ttsUrls[index]} />
             {index < answers.length && (
               <div className="practice-chat-answer">
                 <UserChat index={index} answers={answers} />
                 <AIFeedback index={index} feedbacks={feedbacks} />
-                {score.trim() !== '' && <ScoreBox index={index} feedbacks={feedbacks} />}
+                {feedbacks[index].score !== '' && <ScoreBox index={index} feedbacks={feedbacks} />}
               </div>
             )}
           </React.Fragment>
@@ -288,6 +384,13 @@ const ChatPracticeContent = forwardRef((_, ref) => {
             </div>
           </div>
         )}
+        {isLoading && (
+          <div className="loading-box">
+            <p>"답변을 분석하고 있습니다!"</p>
+            <div className="loading-spinner"></div>
+          </div>
+        )}
+        <div style={{ width: '100%:', height: '100px' }}></div>
         <div ref={ref} />
       </div>
 
@@ -318,9 +421,11 @@ const ChatPracticeContent = forwardRef((_, ref) => {
               alt="stop"
             />
           </button>
-          <button onClick={activeSendButton ? handleFeedback : undefined}>
+          <button
+            onClick={activeSendButton ? (onRec ? handleAudioFeedback : handleFeedback) : undefined}
+          >
             <img
-              style={activeSendButton ? { opacity: '1' } : { opacity: '0.3' }}
+              style={{ opacity: activeSendButton ? '1' : '0.3' }}
               src={process.env.PUBLIC_URL + '/img/send.png'}
               alt="send"
             />
@@ -337,7 +442,21 @@ const ChatPracticeContent = forwardRef((_, ref) => {
   );
 });
 
-export function AIChat({ question }) {
+export function AIChat({ question, ttsUrl }) {
+  const [isPlaying, setIsPlaying] = useState(false);
+  const audioRef = useRef(null);
+
+  const handlePlayPause = () => {
+    if (audioRef.current) {
+      if (isPlaying) {
+        audioRef.current.pause();
+      } else {
+        audioRef.current.play();
+      }
+      setIsPlaying(!isPlaying);
+    }
+  };
+
   return (
     <div className="ai-chat">
       <div className="ai-chat-img">
@@ -345,7 +464,13 @@ export function AIChat({ question }) {
         <p />
       </div>
       <div className="ai-chat-dialogue">
-        <h4>{question}?</h4>
+        <h4>{question}</h4>
+        {ttsUrl && (
+          <>
+            <HiSpeakerWave className="custom-audio-player" onClick={handlePlayPause} />
+            <audio ref={audioRef} src={ttsUrl} />
+          </>
+        )}
       </div>
     </div>
   );

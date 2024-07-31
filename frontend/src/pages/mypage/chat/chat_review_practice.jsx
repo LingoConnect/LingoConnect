@@ -84,7 +84,7 @@ export default function ReviewResult() {
           const userAnswerWithoutPrefix = element.userAnswer.replace(/^지적장애인:\s*/, '');
           return (
             <>
-              <AIChat question={questionWithoutPrefix} />
+              <AIChat question={questionWithoutPrefix} ttsUrl={false} />
               <UserChat index={0} answers={[userAnswerWithoutPrefix]} />
               <AIFeedback index={0} feedbacks={[{ feedback: element.feedback }]} />
             </>
