@@ -255,3 +255,56 @@
 .main-topic-box h4:hover {
   background-color: transparent;
 }
+
+/* 튜토리얼용 */
+
+@keyframes chatFlash {
+  0% {
+      border-color: rgb(255, 238, 148);
+  }
+  50% {
+      border-color: rgb(0, 10, 255);
+  }
+  100% {
+      border-color: rgb(255, 238, 148);
+  }
+}
+
+.tutorial-chat-box {
+  animation: chatFlash 1s infinite;
+}
+
+.tutorialModal {
+  width: 90%;
+  max-width: 800px;
+  position: fixed;
+  z-index: 1000;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  background-color: white;
+  border: 5px solid rgb(0, 10, 255);
+  border-radius: 20px;
+  padding: 1%;
+  text-align: center;
+}
+
+.main-modal {
+  bottom: 0;
+}
+
+.tutorialModal img {
+  width: 15%;
+}
+
+.tutorialModal h4 {
+  font-size: 1.7rem;
+}
+
+.tutorialModal p {
+  cursor: pointer;
+  align-self: flex-end;
+  text-decoration: underline;
+  width: 5rem;
+}

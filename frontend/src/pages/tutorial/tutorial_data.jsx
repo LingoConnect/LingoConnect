@@ -1,33 +1,29 @@
 // 주제 개수는 상관없습니다
 export const test_topics = [
   {
-    topic: '일상',
-    imgUrl: '/img/일상.jpg',
+    topic: '건강과 운동',
+    imgUrl: '/img/topic/건강과운동.jpg',
   },
   {
-    topic: '음식',
-    imgUrl: '/img/음식.jpg',
+    topic: '인터넷과 기술',
+    imgUrl: '/img/topic/인터넷과기술.jpg',
   },
   {
-    topic: '여행',
-    imgUrl: '/img/여행.jpg',
+    topic: '자기관리',
+    imgUrl: '/img/topic/자기관리.jpg',
   },
   {
-    topic: '취미',
-    imgUrl: '/img/취미.jpg',
+    topic: '자연과 환경',
+    imgUrl: '/img/topic/자연과환경.jpg',
   },
   {
-    topic: '영화',
-    imgUrl: '/img/영화.jpg',
+    topic: '취미와 여가',
+    imgUrl: '/img/topic/취미와여가.jpg',
   },
   {
-    topic: '음악',
-    imgUrl: '/img/음악.jpg',
-  },
-  {
-    topic: '운동',
-    imgUrl: '/img/운동.jpg',
-  },
+    topic: '친구와 동료관계',
+    imgUrl: '/img/topic/친구와동료관계.jpg',
+  }
 ];
 
 // 메인 질문 개수는 상관없습니다
