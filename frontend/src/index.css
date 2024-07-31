@@ -26,13 +26,23 @@ html {
   }
 }
 
-#root,
-#portal-root {
+#root {
   width: 100%;
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+#portal-root {
+  display: flex;
+  justify-content: center;
+  align-items: center;  
+}
+
+* {
+  word-break: keep-all;
+  line-height: 1.3;
 }
 
 div,
@@ -55,6 +65,14 @@ p {
 
 button {
   cursor: pointer;
+}
+
+.main-container, .question-container,
+.mypage-container, .feedback-container, .feedbackquestion-container
+.feedbackresult-container, .PatternResult-container{
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 .background-circle-container {
