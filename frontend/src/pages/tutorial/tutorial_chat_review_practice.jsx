@@ -13,7 +13,7 @@ import { FaArrowLeftLong } from 'react-icons/fa6';
 
 export default function TutorialReviewResult() {
   const [index, setIndex] = useState(0);
-  const [reviewTutorial] = useState(['이 페이지에서는 친구와 나눴던 대화를 다시 볼 수 있어요.', '마이페이지의 피드백 모아보기 메뉴에서도 볼 수 있답니다!'])
+  const [reviewTutorial] = useState(['이 페이지에서는 친구와 나눴던 대화를 다시 볼 수 있어요.', '마이페이지의 피드백 모아보기 메뉴에서도 볼 수 있답니다!']);
 
   return (
     <div className="feedbackresult-container">
@@ -42,11 +42,10 @@ export default function TutorialReviewResult() {
       </div>
       <Modal index={index} setIndex={setIndex} reviewTutorial={reviewTutorial} />
     </div>
-
   );
 }
 
-function Modal({index, setIndex, reviewTutorial}) {
+function Modal({ index, setIndex, reviewTutorial }) {
   const navigate = useNavigate();
 
   return (

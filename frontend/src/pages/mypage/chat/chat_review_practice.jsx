@@ -86,7 +86,7 @@ export default function ReviewResult() {
             <>
               <AIChat question={questionWithoutPrefix} ttsUrl={false} />
               <UserChat index={0} answers={[userAnswerWithoutPrefix]} />
-              <AIFeedback index={0} feedbacks={[{ feedback: element.feedback }]} />
+              <AIFeedback index={0} feedbacks={[{ feedback: element.feedback }]} ttsUrl={false} />
             </>
           );
         })}

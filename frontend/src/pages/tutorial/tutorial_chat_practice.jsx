@@ -4,11 +4,11 @@ import '../../styles/chat_practice.css';
 import { HiOutlineLightBulb } from 'react-icons/hi';
 import { HiSpeakerWave } from 'react-icons/hi2';
 import {
-    test_mainquestions,
-    test_subquestions,
-    test_feedback,
-    test_score_feedbacks,
-    test_answers,
+  test_mainquestions,
+  test_subquestions,
+  test_feedback,
+  test_score_feedbacks,
+  test_answers,
 } from './tutorial_data';
 
 export default function TutorialChatPractice() {
@@ -65,13 +65,13 @@ export default function TutorialChatPractice() {
         }
     ])
 
-    const bottomRef = useRef(null);
+  const bottomRef = useRef(null);
 
-    useEffect(() => {
-        if (bottomRef.current) {
-            bottomRef.current.scrollIntoView({ behavior: 'smooth' });
-        }
-    }, [index]);
+  useEffect(() => {
+    if (bottomRef.current) {
+      bottomRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [index]);
 
     return (
         <div className="practice-container">
@@ -127,7 +127,21 @@ export default function TutorialChatPractice() {
                 }
                 <div ref={bottomRef} />
             </div>
-
+            <div className="practice-finish">
+              <div className="practice-finish-top">
+                <HiOutlineLightBulb size={40} color="#FF2E00" />
+                <p>학습 완료!</p>
+              </div>
+              <div className="practice-finish-middle">
+                <p>준비한 질문은 여기까지에요.</p>
+                <p style={{ color: '#FF2E00' }}>위에서 한 대화 내용을 한 번 더 검토해 봅시다!</p>
+              </div>
+              <div className="practice-finish-bottom">
+                <p>그리고</p>
+                <p>
+                  <span style={{ color: '#FF2E00' }}>마이페이지</span>에서 저장된 피드백들을
+                </p>
+                <p>반복적으로 학습해보아요!</p>
 
             <div className="practice-input">
                 <input />
@@ -154,12 +168,32 @@ export default function TutorialChatPractice() {
                         />
                     </button>
                 </div>
+              </div>
             </div>
+          </>
+        )}
+      </div>
 
-            <Modal index={index} setIndex={setIndex} practiceTutorial={practiceTutorial} />
+      <div ref={bottomRef} />
 
+      <div className="practice-input">
+        <input />
+        <div className="practice-input-send">
+          <button>
+            <img src={process.env.PUBLIC_URL + '/img/mic.png'} alt="mic" />
+          </button>
+          <button>
+            <img src={process.env.PUBLIC_URL + '/img/stop.png'} alt="stop" />
+          </button>
+          <button>
+            <img src={process.env.PUBLIC_URL + '/img/send.png'} alt="send" />
+          </button>
         </div>
-    );
+      </div>
+
+      <Modal index={index} setIndex={setIndex} practiceTutorial={practiceTutorial} />
+    </div>
+  );
 }
 
 export function AIChat({ index, questions }) {
@@ -171,18 +205,18 @@ export function AIChat({ index, questions }) {
             </div>
             <div className="ai-chat-dialogue">
                 <h4>{questions}</h4>
-                <HiSpeakerWave className={index === 0 ? 'custom-audio-player tutorial-audio' : 'custom-audio-player'} />
+                <HiSpeakerWave className={index === 0 ? 'aichat-audio-player tutorial-audio' : 'custom-audio-player'} />
             </div>
         </div>
     );
 }
 
 export function UserChat({ answers }) {
-    return (
-        <div className="answer-box">
-            <p>{answers}</p>
-        </div>
-    );
+  return (
+    <div className="answer-box">
+      <p>{answers}</p>
+    </div>
+  );
 }
 
 export function AIFeedback({ index, feedbacks }) {

@@ -17,7 +17,7 @@ public class GptRequest {
             description = "title",
             type = "String",
             requiredMode = Schema.RequiredMode.REQUIRED,
-            example = "운동")
+            example = "자기 관리")
     private String title;
 
     @NotBlank(message = "{not_blank}")
@@ -26,7 +26,7 @@ public class GptRequest {
             description = "question",
             type = "String",
             requiredMode = Schema.RequiredMode.REQUIRED,
-            example = "운동할 때 친구랑 같이 하면 더 재미있지? 왜 그럴까?")
+            example = "스트레스를 받았을 때 어떻게 하면 좋을까?")
     private String question;
 
     @NotBlank(message = "{not_blank}")
@@ -35,7 +35,7 @@ public class GptRequest {
             description = "userAnswer",
             type = "String",
             requiredMode = Schema.RequiredMode.REQUIRED,
-            example = "친구랑 같이 운동하면 더 힘이 나!")
+            example = "운동을 하면서 풀면 좋을 것 같아.")
     private String userAnswer;
 
     @NotBlank(message = "{not_blank}")
