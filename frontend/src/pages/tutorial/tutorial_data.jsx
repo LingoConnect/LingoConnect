@@ -23,7 +23,7 @@ export const test_topics = [
   {
     topic: '친구와 동료관계',
     imgUrl: '/img/topic/친구와동료관계.jpg',
-  }
+  },
 ];
 
 // 메인 질문 개수는 상관없습니다
