@@ -12,4 +12,6 @@ import java.util.Optional;
 @Repository
 public interface FeedbackRepository extends JpaRepository<Feedback, Long> {
     List<Feedback> findByTopQuestion(TopQuestion topQuestion);
+
+    List<Feedback> findAllByTopic(String topic);
 }

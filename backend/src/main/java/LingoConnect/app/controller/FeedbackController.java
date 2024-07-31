@@ -59,8 +59,8 @@ public class FeedbackController {
                     )
             }
     )
-    public ResponseEntity<?> getHistory(@RequestParam(name = "mainQuestionId") String mainQuestionId) {
-        ArrayList<FeedbackDTO> feedbackDTOS = feedbackService.findByTopQuestionId(Long.valueOf(mainQuestionId));
+    public ResponseEntity<?> getHistory(@RequestParam(name = "topic") String topic) {
+        ArrayList<FeedbackDTO> feedbackDTOS = feedbackService.findAllByTopic(topic);
 
         return ResponseEntity.ok().body(feedbackDTOS);
     }

@@ -124,4 +124,16 @@ public class FeedbackService {
 
         return dtos;
     }
+
+    public ArrayList<FeedbackDTO> findAllByTopic(String topic) {
+        List<Feedback> feedbacks = feedbackRepository.findAllByTopic(topic);
+        ArrayList<FeedbackDTO> dtos = new ArrayList<>();
+
+        for(Feedback feedback : feedbacks){
+            dtos.add(toDto(feedback));
+        }
+
+        return dtos;
+
+    }
 }
