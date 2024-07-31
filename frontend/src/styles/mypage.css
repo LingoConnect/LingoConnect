@@ -130,6 +130,10 @@
   border-radius: 10px;
   width: 18%;
   padding: 10px 5px;
+
+  @media (max-width: 500px) {
+    width: 25%;
+  }
 }
 
 .mypage-dcbox p {

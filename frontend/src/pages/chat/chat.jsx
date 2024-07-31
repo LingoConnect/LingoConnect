@@ -87,7 +87,6 @@ export default function Chat() {
           );
         })}
       </div>
-
     </div>
   );
 }

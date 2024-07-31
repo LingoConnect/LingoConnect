@@ -7,7 +7,6 @@ export default function ReviewQuestion() {
   const navigate = useNavigate();
   const location = useLocation();
   const { topic } = location.state || {};
-  // const [isLatest, setIsLatest] = useState(true);
   const [mainQuestions, setMainQuestions] = useState([]);
 
   const handleQuestionClick = (element) => {
@@ -32,14 +31,6 @@ export default function ReviewQuestion() {
         <h4>피드백 모아보기</h4>
         <p>{topic}</p>
       </div>
-      {/* <div className="feedbackquestion-order">
-        {isLatest === true ? (
-          <p onClick={() => setIsLatest(false)}>최신순 ∨</p>
-        ) : (
-          <p onClick={() => setIsLatest(true)}>오래된 순 ∨</p>
-        )}
-      </div> */}
-
       <div className="feedbackquestion-list">
         {mainQuestions.map((element, index) => {
           return (

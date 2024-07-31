@@ -1,7 +1,13 @@
-import { useNavigate,} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import '../../styles/chat_review_practice.css';
 import { AIChat, UserChat, AIFeedback, ScoreBox } from './tutorial_chat_practice';
-import { test_mainquestions, test_subquestions, test_feedback, test_score_feedbacks, test_answers } from './tutorial_data';
+import {
+  test_mainquestions,
+  test_subquestions,
+  test_feedback,
+  test_score_feedbacks,
+  test_answers,
+} from './tutorial_data';
 import { FaArrowLeftLong } from 'react-icons/fa6';
 
 export default function TutorialReviewResult() {
