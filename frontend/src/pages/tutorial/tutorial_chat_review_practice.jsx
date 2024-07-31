@@ -1,15 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate,} from 'react-router-dom';
 import '../../styles/chat_review_practice.css';
-import { AIChat, UserChat, AIFeedback } from '../../chat/chat_practice';
+import { AIChat, UserChat, AIFeedback, ScoreBox } from './tutorial_chat_practice';
+import { test_mainquestions, test_subquestions, test_feedback, test_score_feedbacks, test_answers } from './tutorial_data';
 import { FaArrowLeftLong } from 'react-icons/fa6';
 
 export default function TutorialReviewResult() {
-  const location = useLocation();
   const navigate = useNavigate();
-  // const [index, setIndex] = useState(1);
-  const { topic, question } = location.state || {};
-  const [myFeedback, setMyFeedback] = useState([]);
 
   return (
     <div className="feedbackresult-container">
@@ -18,66 +14,23 @@ export default function TutorialReviewResult() {
       </div>
       <div className="feedbackresult-main">
         <h4>피드백 모아보기</h4>
-        <p>{topic}</p>
-        <h4>Q. {question}?</h4>
+        <p>학교</p>
+        <h4>Q. 가장 좋아하는 과목이 뭐야?</h4>
       </div>
 
-      {/* <div className="feedbackresult-index">
-        <div className="feedbackresult-index-left">
-          {index > 1 && (
-            <h4
-              onClick={(e) => {
-                if (index > 0) {
-                  setIndex(index - 1);
-                }
-                e.stopPropagation();
-              }}
-            >
-              &lt;
-            </h4>
-          )}
-        </div>
-        <div className="feedbackresult-index-middle">
-          <p
-            onClick={() => {
-              if (index > 1) {
-                setIndex(index - 1);
-              }
-            }}
-          >
-            {index}
-          </p>
-          <p>{index + 1}</p>
-          <p onClick={() => setIndex(index + 1)}>{index + 2}</p>
-        </div>
-        <div className="feedbackresult-index-right">
-          {index !== 10 && (
-            <h4
-              onClick={(e) => {
-                if (index < 100) {
-                  setIndex(index + 1);
-                }
-                e.stopPropagation();
-              }}
-            >
-              &gt;
-            </h4>
-          )}
-        </div>
-      </div> */}
-
       <div className="feedbackresult-box">
-        {myFeedback.map((element) => {
-          const questionWithoutPrefix = element.question.replace(/^질문:\s*/, '');
-          const userAnswerWithoutPrefix = element.userAnswer.replace(/^지적장애인:\s*/, '');
-          return (
-            <>
-              <AIChat question={questionWithoutPrefix} />
-              <UserChat index={0} answers={[userAnswerWithoutPrefix]} />
-              <AIFeedback index={0} feedbacks={[{ feedback: element.feedback }]} />
-            </>
-          );
-        })}
+        <AIChat questions={test_mainquestions[0]} />
+        <div className="practice-chat-answer">
+          <UserChat answers={test_answers[0]} />
+          <AIFeedback feedbacks={test_feedback[0]} />
+          <ScoreBox scores={test_feedback[0]} score_feedbacks={test_score_feedbacks[0]} />
+        </div>
+        <AIChat questions={test_subquestions[0]} />
+        <div className="practice-chat-answer">
+          <UserChat answers={test_answers[1]} />
+          <AIFeedback feedbacks={test_feedback[1]} />
+          <ScoreBox scores={test_feedback[1]} score_feedbacks={test_score_feedbacks[1]} />
+        </div>
       </div>
     </div>
   );
