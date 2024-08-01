@@ -413,15 +413,8 @@ const ChatPracticeContent = forwardRef((_, ref) => {
             )}
           </React.Fragment>
         ))}
-        {currentQuestionIndex === Questions.length && (
+        {/* {currentQuestionIndex === Questions.length && ( */}
           <div className="practice-finish">
-            <div>
-              <input
-                placeholder="example@gmail.com"
-                onChange={(e) => setMail(e.target.value)}
-              ></input>
-              <button onClick={() => feedbackMail()}>메일 보내기</button>
-            </div>
             <div className="practice-finish-top">
               <HiOutlineLightBulb size={40} color="#FF2E00" />
               <p>학습 완료!</p>
@@ -429,6 +422,18 @@ const ChatPracticeContent = forwardRef((_, ref) => {
             <div className="practice-finish-middle">
               <p>준비한 질문은 여기까지에요.</p>
               <p style={{ color: '#FF2E00' }}>위에서 한 대화 내용을 한 번 더 검토해 봅시다!</p>
+            </div>
+            <div className="practice-finish-email">
+              <p><span>보호자</span>님께</p>
+              <p>학습한 결과를 전송할 수 있어요!</p>
+              <p><span>보호자</span>분의 <span>메일주소</span>를 써주시면 보내드릴게요!</p>
+              <div className="practice-finish-email-input">
+                <input
+                  placeholder="| 메일 주소 쓰기 (ex. lingo@gmail.com)"
+                  onChange={(e) => setMail(e.target.value)}
+                ></input>
+                <button onClick={() => feedbackMail()}>전송</button>                
+              </div>
             </div>
             <div className="practice-finish-bottom">
               <p>그리고</p>
@@ -443,7 +448,7 @@ const ChatPracticeContent = forwardRef((_, ref) => {
               </div>
             </div>
           </div>
-        )}
+        {/* )} */}
         {isLoading && (
           <div className="loading-box">
             <p>"답변을 분석하고 있습니다!"</p>

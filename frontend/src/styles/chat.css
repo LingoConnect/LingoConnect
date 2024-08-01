@@ -142,7 +142,7 @@
   cursor: pointer;
   background-color: #ffe660;
   position: absolute;
-  bottom: -15px;
+  bottom: -14px;
   left: 50%;
   z-index: 500;
   transform: translate(-50%, 0);

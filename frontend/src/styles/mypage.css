@@ -10,7 +10,6 @@
 }
 
 .mypage-navbar-container {
-
   z-index: 2;
   width: 120%;
   align-self: center;
@@ -86,7 +85,8 @@
   aspect-ratio: 1/1;
   transform: scale(1.2);
 
-  @media (max-height: 700px), (max-width: 700px) {
+  @media (max-height: 700px),
+  (max-width: 700px) {
     width: 10vh;
   }
 }
@@ -107,7 +107,8 @@
   font-size: 1.5rem;
   color: #746745;
 
-  @media (max-height: 700px), (max-width: 700px) {
+  @media (max-height: 700px),
+  (max-width: 700px) {
     font-size: 13px;
   }
 }
@@ -131,7 +132,7 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  gap: 1rem;  
+  gap: 1rem;
 }
 
 .mypage-percentage {
@@ -181,9 +182,9 @@
     font-size: 1rem;
     line-height: 1.5;
   }
-} */
+}
 
-.mypage-picture-container {
+*/ .mypage-picture-container {
   width: 100%;
   height: 100%;
   max-width: 800px;
@@ -205,6 +206,7 @@
 }
 
 .mypage-badge p {
+  cursor: pointer;
   padding: 1%;
   font-family: "Jua";
   font-weight: 400;
@@ -212,13 +214,11 @@
   color: white;
   border-radius: 10px;
   background: linear-gradient(0deg, #776BFF -15%, #BCB7FF 100%);
-  
+
   position: relative;
   bottom: 20px;
   z-index: 3;
 }
-
-
 
 .mypage-feedback-container {
   width: 100%;
@@ -299,7 +299,8 @@
   margin: 5.5vh 0;
   cursor: pointer;
 
-  @media (max-width: 650px), (min-height: 1100px) {
+  @media (max-width: 650px),
+  (min-height: 1100px) {
     font-size: 2vh;
   }
 }
@@ -312,7 +313,8 @@
   margin: 3.4vh 0;
 }
 
-@media (max-width: 650px), (min-height: 1100px) {
+@media (max-width: 650px),
+(min-height: 1100px) {
   .mypage-feedback-topic h4 {
     font-size: 2vh;
   }
@@ -324,4 +326,105 @@
 
 .mypage-feedback-topic-long h4 {
   margin: 0;
+}
+
+
+.badge-modal-container {
+  width: 100%;
+  max-width: 800px;
+  height: calc(100% - 70px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  position: absolute;
+  top: 10px;
+  z-index: 1000;
+}
+
+.badge-modal {
+  overflow-y: auto;
+  width: 90%;
+  height: fit-content;
+  max-height: 100%;
+  margin: 5% 0;
+  border: 6px solid #FFE660;
+  background-color: #FFFDF3;
+  padding: 2%;
+  position: relative;
+}
+
+.badge-title {
+  width: 100%;
+  margin: 2% 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  font-family: "Jua";
+  font-size: 1.5rem;
+  color: #746745;
+
+  & h4 {
+    font-weight: 400;
+  }
+
+  & p {
+    cursor: pointer;
+    font-size: 3rem;
+    position: absolute;
+    top: 0;
+    right: 16px;
+  }
+}
+
+.badge-list {
+  max-width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 0 5%;
+  gap: 2rem;
+}
+
+.badge-badge {
+  width: 27%;
+  aspect-ratio: 1/1;
+  border: 3px solid #FBC55D;
+  border-radius: 100%;
+  background-color: #FFFBE0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+
+  & img {
+    position: absolute;
+    z-index: 0;
+    height: 70%;
+    object-fit: fill;
+
+  }
+
+  & p {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    color: #E3E3E3;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.badge-transparent {
+  width: 20%;
+  aspect-ratio: 1/1;
+
+  border: 3px solid transparent;
 }

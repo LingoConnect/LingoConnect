@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../../styles/mypage.css';
 import Top from '../../components/top';
+import { AiOutlineLock } from "react-icons/ai";
 import { getTopic } from '../../api/learning_content_api';
 import { getMyInfo } from '../../api/mypage_api';
 import { GlobalContext } from '../../App';
@@ -12,6 +13,7 @@ export default function MyPage() {
   const [topics, setTopics] = useState([]);
   const [picture, setPicture] = useState(false);
   const [studyRatio, setStudyRatio] = useState(0);
+  const [isBadgeModal, setisBadgeModal] = useState(false);
 
   const handlePictureClick = () => {
     setPicture(!picture);
@@ -93,7 +95,7 @@ export default function MyPage() {
         </div>
       </div>
       <div className="mypage-badge">
-        <p>획득한 배지 보기 +</p>
+        <p onClick={() => setisBadgeModal(true)}>획득한 배지 보기 +</p>
       </div>
       <div className="mypage-feedback">
         <MyFeedbackBox
@@ -109,6 +111,9 @@ export default function MyPage() {
           path="chat-pattern/practice"
         />
       </div>
+      {isBadgeModal &&
+        <BadgeModal setisBadgeModal={setisBadgeModal} />
+      }
     </div>
   );
 }
@@ -158,10 +163,33 @@ function MyFeedbackBox({ title, navigate_url, topics, path }) {
   );
 }
 
-function BadgeModal() {
+function BadgeModal({ setisBadgeModal }) {
+  const badge = [
+    '/img/mummy.png', '/img/badge/crow.png', '/img/badge/owl.png', '/img/badge/pumpkin.png', '/img/badge/spooky.png', '/img/badge/vampy.png'
+  ]
+
   return (
     <div className="badge-modal-container">
-      <div className="badge-title"></div>
+      <div className="badge-modal">
+        <div className="badge-title">
+          <h4>획득한 배지 모음</h4>
+          <p onClick={() => setisBadgeModal(false)}>x</p>
+        </div>
+        <div className="badge-list">
+          {badge.map(function (element, index) {
+            return (
+              <div className="badge-badge" key={index}>
+                <img src={process.env.PUBLIC_URL + element} alt="배지" />
+                {index === 0 &&
+                  <p><AiOutlineLock size={30} /></p>
+                }
+              </div>
+            )
+          })}
+          <div className="badge-transparent" />
+          <div className="badge-transparent" />
+        </div>
+      </div>
     </div>
   )
 }
