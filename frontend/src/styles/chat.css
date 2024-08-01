@@ -223,7 +223,6 @@
   text-align: center;
   margin: 2vh 5% 2vh 5%;
   cursor: pointer;
-
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -231,6 +230,17 @@
   border: 9px solid rgb(255, 238, 148);
   border-radius: 10px;
   position: relative;
+  height: 190px;
+
+  @media (max-width: 600px) {
+    height: 170px;
+  }
+  @media (max-width: 500px) {
+    height: 150px;
+  }
+  @media (max-width: 500px) {
+    height: 130px;
+  }
 }
 
 .main-topic-box-img {
@@ -246,14 +256,24 @@
 .main-topic-box h4 {
   position: relative;
   z-index: 1;
-  font-size: 3rem;
+  font-size: 2.5rem;
   color: white;
   text-shadow: 4px 4px 4.9px rgba(0, 0, 0, 0.5);
-  background-color: rgba(255, 255, 255, 0.25);
+  background-color: rgb(255, 255, 255, 0.1);
   padding: 10% 0;
   width: 100%;
   text-align: center;
   transition: background-color 0.5s ease;
+
+  @media (max-width: 600px) {
+    font-size: 2.2rem;
+  }
+  @media (max-width: 500px) {
+    font-size: 2rem;
+  }
+  @media (max-width: 500px) {
+    font-size: 1.8rem;
+  }
 }
 
 .main-topic-box h4:hover {
@@ -264,13 +284,13 @@
 
 @keyframes chatFlash {
   0% {
-      border-color: rgb(255, 238, 148);
+    border-color: rgb(255, 238, 148);
   }
   50% {
-      border-color: rgb(0, 10, 255);
+    border-color: rgb(0, 10, 255);
   }
   100% {
-      border-color: rgb(255, 238, 148);
+    border-color: rgb(255, 238, 148);
   }
 }
 

@@ -58,7 +58,7 @@ export default function Chat() {
       </div>
 
       <div className="main-tutorial-button">
-        <p onClick={()=>navigate('/tutorial/chat')}>
+        <p onClick={() => navigate('/tutorial/chat')}>
           <AiOutlineQuestionCircle size={20} /> 앱 사용법 보기
         </p>
       </div>
