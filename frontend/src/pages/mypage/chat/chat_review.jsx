@@ -25,8 +25,8 @@ export default function ChatReview({ path, title }) {
 
   return (
     <div className="feedback-container">
-      <div className="mypage-back" onClick={()=> navigate('/mypage')}>
-        <FaArrowLeftLong size={30} color='#746745' />
+      <div className="mypage-back" onClick={() => navigate('/mypage')}>
+        <FaArrowLeftLong size={30} color="#746745" />
       </div>
 
       <div className="feedback-main">
@@ -46,16 +46,23 @@ export default function ChatReview({ path, title }) {
                 alt="주제 사진"
               />
               {element.topic.length > 9 ? (
-                <div className="feedback-list-topic-long">
+                <div
+                  className="feedback-list-topic-long"
+                  onClick={() => {
+                    handleTopicClick(element.topic);
+                  }}
+                >
                   <h4>{element.topic.slice(0, 7)}</h4>
                   <h4>{element.topic.slice(7)}</h4>
                 </div>
-              ):(
-                <h4 
+              ) : (
+                <h4
                   className="feedback-list-topic-short"
-                  onClick={() => {handleTopicClick(element.topic)}}
-                > 
-                  {element.topic} 
+                  onClick={() => {
+                    handleTopicClick(element.topic);
+                  }}
+                >
+                  {element.topic}
                 </h4>
               )}
             </div>
