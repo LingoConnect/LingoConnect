@@ -9,18 +9,21 @@
   background-color: white;
 }
 
-.mypage-navbar .top-container {
-  height: 500px;
-  background: linear-gradient(to bottom, #ffe660 50%, #fff6a6);
+.mypage-navbar-container {
 
-  @media (max-height: 700px), (max-width: 700px) {
-    height: 63vh;
-  }
+  z-index: 2;
+  width: 120%;
+  align-self: center;
+  border-radius: 0px 0px 210px 210px;
+  background: linear-gradient(180deg, #FFE660 18.53%, #FFF6A6 119.52%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.mypage-navbar .top-logo,
-.mypage-navbar .top-circle-container {
-  display: none;
+.mypage-navbar {
+  width: 100%;
+  max-width: 800px;
 }
 
 .mypage-profile-box {
@@ -41,20 +44,6 @@
 
   @media (max-width: 700px) {
     width: 60%;
-  }
-
-  @media (max-width: 700px) {
-    @media (min-height: 900px) {
-      margin-top: 5vh;
-    }
-
-    @media (min-height: 1000px) {
-      margin-top: 8vh;
-    }
-
-    @media (min-height: 1200px) {
-      margin-top: 12vh;
-    }
   }
 }
 
@@ -125,29 +114,60 @@
 
 .mypage-profile-dc {
   width: 100%;
-  position: relative;
-  z-index: 1;
+  gap: 1rem;
+  margin: 20px 0 40px 0;
+  font-family: "Jua";
+  font-size: 1.2rem;
 
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-}
-
-.mypage-dcbox {
-  margin: 2rem 1rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
-  background: linear-gradient(to bottom, #776bff, #bcb7ff);
-  border-radius: 10px;
-  width: 18%;
-  padding: 10px 5px;
-  text-align: center;
+}
 
-  @media (max-width: 500px) {
-    width: 25%;
-  }
+.mypage-percentagebox {
+  width: 100%;
+  padding: 0 5%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;  
+}
+
+.mypage-percentage {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  position: relative;
+  width: 60%;
+}
+
+.mypage-percentage-background {
+  width: 100%;
+  height: 24px;
+  border-radius: 15px;
+  border: 1.5px solid rgb(155, 155, 155);
+  background: linear-gradient(to bottom, rgb(236, 236, 236), rgb(108, 108, 108));
+  position: absolute;
+  z-index: 1;
+}
+
+.mypage-percentage-color {
+  width: 0%;
+  height: 20px;
+  border-radius: 15px;
+  background: linear-gradient(to top, rgb(66, 49, 255), rgb(192, 186, 255));
+  position: absolute;
+  left: 2px;
+  top: 2px;
+  z-index: 2;
+}
+
+.mypage-percentage p {
+  align-self: center;
+  z-index: 3;
+  color: white;
 }
 
 .mypage-dcbox p {
@@ -161,7 +181,7 @@
     font-size: 1rem;
     line-height: 1.5;
   }
-}
+} */
 
 .mypage-picture-container {
   width: 100%;
@@ -176,74 +196,35 @@
   z-index: 1000;
 }
 
-.mypage-picture-setting {
-  width: 80%;
-  display: flex;
-  flex-direction: column;
-  padding: 1% 3%;
-  border-radius: 10px;
-  font-family: 'Jua';
-  font-size: 1.7rem;
-  background-color: #ffe877;
-  color: #746745;
-}
-
-.mypage-picture-setting h4 {
-  font-weight: 400;
-  margin-bottom: 3%;
-}
-
-.mypage-picture-setting-title {
+.mypage-badge {
+  max-width: 100%;
   display: flex;
   flex-direction: row;
-  align-items: center;
-  gap: 10px;
-  line-height: 2;
-
-  & svg {
-    position: relative;
-    bottom: 2.5px;
-  }
+  justify-content: flex-end;
+  margin: 0 5%;
 }
 
-.mypage-picture-setting-list {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.mypage-picture-setting-list h4 {
-  cursor: pointer;
-  width: 95%;
-  background-color: #ffe877;
-  padding: 1.5% 0 1.5% 3%;
-  transition: background-color 0.3s ease-in-out;
-
-  &:hover {
-    background-color: #fff6c9;
-  }
-}
-
-.mypage-picture-setting-close {
-  cursor: pointer;
-  width: fit-content;
-  align-self: flex-end;
-  margin: 1% 0;
-  padding: 1% 3%;
-  border: 2px solid #746745;
+.mypage-badge p {
+  padding: 1%;
+  font-family: "Jua";
+  font-weight: 400;
+  font-size: 0.9rem;
+  color: white;
   border-radius: 10px;
-
-  &:hover {
-    background-color: #fff6c9;
-  }
+  background: linear-gradient(0deg, #776BFF -15%, #BCB7FF 100%);
+  
+  position: relative;
+  bottom: 20px;
+  z-index: 3;
 }
+
+
 
 .mypage-feedback-container {
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 2vh;
 }
 
 .mypage-feedback-top {
