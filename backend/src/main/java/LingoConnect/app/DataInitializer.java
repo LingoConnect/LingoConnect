@@ -410,7 +410,7 @@ public class DataInitializer implements CommandLineRunner {
         );
 
         // 성
-        createTopAndSecondQuestions("성", "사춘기 때 느끼는 이성에 대한 감정은 어떻게 다루면 좋을까?", "중급",
+        createTopAndSecondQuestions("성과 사랑", "사춘기 때 느끼는 이성에 대한 감정은 어떻게 다루면 좋을까?", "중급",
                 new String[]{
                         "사춘기 동안 이성에 대한 감정이 변하는 이유는 무엇일까?",
                         "이러한 감정을 친구나 부모님과 어떻게 공유하면 좋을까?",
@@ -419,7 +419,7 @@ public class DataInitializer implements CommandLineRunner {
                 }
         );
 
-        createTopAndSecondQuestions("성", "내 몸은 내가 결정할 수 있는 권리가 있다는 걸 어떻게 표현할 수 있을까?", "중급",
+        createTopAndSecondQuestions("성과 사랑", "내 몸은 내가 결정할 수 있는 권리가 있다는 걸 어떻게 표현할 수 있을까?", "중급",
                 new String[]{
                         "자신의 신체에 대한 권리를 주장하는 방법은 무엇일까?",
                         "개인의 신체적 경계를 명확히 하기 위해 어떤 표현을 사용할 수 있을까?",
@@ -428,7 +428,7 @@ public class DataInitializer implements CommandLineRunner {
                 }
         );
 
-        createTopAndSecondQuestions("성", "성적인 동의를 얻는 방법은 뭐야?", "고급",
+        createTopAndSecondQuestions("성과 사랑", "성적인 동의를 얻는 방법은 뭐야?", "고급",
                 new String[]{
                         "성적인 동의를 명확하게 얻기 위해 어떤 질문을 할 수 있을까?",
                         "동의가 지속적으로 필요하다는 것을 어떻게 이해하고 확인할 수 있을까?",
@@ -437,7 +437,7 @@ public class DataInitializer implements CommandLineRunner {
                 }
         );
 
-        createTopAndSecondQuestions("성", "성과 관련된 법적 권리와 책임에는 뭐가 있어?", "고급",
+        createTopAndSecondQuestions("성과 사랑", "성과 관련된 법적 권리와 책임에는 뭐가 있어?", "고급",
                 new String[]{
                         "성적 동의와 관련된 법적 기준에는 어떤 것들이 있을까?",
                         "성적 행동에 대해 법적으로 책임을 지는 경우는 어떤 상황일까?",
@@ -446,7 +446,7 @@ public class DataInitializer implements CommandLineRunner {
                 }
         );
 
-        createTopAndSecondQuestions("성", "성범죄 피해자가 되었을 때 어떻게 대처해야 해?", "고급",
+        createTopAndSecondQuestions("성과 사랑", "성범죄 피해자가 되었을 때 어떻게 대처해야 해?", "고급",
                 new String[]{
                         "성범죄 피해자가 되었을 때 가장 먼저 해야 할 행동은 무엇일까?",
                         "피해를 입었을 때 법적 조치를 취하는 방법에는 어떤 것들이 있을까?",
@@ -455,7 +455,7 @@ public class DataInitializer implements CommandLineRunner {
                 }
         );
 
-        createTopAndSecondQuestions("성", "건강한 성적 관계를 유지하기 위해 어떤 커뮤니케이션이 필요할까?", "고급",
+        createTopAndSecondQuestions("성과 사랑", "건강한 성적 관계를 유지하기 위해 어떤 커뮤니케이션이 필요할까?", "고급",
                 new String[]{
                         "성적 관계에서 서로의 기대와 경계를 명확히 하는 방법은 무엇일까?",
                         "상대방의 감정을 이해하고 존중하기 위해 어떤 대화를 나눌 수 있을까?",
