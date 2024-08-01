@@ -111,7 +111,7 @@
 
 .menu-button .line1 {
   transform-origin: 0% 0%;
-  margin-bottom: 6px;
+  margin-bottom: 5.5px;
   transition: all 0.3s ease-in-out;
 }
 
@@ -121,7 +121,7 @@
 
 .menu-button .line3 {
   transform-origin: 0% 100%;
-  margin-top: 6px;
+  margin-top: 5.5px;
   transition: all 0.3s ease-in-out;
 }
 
@@ -235,4 +235,42 @@
   flex-direction: column;
   justify-content: center;
   border-top: 5px solid rgb(255, 249, 215);
+}
+
+.navbar-study p {
+  font-family: "Jua";
+  color: #746745;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.navbar-studymenu {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.navbar-studymenu-list {
+  width: 100%;
+
+  & li {
+    margin: 2% 0;
+    padding-left: calc(3% + 40px);
+    border: 2px solid #746745;
+    border-radius: 15px;
+    font-family: 'Jua';
+    font-weight: 400;
+    font-size: 1.2rem;
+    color: #746745;  
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    & span {
+      position: relative;
+      top: 2px;
+    }
+  }
 }

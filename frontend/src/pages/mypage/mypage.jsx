@@ -184,8 +184,8 @@ function BadgeModal({ setisBadgeModal }) {
               </div>
             );
           })}
-          <div className="badge-transparent" />
-          <div className="badge-transparent" />
+          {/* <div className="badge-transparent" />
+          <div className="badge-transparent" /> */}
         </div>
       </div>
     </div>

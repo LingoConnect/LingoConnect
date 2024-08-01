@@ -21,10 +21,11 @@ import TutorialReviewResult from './pages/tutorial/tutorial_chat_review_practice
 import TutorialPatternPractice from './pages/tutorial/tutorial_chat_pattern_practice';
 import Error from './pages/error';
 import { SmallTitle, BigTitle } from './components/title';
-import { FaHashtag } from 'react-icons/fa6';
+import { FaRegFaceGrinBeam, FaHashtag } from 'react-icons/fa6';
 import { CgProfile, CgClipboard } from 'react-icons/cg';
 import { TbMessage2Exclamation, TbLogout } from 'react-icons/tb';
 import { PiQuestionBold } from 'react-icons/pi';
+import { FaUserFriends } from "react-icons/fa";
 
 export const GlobalContext = createContext();
 
@@ -53,6 +54,10 @@ function AppContent() {
   const closeMenu = () => {
     setMenuOpen(false);
   };
+  const [isStudyVisible, setIsStudyVisible] = useState(false);
+  const toggleStudy = () => {
+    setIsStudyVisible(!isStudyVisible);
+  }
 
   return (
     <div className="container">
@@ -71,14 +76,31 @@ function AppContent() {
               <BigTitle />
               <ul className="navbar-menu-toplist">
                 <li
-                  onClick={() => {
-                    navigate('/study/chat');
-                    toggleMenu();
+                  className="navbar-study"
+                  onClick={() => toggleStudy()}
+                  style={{
+                    justifyContent:'space-between',
+                    marginBottom: isStudyVisible ? '1%' : '3%'
                   }}
                 >
-                  <FaHashtag size={30} color="#746745" />
-                  <h4>메인 화면</h4>
+                  <div className="navbar-studymenu">
+                    <FaHashtag size={30} color="#746745" />
+                    <h4>메인 화면</h4>
+                  </div>
+                  {isStudyVisible ? <p>-</p> : <p>+</p>}
                 </li>
+                {isStudyVisible &&                
+                  <div className='navbar-studymenu-list'>
+                    <li onClick={()=>{navigate('/study/expression'); toggleMenu();}}>
+                      <FaRegFaceGrinBeam size={20} color='#746745' />
+                      <span>표현 학습</span>
+                    </li>
+                    <li onClick={()=>{navigate('/study/chat'); toggleMenu();}}>
+                      <FaUserFriends size={17} color='#7466745' />
+                      <span>소통 연습</span>
+                    </li>
+                  </div>
+                }
                 <li
                   onClick={() => {
                     navigate('/mypage');
