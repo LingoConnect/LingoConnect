@@ -4,6 +4,9 @@ import './App.css';
 import Start from './pages/start';
 import Login from './pages/login';
 import Register from './pages/register';
+import Select from './pages/select';
+import Expression from './pages/expression/expression';
+import ExpressionPractice from './pages/expression/expression_practice';
 import Chat from './pages/chat/chat';
 import ChatQuestion from './pages/chat/chat_question';
 import ChatPractice from './pages/chat/chat_practice';
@@ -39,6 +42,7 @@ function AppContent() {
     location.pathname === '/' ||
     location.pathname === '/login' ||
     location.pathname === '/register' ||
+    location.pathname === '/study/expression/practice' ||    
     location.pathname === '/study/chat/practice' ||
     location.pathname === '/tutorial/chat/practice';
   const toggleMenu = () => {
@@ -160,6 +164,9 @@ function AppContent() {
           <Route path="/" element={<Start />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/select" element={<Select />} />
+          <Route path="/study/expression" element={<Expression />} />
+          <Route path="/study/expression/practice" element={<ExpressionPractice />} />
           <Route path="/study/chat" element={<Chat />} />
           <Route path="/study/chat/question" element={<ChatQuestion />} />
           <Route path="/study/chat/practice" element={<ChatPractice />} />

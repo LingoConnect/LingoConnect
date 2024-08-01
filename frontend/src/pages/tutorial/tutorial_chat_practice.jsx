@@ -74,7 +74,7 @@ export default function TutorialChatPractice() {
             <div className="practice-navbar" style={{justifyContent:'space-between'}}>
                 <div className="practice-navbar-left">
                     <img src={process.env.PUBLIC_URL + '/img/arrow.png'} alt="arrow" />
-                    <h4>주제: 학교</h4>
+                    <h4>주제: 가족과 감정</h4>
                 </div>
                 <div className="tutorial-out">
                     <p onClick={()=>navigate('/study/chat')}>튜토리얼 나가기</p>
