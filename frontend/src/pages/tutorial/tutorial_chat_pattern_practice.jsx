@@ -24,7 +24,7 @@ export default function TutorialPatternPractice() {
 
       <div className="PatternResult-main">
         <h4>자주 하는 실수(패턴) 분석</h4>
-        <p className={index < 2 ? 'tutorial-main':''}>학교</p>
+        <p className={index < 2 ? 'tutorial-main' : ''}>학교</p>
       </div>
 
       <div className="PatternResult-card" style={{ marginTop: '8vh' }}>
@@ -47,7 +47,7 @@ export default function TutorialPatternPractice() {
 function ResultCard({ index, pattern }) {
   return (
     <div className="resultcard-container">
-      <div className={index < 2 ? "resultcard-card tutorial-main" : "resultcard-card"}>
+      <div className={index < 2 ? 'resultcard-card tutorial-main' : 'resultcard-card'}>
         <img src={process.env.PUBLIC_URL + '/img/light.png'} alt="" />
         <h4>{pattern}</h4>
       </div>
@@ -55,18 +55,19 @@ function ResultCard({ index, pattern }) {
   );
 }
 
-function Modal({index, setIndex, patternTutorial}) {
+function Modal({ index, setIndex, patternTutorial }) {
   const navigate = useNavigate();
 
   return (
-      <div 
-        className="tutorialModal pattern-modal"
-        style={{bottom:'20px'}}
-      >
-          <img src={process.env.PUBLIC_URL + '/img/cat.png'} alt="튜토리얼" />
-          <h4>{patternTutorial[index]}</h4>
-          {index < 4 && <p onClick={()=> setIndex(index+1)}>다음 &gt;</p>}
-          {index === 4 && <p onClick={()=> navigate('/study/chat')} style={{color:'rgb(0,10,255)'}}>메인으로</p>}
-      </div>
-  )
+    <div className="tutorialModal pattern-modal" style={{ bottom: '20px' }}>
+      <img src={process.env.PUBLIC_URL + '/img/cat.png'} alt="튜토리얼" />
+      <h4>{patternTutorial[index]}</h4>
+      {index < 4 && <p onClick={() => setIndex(index + 1)}>다음 &gt;</p>}
+      {index === 4 && (
+        <p onClick={() => navigate('/study/chat')} style={{ color: 'rgb(0,10,255)' }}>
+          메인으로
+        </p>
+      )}
+    </div>
+  );
 }
