@@ -24,8 +24,8 @@ public class GptService {
         this.openAiClient = openAiClient;
     }
 
-    public String getAssistantId(String model) {
-        JsonObject assistant = JsonParser.parseString(openAiClient.createAssistant(model)).getAsJsonObject();
+    public String getAssistantId(String model, String name) {
+        JsonObject assistant = JsonParser.parseString(openAiClient.createAssistant(model, name)).getAsJsonObject();
         log.info("assistant: {}", assistant);
         return assistant.get("id").getAsString();
     }

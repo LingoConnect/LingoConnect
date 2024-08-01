@@ -16,23 +16,32 @@ public class OpenAiClient {
 
     private final WebClient webClient;
     private final String apiKey;
-    private final String instructions;
+    private final String instruction_lingo;
+    private final String instruction_analysis;
 
     public OpenAiClient(WebClient.Builder webClientBuilder,
                         @Value("${openai.api-key}") String apiKey,
-                        @Value("${openai.instructions}") String instructions) {
+                        @Value("${openai.instructions_lingo}") String instruction_lingo,
+                        @Value("${openai.instructions_analysis}") String instruction_analysis) {
         this.webClient = webClientBuilder
 //                .filter(logRequest())
 //                .filter(logResponse())
                 .build();
         this.apiKey = apiKey;
-        this.instructions = instructions;
+        this.instruction_lingo = instruction_lingo;
+        this.instruction_analysis = instruction_analysis;
     }
 
-    public String createAssistant(String model) {
+    public String createAssistant(String model, String name) {
         JsonObject json = new JsonObject();
-        json.addProperty("name", "lingoConnect"); // ToDo 변경 필요
-        json.addProperty("instructions", instructions);
+
+        json.addProperty("name", name); // ToDo 변경 필요
+
+        if(name.equals("lingoConnect")) {
+            json.addProperty("instructions", instruction_lingo);
+        } else {
+            json.addProperty("instructions", instruction_analysis);
+        }
         json.addProperty("model", model);
         JsonArray tools = new JsonArray();
         JsonObject tool = new JsonObject();
