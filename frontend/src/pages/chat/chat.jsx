@@ -68,7 +68,7 @@ export default function Chat() {
           <img src={process.env.PUBLIC_URL + '/img/mummy.png'} alt="" />
           <h4>학습할 주제를 선택하세요!</h4>
         </div>
-        {topics.map(function (element, index) {
+        {topics.map(function (element) {
           return (
             <div
               className="main-topic-box"

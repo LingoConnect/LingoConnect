@@ -186,7 +186,7 @@ export function UserChat({ answers }) {
 export function AIFeedback({ index, feedbacks }) {
     return (
         <div className="feedback-box">
-            <div style={{ height: '4rem' }} />
+            <div style={{ height: '2rem' }} />
             <p className={index === 4 ? 'tutorial-score' : ''}>{feedbacks.feedback}</p>
         </div>
     );

@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../../../styles/chat_review.css';
 import { getTopic } from '../../../api/learning_content_api';
+import { FaArrowLeftLong } from 'react-icons/fa6';
 
 export default function ChatReview({ path, title }) {
   const navigate = useNavigate();
@@ -24,6 +25,10 @@ export default function ChatReview({ path, title }) {
 
   return (
     <div className="feedback-container">
+      <div className="mypage-back" onClick={()=> navigate('/mypage')}>
+        <FaArrowLeftLong size={30} color='#746745' />
+      </div>
+
       <div className="feedback-main">
         <img src={process.env.PUBLIC_URL + '/img/cat.png'} alt="" />
         <h4>{title}</h4>

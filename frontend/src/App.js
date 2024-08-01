@@ -26,6 +26,11 @@ function AppContent() {
   const navigate = useNavigate();
   const location = useLocation();
   const isMyPage = location.pathname === '/mypage';
+  const isTutorialPage =
+    location.pathname === '/tutorial/chat' ||
+    location.pathname === '/tutorial/chat/practice' ||
+    location.pathname === '/tutorial/mypage/chat-review' ||
+    location.pathname === '/tutorial/mypage/chat-pattern';
   const [menuOpen, setMenuOpen] = useState(false);
   const isNoNavPage =
     location.pathname === '/' ||
@@ -34,7 +39,9 @@ function AppContent() {
     location.pathname === '/study/chat/practice' ||
     location.pathname === '/tutorial/chat/practice';
   const toggleMenu = () => {
-    setMenuOpen(!menuOpen);
+    if(!isTutorialPage) {
+      setMenuOpen(!menuOpen);
+    }
   };
   const closeMenu = () => {
     setMenuOpen(false);
@@ -119,18 +126,30 @@ function AppContent() {
             </div>
           </div>
 
-          {isMyPage === true ? (
+          {/* 마이페이지용 */}
+          { isMyPage &&
             <div className="navbar-mypage">
               <p>마이페이지</p>
               <SmallTitle />
             </div>
-          ) : (
+          }
+          {/* 튜토리얼용 */}
+          { isTutorialPage &&
+            <div className="navbar-tutorial">
+              <div className="navbar-blank1"/>
+              <SmallTitle />
+              <p>튜토리얼 나가기</p>
+            </div>
+          }
+          {/* 원래용 */}
+          {
+            !isMyPage && !isTutorialPage &&
             <div className="navbar-no-mypage">
               <div className="navbar-blank1" />
               <SmallTitle />
               <div className="navbar-blank2" />
             </div>
-          )}
+          }
         </div>
       )}
 
