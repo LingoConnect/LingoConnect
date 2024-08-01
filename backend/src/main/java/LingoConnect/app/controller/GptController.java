@@ -73,11 +73,11 @@ public class GptController {
             }
     )
     public ResponseEntity<?> getAiResponse(@ModelAttribute GptRequest gptRequest) throws InterruptedException {
-        count++;
+//        count++;
         Long topQuestionId = null;
-        if(count>5){
-            return ResponseEntity.ok().body("과금 방지 제한");
-        }
+//        if(count>5){
+//            return ResponseEntity.ok().body("과금 방지 제한");
+//        }
 
         String topic = "주제: " + gptRequest.getTitle() + "\n ";
         String question = gptRequest.getQuestion();
