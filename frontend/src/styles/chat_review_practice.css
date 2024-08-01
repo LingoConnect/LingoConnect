@@ -147,36 +147,3 @@
 .feedbackresult-box .feedback-box {
   align-self: center;
 }
-
-/* .feedbackresult-box h5 {
-    width: 4rem;
-    font-size: 1.5rem;
-    margin-top: 1rem;
-    align-self: center;
-    text-align: center;
-    color: #746745;
-    border: 2px solid #746745;
-    border-radius: 5px;
-    background-color: white;
-} */
-
-/* .result-box-under {
-    width: 100%;
-    height: 5%;
-    flex-grow: 1;
-    overflow-y: hidden;
-    background-color: #FFFDF3;
-    position: relative;
-    z-index: 3;
-}
-
-.result-box-gradient {
-    width: 90%;
-    height: 12%;
-    background:
-         linear-gradient(180deg, rgba(254, 248, 222, 0.03) -4.17%, rgba(254, 248, 222, 0.5) 5.39%, rgba(254, 248, 222, 0.7) 11.65%, rgba(254, 248, 222, 0.95) 19.47%, #FEF8DE 28.86%);
-    position: absolute;
-    bottom: -3%;
-    left: 5%;
-    z-index: 2;
-} */

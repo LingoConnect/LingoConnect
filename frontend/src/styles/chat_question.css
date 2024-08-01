@@ -50,7 +50,7 @@
   color: white;
   border-radius: 3px;
   font-size: 1.2rem;
-  padding: 0.3rem 2rem 0.3rem 2rem;
+  padding: 0.3rem 2rem;
   text-align: end;
 }
 
@@ -86,13 +86,14 @@
   background-color: rgb(255, 238, 148);
   box-shadow: none;
   border-radius: 10px;
-  margin: 1rem 5% 1rem 5%;
-  padding: 1rem 1.5rem 1rem 1.5rem;
+  margin: 1rem 5%;
+  padding: 1rem 1.5rem;
   transition: box-shadow 0.3s ease;
 }
 
 .question-box-list-q:hover {
-  box-shadow: 2px 2px 4px 0 rgb(237, 213, 89), -2px -2px 4px 0 rgb(237, 213, 89),
+  box-shadow: 
+    2px 2px 4px 0 rgb(237, 213, 89), -2px -2px 4px 0 rgb(237, 213, 89),
     2px -2px 4px 0 rgb(237, 213, 89), -2px 2px 4px 0 rgb(237, 213, 89);
 }
 
