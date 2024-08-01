@@ -150,6 +150,7 @@ const ChatPracticeContent = forwardRef((_, ref) => {
     try {
       const audioCtx = new (window.AudioContext || window.webkitAudioContext)({
         latencyHint: 'interactive',
+        sampleRate: 48000,
       });
 
       if (!audioCtx.audioWorklet) {
@@ -170,9 +171,11 @@ const ChatPracticeContent = forwardRef((_, ref) => {
 
       const stream = await navigator.mediaDevices.getUserMedia({
         audio: {
+          sampleRate: 48000,
+          channelCount: 2,
           echoCancellation: true,
           noiseSuppression: true,
-          autoGainControl: false,
+          autoGainControl: true,
         },
       });
       const mediaRecorder = new MediaRecorder(stream);
@@ -346,7 +349,7 @@ const ChatPracticeContent = forwardRef((_, ref) => {
 
   const convertBlobToWav = async (blob) => {
     const audioContext = new (window.AudioContext || window.webkitAudioContext)({
-      sampleRate: 16000,
+      sampleRate: 48000,
     });
     const arrayBuffer = await blob.arrayBuffer();
     const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
