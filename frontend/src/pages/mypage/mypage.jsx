@@ -39,66 +39,76 @@ export default function MyPage() {
     fetchStudyRatio();
   }, [topics]);
 
+
   const formattedRatio = studyRatio.toFixed(2);
   const totalScore = globalScores.reduce((acc, score) => acc + score, 0);
   const averageScore = totalScore / globalScores.length;
   const formattedScore = averageScore.toFixed(2);
+  const scorePercentage = formattedScore * 20;
 
   return (
     <div className="mypage-container">
-      <div className="mypage-navbar">
-        <Top />
-        <div className="mypage-profile-box">
-          <div className="mypage-profile-top">
-            <img src={process.env.PUBLIC_URL + '/img/deco.png'} alt="" />
-            <p>초보</p>
+      <div className="mypage-navbar-container">
+        <div className="mypage-navbar">
+          <div className="mypage-profile-box">
+            <div className="mypage-profile-top">
+              <img src={process.env.PUBLIC_URL + '/img/deco.png'} alt="" />
+              <p>초보</p>
+            </div>
+            <div className="mypage-profile-img">
+              <img
+                onClick={() => handlePictureClick()}
+                src={process.env.PUBLIC_URL + '/img/이루매.jpeg'}
+                alt="프로필"
+              />
+            </div>
+            <div className="mypage-profile-name">
+              <h4>링구</h4>
+            </div>
           </div>
-          <div className="mypage-profile-img">
-            <img
-              onClick={() => handlePictureClick()}
-              src={process.env.PUBLIC_URL + '/img/이루매.jpeg'}
-              alt="프로필"
-            />
+          <div className="mypage-profile-dc">
+            <div className="mypage-percentagebox">
+              <p>학습 성취도</p>
+              <div className="mypage-percentage">
+                <div className="mypage-percentage-background" />
+                <div
+                  className="mypage-percentage-color"
+                  style={{ width: `${formattedRatio}%` }}
+                />
+                <p>{formattedRatio}%</p>
+              </div>
+            </div>
+            <div className="mypage-percentagebox">
+              <p>내 발음 점수</p>
+              <div className="mypage-percentage">
+                <div className="mypage-percentage-background" />
+                <div
+                  className="mypage-percentage-color"
+                  style={{ width: `${scorePercentage}%` }}
+                />
+                <p>{formattedScore !== 'NaN' ? formattedScore : 0} / 5</p>
+              </div>
+            </div>
           </div>
-          <div className="mypage-profile-name">
-            <h4>링구</h4>
-          </div>
-        </div>
-        <div className="mypage-profile-dc">
-          <div className="mypage-dcbox">
-            <p>학습성취도</p>
-            <p>{formattedRatio}%</p>
-          </div>
-          <div className="mypage-dcbox">
-            <p>내 발음 점수</p>
-            <p>{formattedScore !== 'NaN' ? formattedScore : 0}점 / 5점</p>
-          </div>
-          <div className="mypage-dcbox">
-            <p>획득한</p>
-            <p>배지 모음</p>
-          </div>
-        </div>
-        <div className="mypage-feedback">
-          <MyFeedbackBox
-            title="피드백 모아보기"
-            navigate_url="/mypage/chat-review"
-            topics={topics}
-            path="chat-review/question"
-          />
-          <MyFeedbackBox
-            title="자주 하는 실수(패턴) 분석"
-            navigate_url="/mypage/chat-pattern"
-            topics={topics}
-            path="chat-pattern/practice"
-          />
         </div>
       </div>
-
-      {/* {picture && (
-        <div className="mypage-picture-container">
-          <PictureModal handlePictureClick={handlePictureClick} />
-        </div>
-      )} */}
+      <div className="mypage-badge">
+        <p>획득한 배지 보기 +</p>
+      </div>
+      <div className="mypage-feedback">
+        <MyFeedbackBox
+          title="피드백 모아보기"
+          navigate_url="/mypage/chat-review"
+          topics={topics}
+          path="chat-review/question"
+        />
+        <MyFeedbackBox
+          title="자주 하는 실수(패턴) 분석"
+          navigate_url="/mypage/chat-pattern"
+          topics={topics}
+          path="chat-pattern/practice"
+        />
+      </div>
     </div>
   );
 }
@@ -146,4 +156,12 @@ function MyFeedbackBox({ title, navigate_url, topics, path }) {
       </div>
     </div>
   );
+}
+
+function BadgeModal() {
+  return (
+    <div className="badge-modal-container">
+      <div className="badge-title"></div>
+    </div>
+  )
 }

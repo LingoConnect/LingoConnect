@@ -16,13 +16,16 @@ export default function Start() {
       </div>
       <img src={process.env.PUBLIC_URL + '/img/mummy.png'} alt=""></img>
       <div className="start-button-box">
-        <Link to="/login">
+        <Link to="/study/chat">
+          <button>입장하기</button>
+        </Link>
+        {/* <Link to="/login">
           <button>로그인</button>
         </Link>
         <Link to="/register">
           <button>회원가입</button>
-        </Link>
-        <div className="search-box">
+        </Link> */}
+        {/* <div className="search-box">
           <p>&nbsp;&nbsp;아이디 찾기</p>
           <span>|</span>
           <p>비밀번호 찾기</p>
@@ -31,7 +34,7 @@ export default function Start() {
           <Link to="/study/chat">
             <p>비회원으로 로그인</p>
           </Link>
-        </div>
+        </div> */}
       </div>
 
       <div className="start-circle-container">

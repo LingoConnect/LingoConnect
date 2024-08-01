@@ -77,7 +77,7 @@ export default function TutorialChatPractice() {
                     <h4>주제: 학교</h4>
                 </div>
                 <div className="tutorial-out">
-                    <p onClick={()=>navigate('/main')}>튜토리얼 나가기</p>
+                    <p onClick={()=>navigate('/study/chat')}>튜토리얼 나가기</p>
                 </div>
             </div>
             <div className="practice-chat">
