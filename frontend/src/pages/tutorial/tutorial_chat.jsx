@@ -8,8 +8,7 @@ export default function TutorialChat() {
   const [index, setIndex] = useState(0);
   const mainTutorial = [
     '학습 주제를 고를 수 있는 화면이에요!',
-    '깜빡거리는 주제상자를 눌러볼까요?',
-    '',
+    '깜빡거리는 주제상자를 눌러볼까요?'
   ];
 
   return (
@@ -74,7 +73,8 @@ export default function TutorialChat() {
         ))}
       </div>
 
-      {index < 2 && <Modal index={index} setIndex={setIndex} mainTutorial={mainTutorial} />}
+      <Modal index={index} setIndex={setIndex} mainTutorial={mainTutorial} />
+      <div className="tutorial-overlay" />
     </div>
   );
 }

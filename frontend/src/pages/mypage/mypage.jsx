@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../../styles/mypage.css';
 import Top from '../../components/top';
-import Portal from '../../components/Portal';
 import { getTopic } from '../../api/learning_content_api';
 import { AiOutlinePicture } from 'react-icons/ai';
 
@@ -73,25 +72,11 @@ export default function MyPage() {
         </div>
       </div>
 
-      {picture && (
-        <Portal>
-          <div className="mypage-picture-setting">
-            <h4 className="mypage-picture-setting-title">
-              {' '}
-              <AiOutlinePicture size={33} />
-              프로필 사진 설정
-            </h4>
-            <div className="mypage-picture-setting-list">
-              <h4>사진 찍기</h4>
-              <h4>앨범에서 사진 선택</h4>
-              <h4 style={{ marginBottom: '0' }}>기본 이미지 적용</h4>
-            </div>
-            <div className="mypage-picture-setting-close">
-              <p onClick={() => setPicture()}>닫기</p>
-            </div>
-          </div>
-        </Portal>
-      )}
+      {picture && 
+        <div className="mypage-picture-container">
+          <PictureModal handlePictureClick={handlePictureClick} />
+        </div>
+      }
     </div>
   );
 }
@@ -114,11 +99,37 @@ function MyFeedbackBox({ title, navigate_url, topics }) {
           return (
             <div className="mypage-feedback-topic">
               <img src={topic.image_url} alt="주제 사진" />
-              <h4>{topic.topic}</h4>
+              { topic.topic.length > 7 ?
+                <div className="mypage-feedback-topic-long">
+                  <h4>{topic.topic.slice(0,7)}</h4>
+                  <h4>{topic.topic.slice(7)}</h4>
+                </div>
+                : <h4>{topic.topic}</h4>
+              }
             </div>
           );
         })}
       </div>
     </div>
   );
+}
+
+
+function PictureModal({handlePictureClick}) {
+  return (
+    <div className="mypage-picture-setting">
+      <h4 className="mypage-picture-setting-title">
+        <AiOutlinePicture size={33} />
+        프로필 사진 설정
+      </h4>
+      <div className="mypage-picture-setting-list">
+        <h4>사진 찍기</h4>
+        <h4>앨범에서 사진 선택</h4>
+        <h4 style={{ marginBottom: '0' }}>기본 이미지 적용</h4>
+      </div>
+      <div className="mypage-picture-setting-close">
+        <p onClick={() => handlePictureClick()}>닫기</p>
+      </div>
+    </div>
+  )
 }

@@ -88,6 +88,7 @@ button {
   grid-template-columns: repeat(18, 1fr);
   grid-template-rows: repeat(18, 1fr);
   z-index: 1;
+  overflow: hidden;
 }
 
 .background-circle-container .circle.big:nth-child(1) {
