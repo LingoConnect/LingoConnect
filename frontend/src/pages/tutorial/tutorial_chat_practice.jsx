@@ -170,7 +170,7 @@ export function AIChat({ index, questions }) {
             <div className="ai-chat-dialogue">
                 <h4>{questions}</h4>
                 <HiSpeakerWave
-                    className={index === 0 ? 'aichat-audio-player tutorial-audio' : 'custom-audio-player'}
+                    className={index === 0 ? 'aichat-audio-player tutorial-audio' : 'aichat-audio-player'}
                 />
             </div>
         </div>

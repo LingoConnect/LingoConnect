@@ -40,6 +40,7 @@ export default function TutorialPatternPractice() {
         />
       </div>
       <Modal index={index} setIndex={setIndex} patternTutorial={patternTutorial} />
+      <div className="tutorial-overlay" />
     </div>
   );
 }
