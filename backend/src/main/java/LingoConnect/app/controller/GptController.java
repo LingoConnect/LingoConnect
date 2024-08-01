@@ -25,6 +25,7 @@ import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 
 @RestController
@@ -72,6 +73,87 @@ public class GptController {
         log.info(":{}",gptService);
         String url = gptService.createImage(prompt);
         return ResponseEntity.ok().body(url);
+    }
+
+    @GetMapping("/images")
+    @Operation(
+            summary = "get images list",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Successful operation",
+                            content = @Content(
+                                    mediaType = "application/json",
+                                    schema = @Schema(implementation = SuccessResponse.class)
+                            )
+                    ),
+                    @ApiResponse(
+                            responseCode = "400",
+                            description = "Bad request",
+                            content = @Content(
+                                    mediaType = MediaType.APPLICATION_JSON_VALUE,
+                                    schema = @Schema(implementation = ErrorResponse.class)
+                            )
+                    ),
+                    @ApiResponse(
+                            responseCode = "401",
+                            description = "Bad credentials",
+                            content = @Content(
+                                    mediaType = MediaType.APPLICATION_JSON_VALUE,
+                                    schema = @Schema(implementation = ErrorResponse.class)
+                            )
+                    )
+            }
+    )
+    public ResponseEntity<ArrayList<String>> imageList() {
+        ArrayList<String> imageList = new ArrayList<>();
+
+        imageList.add("교통");
+        imageList.add("동물");
+        imageList.add("음식");
+        imageList.add("코딩");
+        imageList.add("학교");
+
+        return ResponseEntity.ok().body(imageList);
+    }
+
+    @GetMapping("/image/random")
+    @Operation(
+            summary = "get random image about topic",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Successful operation",
+                            content = @Content(
+                                    mediaType = "application/json",
+                                    schema = @Schema(implementation = SuccessResponse.class)
+                            )
+                    ),
+                    @ApiResponse(
+                            responseCode = "400",
+                            description = "Bad request",
+                            content = @Content(
+                                    mediaType = MediaType.APPLICATION_JSON_VALUE,
+                                    schema = @Schema(implementation = ErrorResponse.class)
+                            )
+                    ),
+                    @ApiResponse(
+                            responseCode = "401",
+                            description = "Bad credentials",
+                            content = @Content(
+                                    mediaType = MediaType.APPLICATION_JSON_VALUE,
+                                    schema = @Schema(implementation = ErrorResponse.class)
+                            )
+                    )
+            }
+    )
+    public ResponseEntity<String> image(@RequestParam String topic) {
+        Random random = new Random();
+        int randomInt = random.nextInt(3) + 1;
+
+        String imageSource = topic + randomInt + ".webp";
+        String imagePath = "http://localhost:8080/img/" + imageSource;
+        return ResponseEntity.ok().body(imagePath);
     }
 
     @GetMapping("/")
