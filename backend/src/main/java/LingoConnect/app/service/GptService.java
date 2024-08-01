@@ -32,7 +32,6 @@ public class GptService {
 
     public JsonArray listAssistants(){
         JsonObject assistant = JsonParser.parseString(openAiClient.listAssistant()).getAsJsonObject();
-        log.info("assistant list: {}", assistant);
         return assistant.get("data").getAsJsonArray();
     }
 
