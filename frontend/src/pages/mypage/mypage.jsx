@@ -1,12 +1,14 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../../styles/mypage.css';
 import Top from '../../components/top';
 import { getTopic } from '../../api/learning_content_api';
-import { AiOutlinePicture } from 'react-icons/ai';
 import { getMyInfo } from '../../api/mypage_api';
+import { GlobalContext } from '../../App';
 
 export default function MyPage() {
+  const { globalScores } = useContext(GlobalContext);
+
   const [topics, setTopics] = useState([]);
   const [picture, setPicture] = useState(false);
   const [studyRatio, setStudyRatio] = useState(0);
@@ -38,6 +40,9 @@ export default function MyPage() {
   }, [topics]);
 
   const formattedRatio = studyRatio.toFixed(2);
+  const totalScore = globalScores.reduce((acc, score) => acc + score, 0);
+  const averageScore = totalScore / globalScores.length;
+  const formattedScore = averageScore.toFixed(2);
 
   return (
     <div className="mypage-container">
@@ -66,7 +71,7 @@ export default function MyPage() {
           </div>
           <div className="mypage-dcbox">
             <p>내 발음 점수</p>
-            <p>0 / 5</p>
+            <p>{formattedScore !== 'NaN' ? formattedScore : 0}점 / 5점</p>
           </div>
           <div className="mypage-dcbox">
             <p>획득한</p>
@@ -78,26 +83,32 @@ export default function MyPage() {
             title="피드백 모아보기"
             navigate_url="/mypage/chat-review"
             topics={topics}
+            path="chat-review/question"
           />
           <MyFeedbackBox
             title="자주 하는 실수(패턴) 분석"
             navigate_url="/mypage/chat-pattern"
             topics={topics}
+            path="chat-pattern/practice"
           />
         </div>
       </div>
 
-      {picture && (
+      {/* {picture && (
         <div className="mypage-picture-container">
           <PictureModal handlePictureClick={handlePictureClick} />
         </div>
-      )}
+      )} */}
     </div>
   );
 }
 
-function MyFeedbackBox({ title, navigate_url, topics }) {
+function MyFeedbackBox({ title, navigate_url, topics, path }) {
   const navigate = useNavigate();
+
+  const handleTopicClick = (topic, path) => {
+    navigate(`/mypage/${path}`, { state: { topic } });
+  };
 
   return (
     <div className="mypage-feedback-container">
@@ -110,40 +121,28 @@ function MyFeedbackBox({ title, navigate_url, topics }) {
         />
       </div>
       <div className="mypage-feedback-box">
-        {topics.slice(0, 3).map((topic) => {
+        {topics.slice(0, 3).map((topic, index) => {
           return (
-            <div className="mypage-feedback-topic">
-              <img src={topic.image_url} alt="주제 사진" />
+            <div key={index} className="mypage-feedback-topic">
+              <img
+                src={topic.image_url}
+                alt="주제 사진"
+                onClick={() => handleTopicClick(topic.topic, path)}
+              />
               {topic.topic.length > 7 ? (
-                <div className="mypage-feedback-topic-long">
+                <div
+                  className="mypage-feedback-topic-long"
+                  onClick={() => handleTopicClick(topic.topic, path)}
+                >
                   <h4>{topic.topic.slice(0, 7)}</h4>
                   <h4>{topic.topic.slice(7)}</h4>
                 </div>
               ) : (
-                <h4>{topic.topic}</h4>
+                <h4 onClick={() => handleTopicClick(topic.topic, path)}>{topic.topic}</h4>
               )}
             </div>
           );
         })}
-      </div>
-    </div>
-  );
-}
-
-function PictureModal({ handlePictureClick }) {
-  return (
-    <div className="mypage-picture-setting">
-      <h4 className="mypage-picture-setting-title">
-        <AiOutlinePicture size={33} />
-        프로필 사진 설정
-      </h4>
-      <div className="mypage-picture-setting-list">
-        <h4>사진 찍기</h4>
-        <h4>앨범에서 사진 선택</h4>
-        <h4 style={{ marginBottom: '0' }}>기본 이미지 적용</h4>
-      </div>
-      <div className="mypage-picture-setting-close">
-        <p onClick={() => handlePictureClick()}>닫기</p>
       </div>
     </div>
   );

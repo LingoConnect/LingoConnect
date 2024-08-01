@@ -1,0 +1,32 @@
+.error-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 40px;
+}
+
+.error-container h1 {
+  font-size: 5rem;
+  font-family: 'Jua';
+  margin: 10px;
+}
+
+.error-container p {
+  font-size: 1.5rem;
+  font-family: 'NEXON Lv2 Gothic';
+  margin: 10px;
+}
+
+.error-container button {
+  background-color: #ffe660;
+  border: none;
+  border-radius: 50px;
+  max-width: 400px;
+  padding: 10px 30px;
+  margin: 20px;
+  font-size: 1.2rem;
+  font-family: 'Gugi';
+}

@@ -42,22 +42,20 @@
   @media (max-width: 700px) {
     width: 60%;
   }
-  
+
   @media (max-width: 700px) {
     @media (min-height: 900px) {
       margin-top: 5vh;
     }
-  
+
     @media (min-height: 1000px) {
       margin-top: 8vh;
     }
-  
+
     @media (min-height: 1200px) {
       margin-top: 12vh;
     }
   }
-
-
 }
 
 .mypage-profile-top {
@@ -92,7 +90,6 @@
 }
 
 .mypage-profile-img img {
-  cursor: pointer;
   border: 3px solid rgb(251, 197, 93);
   border-radius: 100%;
   object-fit: cover;
@@ -134,7 +131,6 @@
   display: flex;
   flex-direction: row;
   justify-content: center;
-
 }
 
 .mypage-dcbox {
@@ -174,12 +170,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  
+
   position: fixed;
   top: 0;
   z-index: 1000;
 }
-
 
 .mypage-picture-setting {
   width: 80%;
@@ -310,6 +305,7 @@
   z-index: 0;
   object-fit: cover;
   opacity: 0.75;
+  cursor: pointer;
 }
 
 .mypage-feedback-topic h4 {
@@ -320,8 +316,9 @@
   color: white;
   background-color: transparent;
   margin: 5.5vh 0;
+  cursor: pointer;
 
-  @media (max-width: 650px), (min-height:1100px ) {
+  @media (max-width: 650px), (min-height: 1100px) {
     font-size: 2vh;
   }
 }
@@ -338,7 +335,7 @@
   .mypage-feedback-topic h4 {
     font-size: 2vh;
   }
-  
+
   .mypage-feedback-topic-long {
     margin: 4.3vh 0;
   }
