@@ -110,9 +110,9 @@ public class GptController {
         // ----------- 피드백 저장 -------------
         FeedbackDTO feedbackDTO = FeedbackDTO.builder()
                 .userId(1L) // <------------------ 수정 필요
-                .topic(topic)
-                .question(question)
-                .userAnswer(userAnswer)
+                .topic(gptRequest.getTitle())
+                .question(gptRequest.getQuestion())
+                .userAnswer(gptRequest.getUserAnswer())
                 .topQuestionId(topQuestionId)
                 .feedback(gptFeedback)
                 .build();

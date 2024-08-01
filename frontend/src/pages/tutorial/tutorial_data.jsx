@@ -23,7 +23,7 @@ export const test_topics = [
   {
     topic: '친구와 동료관계',
     imgUrl: '/img/topic/친구와동료관계.jpg',
-  }
+  },
 ];
 
 export const test_mainquestions = [
