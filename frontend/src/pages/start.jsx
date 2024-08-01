@@ -16,7 +16,7 @@ export default function Start() {
       </div>
       <img src={process.env.PUBLIC_URL + '/img/mummy.png'} alt=""></img>
       <div className="start-button-box">
-        <Link to="/study/chat">
+        <Link to="/study">
           <button>입장하기</button>
         </Link>
         {/* <Link to="/login">
