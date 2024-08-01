@@ -332,6 +332,8 @@
 }
 
 .tutorialModal p {
+  font-family: "Jua";
+  font-weight: 200;
   cursor: pointer;
   align-self: flex-end;
   text-decoration: underline;

@@ -445,3 +445,9 @@
 .tutorial-score {
   animation: practiceScoreFlash 1s infinite;
 }
+
+.practice-navbar-left {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
