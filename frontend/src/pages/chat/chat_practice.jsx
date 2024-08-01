@@ -183,14 +183,35 @@ const ChatPracticeContent = forwardRef((_, ref) => {
       setMedia(mediaRecorder);
 
       const sourceNode = audioCtx.createMediaStreamSource(stream);
-      const filter = audioCtx.createBiquadFilter();
-      filter.type = 'lowpass';
-      filter.frequency.setValueAtTime(1000, audioCtx.currentTime);
+
+      // Highpass filter
+      const highpassFilter = audioCtx.createBiquadFilter();
+      highpassFilter.type = 'highpass';
+      highpassFilter.frequency.setValueAtTime(100, audioCtx.currentTime);
+
+      // Lowpass filter
+      const lowpassFilter = audioCtx.createBiquadFilter();
+      lowpassFilter.type = 'lowpass';
+      lowpassFilter.frequency.setValueAtTime(1000, audioCtx.currentTime);
+
+      // Bandpass filter
+      const bandpassFilter = audioCtx.createBiquadFilter();
+      bandpassFilter.type = 'bandpass';
+      bandpassFilter.frequency.setValueAtTime(355, audioCtx.currentTime);
+      bandpassFilter.Q.setValueAtTime(8.3, audioCtx.currentTime);
+
+      // Notch filter (removes a specific frequency)
+      const notchFilter = audioCtx.createBiquadFilter();
+      notchFilter.type = 'notch';
+      notchFilter.frequency.setValueAtTime(60, audioCtx.currentTime); // Assuming 60Hz power line noise
+      notchFilter.Q.setValueAtTime(10, audioCtx.currentTime);
 
       sourceNode.connect(compressor);
-      compressor.connect(filter);
-      filter.connect(analyserNode);
-      analyserNode.connect(audioCtx.destination);
+      compressor.connect(highpassFilter);
+      highpassFilter.connect(lowpassFilter);
+      lowpassFilter.connect(bandpassFilter);
+      bandpassFilter.connect(notchFilter);
+      notchFilter.connect(analyserNode);
 
       mediaRecorder.start();
 
@@ -348,38 +369,40 @@ const ChatPracticeContent = forwardRef((_, ref) => {
   };
 
   const convertBlobToWav = async (blob) => {
-    const audioContext = new (window.AudioContext || window.webkitAudioContext)({
-      sampleRate: 48000,
-    });
+    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
     const arrayBuffer = await blob.arrayBuffer();
     const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
     const numberOfChannels = audioBuffer.numberOfChannels;
+    const sampleRate = audioBuffer.sampleRate; // Use the sample rate from the audio buffer
     const length = audioBuffer.length * numberOfChannels * 2 + 44;
     const buffer = new ArrayBuffer(length);
     const view = new DataView(buffer);
+
     // Write WAV header
     writeString(view, 0, 'RIFF');
     view.setUint32(4, 36 + audioBuffer.length * numberOfChannels * 2, true);
     writeString(view, 8, 'WAVE');
     writeString(view, 12, 'fmt ');
-    view.setUint32(16, 16, true);
-    view.setUint16(20, 1, true);
-    view.setUint16(22, numberOfChannels, true);
-    view.setUint32(24, 16000, true); // sampleRate = 16000
-    view.setUint32(28, 16000 * 2 * numberOfChannels, true); // byteRate = sampleRate * blockAlign
-    view.setUint16(32, numberOfChannels * 2, true); // blockAlign = numberOfChannels * bytesPerSample
-    view.setUint16(34, 16, true); // bitsPerSample
+    view.setUint32(16, 16, true); // Subchunk1Size (16 for PCM)
+    view.setUint16(20, 1, true); // AudioFormat (1 for PCM)
+    view.setUint16(22, numberOfChannels, true); // Number of Channels
+    view.setUint32(24, sampleRate, true); // Sample Rate
+    view.setUint32(28, sampleRate * numberOfChannels * 2, true); // Byte Rate
+    view.setUint16(32, numberOfChannels * 2, true); // Block Align
+    view.setUint16(34, 16, true); // Bits Per Sample
     writeString(view, 36, 'data');
     view.setUint32(40, audioBuffer.length * numberOfChannels * 2, true);
+
     // Write PCM samples
     const offset = 44;
     for (let i = 0; i < audioBuffer.length; i++) {
       for (let channel = 0; channel < numberOfChannels; channel++) {
         const sample = audioBuffer.getChannelData(channel)[i];
-        const intSample = sample < 0 ? sample * 32768 : sample * 32767; // Convert sample to 16-bit PCM
+        const intSample = Math.max(-1, Math.min(1, sample)) * 32767; // Convert sample to 16-bit PCM
         view.setInt16(offset + (i * numberOfChannels + channel) * 2, intSample, true);
       }
     }
+
     return new Blob([buffer], { type: 'audio/wav' });
   };
 
