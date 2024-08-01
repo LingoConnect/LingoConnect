@@ -114,7 +114,7 @@ public class GptController {
 
         if (assistantId == null) {
             log.info("new");
-            assistantId = gptService.getAssistantId("gpt-4o");  // 예시로 작성되었습니다. 실제 구현에 맞게 수정하세요.
+            assistantId = gptService.getAssistantId("gpt-4o", "lingoConnect");
         }
 
         String gptFeedback = response(content, assistantId);
@@ -183,11 +183,28 @@ public class GptController {
             String userAnswer = feedbackDTO.getUserAnswer();
             String feedback = "피드백: " + feedbackDTO.getFeedback();
 
-            String content = topic + question + userAnswer + feedback;
+            String content = "[ 주제: " + topic + " 질문: " + question + " 지적장애인: " + userAnswer + " 피드백: "+ feedback + "]";
             request.add(content);
         }
 
-        String assistantId = "asst_iaOj1eHcmliGcrUdwWiVeZJp";
+        JsonArray jsonArray = gptService.listAssistants();
+        String assistantId = null;
+
+        for (JsonElement element : jsonArray) {
+            JsonObject assistant = element.getAsJsonObject();
+            if (assistant.has("name") && "analysis".equals(assistant.get("name").getAsString())) {
+                log.info("already exist: {}", assistant.get("name").getAsString());
+                assistantId = assistant.get("id").getAsString();
+                log.info("assistantId: {}", assistantId);
+                break;
+            }
+        }
+
+        if (assistantId == null) {
+            log.info("new");
+            assistantId = gptService.getAssistantId("gpt-4o", "analysis");
+        }
+
         return ResponseEntity.ok().body(response(request, assistantId));
     }
     private String response(String content, String assistantId) throws InterruptedException {
