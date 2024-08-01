@@ -105,18 +105,36 @@ public class GptController {
                     )
             }
     )
-    public ResponseEntity<ArrayList<String>> imageList() {
-        ArrayList<String> imageList = new ArrayList<>();
+    public ResponseEntity<ArrayList<ArrayList<String>>> imageList() {
+        ArrayList<ArrayList<String>> imageList = new ArrayList<>();
 
-        imageList.add("교통");
-        imageList.add("동물");
-        imageList.add("음식");
-        imageList.add("코딩");
-        imageList.add("학교");
+        ArrayList<String> item1 = new ArrayList<>();
+        item1.add("교통");
+        item1.add("http://localhost:8080/img/교통.png");
+        imageList.add(item1);
+
+        ArrayList<String> item2 = new ArrayList<>();
+        item2.add("동물");
+        item2.add("http://localhost:8080/img/동물.png");
+        imageList.add(item2);
+
+        ArrayList<String> item3 = new ArrayList<>();
+        item3.add("음식");
+        item3.add("http://localhost:8080/img/음식.png");
+        imageList.add(item3);
+
+        ArrayList<String> item4 = new ArrayList<>();
+        item4.add("코딩");
+        item4.add("http://localhost:8080/img/코딩.png");
+        imageList.add(item4);
+
+        ArrayList<String> item5 = new ArrayList<>();
+        item5.add("학교");
+        item5.add("http://localhost:8080/img/학교.png");
+        imageList.add(item5);
 
         return ResponseEntity.ok().body(imageList);
     }
-
     @GetMapping("/image/random")
     @Operation(
             summary = "get random image about topic",
