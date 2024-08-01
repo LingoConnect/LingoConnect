@@ -3,11 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import '../../styles/chat.css';
 import { AiOutlineQuestionCircle } from 'react-icons/ai';
 import { getTopic } from '../../api/learning_content_api';
+import { getMyInfo } from '../../api/mypage_api';
 
 export default function Chat() {
   const navigate = useNavigate();
   const [topics, setTopics] = useState([]);
   const [profile, setProfile] = useState(true);
+  const [studyRatio, setStudyRatio] = useState(0);
 
   const handleTopicClick = (topic) => {
     navigate('/study/chat/question', { state: { topic } });
@@ -23,6 +25,19 @@ export default function Chat() {
 
     fetchTopics();
   }, []);
+
+  useEffect(() => {
+    if (topics.length === 0) return;
+
+    const fetchStudyRatio = async () => {
+      const get_ratio = await getMyInfo(topics);
+      setStudyRatio(get_ratio);
+    };
+
+    fetchStudyRatio();
+  }, [topics]);
+
+  const formattedRatio = studyRatio.toFixed(2);
 
   return (
     <div className="main-container">
@@ -41,7 +56,7 @@ export default function Chat() {
             <div className="main-profile-dc">
               <p>초보</p>
               <h4>링구</h4>
-              <h6>학습성취도:0%&nbsp;&nbsp;|&nbsp;&nbsp;내 발음 점수: 0</h6>
+              <h6>학습성취도: {formattedRatio}%&nbsp;&nbsp;|&nbsp;&nbsp;내 발음 점수: 0</h6>
             </div>
             <div className="main-profile-link">
               <h4 onClick={() => navigate('/mypage')}>MY</h4>

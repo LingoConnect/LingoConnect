@@ -86,7 +86,8 @@ const ChatPracticeContent = forwardRef((_, ref) => {
     [Questions]
   );
 
-  const fetchFeedbackTTS = useCallback(async (text) => {
+  const fetchFeedbackTTS = async (text) => {
+    console.log(text);
     const { status, data } = await getTTS({ text });
     if (status === 200) {
       const url = URL.createObjectURL(data);
@@ -94,7 +95,7 @@ const ChatPracticeContent = forwardRef((_, ref) => {
     } else {
       console.error('Failed to fetch TTS audio:', status);
     }
-  }, []);
+  };
 
   useEffect(() => {
     if (currentQuestionIndex !== Questions.length) {
