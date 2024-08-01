@@ -208,6 +208,7 @@ public class GptController {
         return ResponseEntity.ok().body(response(request, assistantId));
     }
     private String response(String content, String assistantId) throws InterruptedException {
+        log.info("response 호출");
         String threadId = gptService.createThreadAndGetId();
         String messageId = gptService.createMessageAndGetId(threadId, content);
         String runId = gptService.createRun(threadId, assistantId);
