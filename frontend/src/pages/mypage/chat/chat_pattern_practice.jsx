@@ -10,16 +10,24 @@ export default function PatternPractice() {
   const { topic } = location.state || {};
   // const [index, setIndex] = useState(0);
   const [pattern, setPattern] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const fetchMyFeedback = async () => {
-      const response = await getMyPattern();
-      if (response.status === 200) {
-        setPattern(response.data);
+      try {
+        setIsLoading(true);
+        const response = await getMyPattern();
+        if (response.status === 200) {
+          setPattern(response.data);
+        }
+      } catch (error) {
+        console.error('Error fetching pattern:', error);
+      } finally {
+        setIsLoading(false);
       }
     };
     fetchMyFeedback();
-  }, [topic]);
+  }, []);
 
   return (
     <div className="PatternResult-container">
@@ -43,7 +51,7 @@ export default function PatternPractice() {
       </div> */}
 
       <div className="PatternResult-card">
-        <ResultCard pattern={pattern} />
+        <ResultCard pattern={pattern} isLoading={isLoading} />
       </div>
 
       <div className="PatternResult-img">
@@ -53,7 +61,7 @@ export default function PatternPractice() {
   );
 }
 
-function ResultCard({ pattern }) {
+function ResultCard({ pattern, isLoading }) {
   return (
     <div className="resultcard-container">
       {/* 왼쪽으로 넘김 */}
@@ -75,6 +83,12 @@ function ResultCard({ pattern }) {
       {/* 카드 내용 */}
       <div className="resultcard-card">
         <img src={process.env.PUBLIC_URL + '/img/light.png'} alt="" />
+        {isLoading && (
+          <div className="loading-box">
+            <p>"답변을 분석하고 있습니다!"</p>
+            <div className="loading-spinner"></div>
+          </div>
+        )}
         <h4>{pattern}</h4>
       </div>
 
