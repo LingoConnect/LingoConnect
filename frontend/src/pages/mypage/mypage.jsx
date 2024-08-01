@@ -2,7 +2,7 @@ import { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../../styles/mypage.css';
 import Top from '../../components/top';
-import { AiOutlineLock } from "react-icons/ai";
+import { AiOutlineLock } from 'react-icons/ai';
 import { getTopic } from '../../api/learning_content_api';
 import { getMyInfo } from '../../api/mypage_api';
 import { GlobalContext } from '../../App';
@@ -41,7 +41,6 @@ export default function MyPage() {
     fetchStudyRatio();
   }, [topics]);
 
-
   const formattedRatio = studyRatio.toFixed(2);
   const totalScore = globalScores.reduce((acc, score) => acc + score, 0);
   const averageScore = totalScore / globalScores.length;
@@ -73,10 +72,7 @@ export default function MyPage() {
               <p>학습 성취도</p>
               <div className="mypage-percentage">
                 <div className="mypage-percentage-background" />
-                <div
-                  className="mypage-percentage-color"
-                  style={{ width: `${formattedRatio}%` }}
-                />
+                <div className="mypage-percentage-color" style={{ width: `${formattedRatio}%` }} />
                 <p>{formattedRatio}%</p>
               </div>
             </div>
@@ -84,10 +80,7 @@ export default function MyPage() {
               <p>내 발음 점수</p>
               <div className="mypage-percentage">
                 <div className="mypage-percentage-background" />
-                <div
-                  className="mypage-percentage-color"
-                  style={{ width: `${scorePercentage}%` }}
-                />
+                <div className="mypage-percentage-color" style={{ width: `${scorePercentage}%` }} />
                 <p>{formattedScore !== 'NaN' ? formattedScore : 0} / 5</p>
               </div>
             </div>
@@ -111,9 +104,7 @@ export default function MyPage() {
           path="chat-pattern/practice"
         />
       </div>
-      {isBadgeModal &&
-        <BadgeModal setisBadgeModal={setisBadgeModal} />
-      }
+      {isBadgeModal && <BadgeModal setisBadgeModal={setisBadgeModal} />}
     </div>
   );
 }
@@ -165,8 +156,13 @@ function MyFeedbackBox({ title, navigate_url, topics, path }) {
 
 function BadgeModal({ setisBadgeModal }) {
   const badge = [
-    '/img/mummy.png', '/img/badge/crow.png', '/img/badge/owl.png', '/img/badge/pumpkin.png', '/img/badge/spooky.png', '/img/badge/vampy.png'
-  ]
+    '/img/mummy.png',
+    '/img/badge/crow.png',
+    '/img/badge/owl.png',
+    '/img/badge/pumpkin.png',
+    '/img/badge/spooky.png',
+    '/img/badge/vampy.png',
+  ];
 
   return (
     <div className="badge-modal-container">
@@ -180,16 +176,18 @@ function BadgeModal({ setisBadgeModal }) {
             return (
               <div className="badge-badge" key={index}>
                 <img src={process.env.PUBLIC_URL + element} alt="배지" />
-                {index === 0 &&
-                  <p><AiOutlineLock size={30} /></p>
-                }
+                {(index === 3) | (index === 4) | (index === 5) && (
+                  <p>
+                    <AiOutlineLock size={30} />
+                  </p>
+                )}
               </div>
-            )
+            );
           })}
           <div className="badge-transparent" />
           <div className="badge-transparent" />
         </div>
       </div>
     </div>
-  )
+  );
 }

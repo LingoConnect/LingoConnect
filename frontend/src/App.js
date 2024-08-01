@@ -139,9 +139,9 @@ function AppContent() {
           {/* 튜토리얼용 */}
           {isTutorialPage && (
             <div className="navbar-tutorial">
-              <div className="navbar-blank1"/>
+              <div className="navbar-blank1" />
               <h4>튜토리얼</h4>
-              <p onClick={()=>navigate('/study/chat')}>튜토리얼 나가기</p>
+              <p onClick={() => navigate('/study/chat')}>튜토리얼 나가기</p>
             </div>
           )}
           {/* 원래용 */}
