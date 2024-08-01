@@ -1,6 +1,6 @@
 .question-container {
   width: 100%;
-  height: 100%;
+  height: calc(100% - 70px);
   position: relative;
   background-color: white;
   overflow-y: auto;
@@ -25,7 +25,8 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: 1vh 5% 10% 5%;
+  margin: 1vh 5% 5vh 5%;
+
 }
 
 .question-box-title {

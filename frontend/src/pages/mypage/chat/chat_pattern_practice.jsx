@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import '../../../styles/chat_pattern_practice.css';
 import { getMyPattern } from '../../../api/mypage_api';
@@ -10,20 +10,28 @@ export default function PatternPractice() {
   const { topic } = location.state || {};
   // const [index, setIndex] = useState(0);
   const [pattern, setPattern] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const fetchMyFeedback = async () => {
-      const response = await getMyPattern();
-      if (response.status === 200) {
-        setPattern(response.data);
+      try {
+        setIsLoading(true);
+        const response = await getMyPattern();
+        if (response.status === 200) {
+          setPattern(response.data);
+        }
+      } catch (error) {
+        console.error('Error fetching pattern:', error);
+      } finally {
+        setIsLoading(false);
       }
     };
     fetchMyFeedback();
-  }, [topic]);
+  }, []);
 
   return (
     <div className="PatternResult-container">
-      <div className="PatternResult-back" onClick={() => navigate(-1)}>
+      <div className="mypage-back" onClick={() => navigate(-1)}>
         <FaArrowLeftLong size={30} color="#746745" />
       </div>
 
@@ -43,7 +51,7 @@ export default function PatternPractice() {
       </div> */}
 
       <div className="PatternResult-card">
-        <ResultCard pattern={pattern} />
+        <ResultCard pattern={pattern} isLoading={isLoading} />
       </div>
 
       <div className="PatternResult-img">
@@ -53,7 +61,7 @@ export default function PatternPractice() {
   );
 }
 
-function ResultCard({ pattern }) {
+function ResultCard({ pattern, isLoading }) {
   return (
     <div className="resultcard-container">
       {/* 왼쪽으로 넘김 */}
@@ -75,7 +83,13 @@ function ResultCard({ pattern }) {
       {/* 카드 내용 */}
       <div className="resultcard-card">
         <img src={process.env.PUBLIC_URL + '/img/light.png'} alt="" />
-        <h4>{pattern}</h4>
+        {isLoading && (
+          <div className="loading-box">
+            <p>"답변을 분석하고 있습니다!"</p>
+            <div className="loading-spinner"></div>
+          </div>
+        )}
+        <h4><TextWithLineBreaks pattern={pattern} /></h4>
       </div>
 
       {/* 오른쪽으로 넘김 */}
@@ -95,4 +109,42 @@ function ResultCard({ pattern }) {
       </div> */}
     </div>
   );
+}
+
+export function TextWithLineBreaks({ pattern }) {
+  const regex = /(\d|\. |###)/g;
+
+  const textWithLineBreaks = pattern.split(regex).map((item, index) => {
+    if (!item) return null;
+
+    if (item === '. ') {
+      return (
+        <React.Fragment key={index}>
+          .<br />
+        </React.Fragment>
+      );
+    }
+
+    if (/\d/.test(item)) {
+      return (
+        <React.Fragment key={index}>
+          <br />
+          {item}
+        </React.Fragment>
+      );
+    }
+
+    if (item === '###') {
+      return (
+        <React.Fragment key={index}>
+          <br />
+          {item}
+        </React.Fragment>
+      );
+    }
+
+    return <React.Fragment key={index}>{item}</React.Fragment>;
+  });
+
+  return <p>{textWithLineBreaks}</p>;
 }

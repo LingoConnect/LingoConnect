@@ -1,21 +1,9 @@
 .PatternResult-container {
   width: 100%;
-  height: 100%;
+  height: calc(100% - 70px);
   position: relative;
   overflow-y: auto;
   background-color: #fffdf3;
-}
-
-.PatternResult-back {
-  cursor: pointer;
-  width: fit-content;
-  position: absolute;
-  top: 25px;
-  left: 15px;
-
-  @media (max-width: 600px) {
-    top: 4vw;
-  }
 }
 
 .PatternResult-navbar {
@@ -33,7 +21,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 8vh;
+  margin: 8vh 0 4vh 0;
 }
 
 .PatternResult-main h4 {
@@ -155,7 +143,6 @@
 .PatternResult-img {
   width: 100%;
   display: flex;
-  flex-direction: row;
   justify-content: center;
   align-items: center;
   margin: 8vh 0 2vh 0;
@@ -167,4 +154,49 @@
   @media (max-height: 700px) {
     width: 15vh;
   }
+}
+
+.loading-box {
+  z-index: 1000;
+  padding: 30px 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  z-index: 4000;
+}
+
+.loading-box p {
+  font-family: 'GmarketSansMedium';
+  margin-bottom: 10px;
+}
+
+.loading-spinner {
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #3498db;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+}
+
+/* 튜토리얼용 */
+
+@keyframes patternMainFlash {
+  0% {
+    background-color: white;
+  }
+
+  50% {
+    background-color: #f4e1766c;
+  }
+
+  100% {
+    background-color: white;
+  }
+}
+
+.tutorial-main {
+  animation: patternMainFlash 1s infinite;
 }

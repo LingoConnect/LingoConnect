@@ -1,9 +1,21 @@
 .feedbackquestion-container {
   width: 100%;
-  height: 100%;
+  height: calc(100% - 70px);
   position: relative;
   overflow-y: auto;
   background-color: #fffdf3;
+}
+
+.feedbackquestion-back {
+  cursor: pointer;
+  width: fit-content;
+  position: absolute;
+  top: 25px;
+  left: 15px;
+
+  @media (max-width: 600px) {
+    top: 4vw;
+  }
 }
 
 .feedbackquestion-main {
