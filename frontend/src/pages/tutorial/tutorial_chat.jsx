@@ -6,11 +6,11 @@ import { test_topics } from './tutorial_data';
 export default function TutorialChat() {
   const navigate = useNavigate();
   const [index, setIndex] = useState(0);
-  const [mainTutorial, setmainTutorial] = useState([
+  const mainTutorial = [
     '학습 주제를 고를 수 있는 화면이에요!',
     '깜빡거리는 주제상자를 눌러볼까요?',
     '',
-  ]);
+  ];
 
   return (
     <div className="main-container">
