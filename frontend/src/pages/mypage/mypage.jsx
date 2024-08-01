@@ -4,10 +4,12 @@ import '../../styles/mypage.css';
 import Top from '../../components/top';
 import { getTopic } from '../../api/learning_content_api';
 import { AiOutlinePicture } from 'react-icons/ai';
+import { getMyInfo } from '../../api/mypage_api';
 
 export default function MyPage() {
   const [topics, setTopics] = useState([]);
   const [picture, setPicture] = useState(false);
+  const [studyRatio, setStudyRatio] = useState(0);
 
   const handlePictureClick = () => {
     setPicture(!picture);
@@ -23,6 +25,19 @@ export default function MyPage() {
 
     fetchTopics();
   }, []);
+
+  useEffect(() => {
+    if (topics.length === 0) return;
+
+    const fetchStudyRatio = async () => {
+      const get_ratio = await getMyInfo(topics);
+      setStudyRatio(get_ratio);
+    };
+
+    fetchStudyRatio();
+  }, [topics]);
+
+  const formattedRatio = studyRatio.toFixed(2);
 
   return (
     <div className="mypage-container">
@@ -47,7 +62,7 @@ export default function MyPage() {
         <div className="mypage-profile-dc">
           <div className="mypage-dcbox">
             <p>학습성취도</p>
-            <p>0%</p>
+            <p>{formattedRatio}%</p>
           </div>
           <div className="mypage-dcbox">
             <p>내 발음 점수</p>
@@ -72,11 +87,11 @@ export default function MyPage() {
         </div>
       </div>
 
-      {picture && 
+      {picture && (
         <div className="mypage-picture-container">
           <PictureModal handlePictureClick={handlePictureClick} />
         </div>
-      }
+      )}
     </div>
   );
 }
@@ -99,13 +114,14 @@ function MyFeedbackBox({ title, navigate_url, topics }) {
           return (
             <div className="mypage-feedback-topic">
               <img src={topic.image_url} alt="주제 사진" />
-              { topic.topic.length > 7 ?
+              {topic.topic.length > 7 ? (
                 <div className="mypage-feedback-topic-long">
-                  <h4>{topic.topic.slice(0,7)}</h4>
+                  <h4>{topic.topic.slice(0, 7)}</h4>
                   <h4>{topic.topic.slice(7)}</h4>
                 </div>
-                : <h4>{topic.topic}</h4>
-              }
+              ) : (
+                <h4>{topic.topic}</h4>
+              )}
             </div>
           );
         })}
@@ -114,8 +130,7 @@ function MyFeedbackBox({ title, navigate_url, topics }) {
   );
 }
 
-
-function PictureModal({handlePictureClick}) {
+function PictureModal({ handlePictureClick }) {
   return (
     <div className="mypage-picture-setting">
       <h4 className="mypage-picture-setting-title">
@@ -131,5 +146,5 @@ function PictureModal({handlePictureClick}) {
         <p onClick={() => handlePictureClick()}>닫기</p>
       </div>
     </div>
-  )
+  );
 }
