@@ -35,32 +35,54 @@
   align-items: center;
 }
 
-.navbar-mypage p {
+.navbar-mypage p,
+.navbar-tutorial h4 {
   font-family: 'Jua';
   font-weight: 400;
   font-size: 1.5rem;
   color: #746745;
-  margin-left: 3%;
   padding-top: 0.5%;
-
+  
   @media (max-height: 700px) {
     font-size: 13px;
   }
 }
 
-.navbar-no-mypage {
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
+.navbar-mypage p {
+  margin-left: 3%;
 }
 
 .navbar-blank1 {
-  width: 1px;
+  width: 7rem;
+}
+
+.navbar-tutorial p,
+.tutorial-out p {
+  cursor: pointer;
+  font-family: "Jua";
+  font-weight: 200;
+  font-size: 1rem;
+  color: #746745;
+  margin-top: 0.5%;
+  padding: 0.5% 1rem;
+  border: 2px solid #746745;
+  border-radius: 15px;
+  background-color: rgb(255, 249, 215);
+
+  @media (max-height: 700px) {
+    font-size: 10px;
+  }
+
+  &:hover {
+    background-color: white;
+  }
 }
 
 .navbar-blank2 {
+  width: 1px;
+}
+
+.navbar-blank3 {
   width: 31px;
 }
 

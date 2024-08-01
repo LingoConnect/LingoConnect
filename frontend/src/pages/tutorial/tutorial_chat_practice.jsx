@@ -71,9 +71,14 @@ export default function TutorialChatPractice() {
     }, [index]);
     return (
         <div className="practice-container">
-            <div className="practice-navbar">
-                <img src={process.env.PUBLIC_URL + '/img/arrow.png'} alt="arrow" />
-                <h4>주제: 학교</h4>
+            <div className="practice-navbar" style={{justifyContent:'space-between'}}>
+                <div className="practice-navbar-left">
+                    <img src={process.env.PUBLIC_URL + '/img/arrow.png'} alt="arrow" />
+                    <h4>주제: 학교</h4>
+                </div>
+                <div className="tutorial-out">
+                    <p onClick={()=>navigate('/main')}>튜토리얼 나가기</p>
+                </div>
             </div>
             <div className="practice-chat">
                 <AIChat index={index} questions={test_mainquestions[0]} />

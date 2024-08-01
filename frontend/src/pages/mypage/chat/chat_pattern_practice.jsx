@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import '../../../styles/chat_pattern_practice.css';
 import { getMyPattern } from '../../../api/mypage_api';
@@ -89,7 +89,7 @@ function ResultCard({ pattern, isLoading }) {
             <div className="loading-spinner"></div>
           </div>
         )}
-        <h4>{pattern}</h4>
+        <h4><TextWithLineBreaks pattern={pattern} /></h4>
       </div>
 
       {/* 오른쪽으로 넘김 */}
@@ -109,4 +109,42 @@ function ResultCard({ pattern, isLoading }) {
       </div> */}
     </div>
   );
+}
+
+export function TextWithLineBreaks({ pattern }) {
+  const regex = /(\d|\. |###)/g;
+
+  const textWithLineBreaks = pattern.split(regex).map((item, index) => {
+    if (!item) return null;
+
+    if (item === '. ') {
+      return (
+        <React.Fragment key={index}>
+          .<br />
+        </React.Fragment>
+      );
+    }
+
+    if (/\d/.test(item)) {
+      return (
+        <React.Fragment key={index}>
+          <br />
+          {item}
+        </React.Fragment>
+      );
+    }
+
+    if (item === '###') {
+      return (
+        <React.Fragment key={index}>
+          <br />
+          {item}
+        </React.Fragment>
+      );
+    }
+
+    return <React.Fragment key={index}>{item}</React.Fragment>;
+  });
+
+  return <p>{textWithLineBreaks}</p>;
 }

@@ -7,14 +7,15 @@ export default function TutorialChat() {
   const navigate = useNavigate();
   const [index, setIndex] = useState(0);
   const mainTutorial = [
-    '링고커넥트에 온 걸 환영해요!',
+    '링고커넥트에 온 걸 환영해요! 앱 사용 법을 알려드릴게요.',
+    '오른쪽 맨 위의 나가기 버튼으로 언제든지 튜토리얼을 끝낼 수 있어요.',
     '여기는 메인 화면으로, 학습 주제를 고를 수 있어요.',
     '깜빡거리는 주제상자를 눌러볼까요?'
   ];
 
   const topElementRef = useRef(null);
   useEffect(() => {
-    if (index === 2) {
+    if (index === 3) {
       if (topElementRef.current) {
         topElementRef.current.scrollIntoView({behavior:'smooth'});
       }
@@ -49,15 +50,15 @@ export default function TutorialChat() {
         </div>
       </div>
 
-      <div className="main-topic" style={{ marginTop: '5vh' }}>
+      <div className={index === 2 ? "main-topic tutorial-chat-box" : "main-topic"} style={{ marginTop: '5vh' }}>
         <div className="main-topic-title">
           <h4>학습할 주제를 선택하세요!</h4>
         </div>
 
         <div
-          className={index === 2 ? 'main-topic-box tutorial-chat-box' : 'main-topic-box'}
+          className={index === 3 ? 'main-topic-box tutorial-chat-box' : 'main-topic-box'}
           onClick={() => {
-            if (index === 2) {
+            if (index === 3) {
               navigate('/tutorial/chat/practice');
             }
           }}
@@ -96,11 +97,11 @@ function Modal({ index, setIndex, mainTutorial }) {
       <h4>{mainTutorial[index]}</h4>
       <p
         onClick={() => {
-          if (index < 2) {
+          if (index < 3) {
             setIndex(index + 1);
           }
         }}
-        style={{ color: index === 2 ? 'white' : 'black' }}
+        style={{ color: index === 3 ? 'white' : 'black' }}
       >
         다음 &gt;
       </p>
