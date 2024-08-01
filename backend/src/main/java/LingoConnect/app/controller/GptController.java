@@ -163,6 +163,60 @@ public class GptController {
         return ResponseEntity.ok().body(gptFeedback);
     }
 
+    @GetMapping("/image/analysis")
+    @Transactional
+    @Operation(
+            summary = "사용자의 서술 내용이 올바른지 확인",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Successful operation",
+                            content = @Content(
+                                    mediaType = "application/json",
+                                    schema = @Schema(implementation = SuccessResponse.class)
+                            )
+                    ),
+                    @ApiResponse(
+                            responseCode = "400",
+                            description = "Bad request",
+                            content = @Content(
+                                    mediaType = MediaType.APPLICATION_JSON_VALUE,
+                                    schema = @Schema(implementation = ErrorResponse.class)
+                            )
+                    ),
+                    @ApiResponse(
+                            responseCode = "401",
+                            description = "Bad credentials",
+                            content = @Content(
+                                    mediaType = MediaType.APPLICATION_JSON_VALUE,
+                                    schema = @Schema(implementation = ErrorResponse.class)
+                            )
+                    )
+            }
+    )
+    public ResponseEntity<?> getImageAnalysis(@RequestParam String prompt,@RequestParam String imageUrl) throws InterruptedException {
+        JsonArray jsonArray = gptService.listAssistants();
+        String assistantId = null;
+
+        for (JsonElement element : jsonArray) {
+            JsonObject assistant = element.getAsJsonObject();
+            if (assistant.has("name") && "image".equals(assistant.get("name").getAsString())) {
+                log.info("already exist: {}", assistant.get("name").getAsString());
+                assistantId = assistant.get("id").getAsString();
+                log.info("assistantId: {}", assistantId);
+                break;
+            }
+        }
+        if (assistantId == null) {
+            log.info("new");
+            assistantId = gptService.getAssistantId("gpt-4o", "image");
+        }
+
+        String content = "이미지: " + imageUrl + ", 사용자의 서술 내용: " + prompt;
+        String result = response(content, assistantId);
+        return ResponseEntity.ok().body(result);
+    }
+
     @GetMapping("/analysis")
     @Transactional
     @Operation(
@@ -194,7 +248,7 @@ public class GptController {
                     )
             }
     )
-    public ResponseEntity<?> getAiResponse() throws InterruptedException {
+    public ResponseEntity<?> getAiFeedback() throws InterruptedException {
         // ToDo 일단 파라미터 없이 구성, 나중에 user 생기면 userId를 파라미터로 받아야함
 
 //        count++;

@@ -18,11 +18,13 @@ public class OpenAiClient {
     private final String apiKey;
     private final String instruction_lingo;
     private final String instruction_analysis;
+    private final String instruction_image;
 
     public OpenAiClient(WebClient.Builder webClientBuilder,
                         @Value("${openai.api-key}") String apiKey,
                         @Value("${openai.instructions_lingo}") String instruction_lingo,
-                        @Value("${openai.instructions_analysis}") String instruction_analysis) {
+                        @Value("${openai.instructions_analysis}") String instruction_analysis,
+                        @Value("${openai.instructions_image}") String instruction_image) {
         this.webClient = webClientBuilder
 //                .filter(logRequest())
 //                .filter(logResponse())
@@ -30,6 +32,7 @@ public class OpenAiClient {
         this.apiKey = apiKey;
         this.instruction_lingo = instruction_lingo;
         this.instruction_analysis = instruction_analysis;
+        this.instruction_image = instruction_image;
     }
 
     public String createImage(String prompt) {
@@ -56,8 +59,10 @@ public class OpenAiClient {
 
         if(name.equals("lingoConnect")) {
             json.addProperty("instructions", instruction_lingo);
-        } else {
+        } else if(name.equals("analysis")) {
             json.addProperty("instructions", instruction_analysis);
+        } else {
+            json.addProperty("instructions", instruction_image);
         }
         json.addProperty("model", model);
         JsonArray tools = new JsonArray();
