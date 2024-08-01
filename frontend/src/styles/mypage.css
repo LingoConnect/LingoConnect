@@ -14,7 +14,7 @@
   width: 120%;
   align-self: center;
   border-radius: 0px 0px 210px 210px;
-  background: linear-gradient(180deg, #FFE660 18.53%, #FFF6A6 119.52%);
+  background: linear-gradient(180deg, #ffe660 18.53%, #fff6a6 119.52%);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -85,8 +85,7 @@
   aspect-ratio: 1/1;
   transform: scale(1.2);
 
-  @media (max-height: 700px),
-  (max-width: 700px) {
+  @media (max-height: 700px), (max-width: 700px) {
     width: 10vh;
   }
 }
@@ -107,8 +106,7 @@
   font-size: 1.5rem;
   color: #746745;
 
-  @media (max-height: 700px),
-  (max-width: 700px) {
+  @media (max-height: 700px), (max-width: 700px) {
     font-size: 13px;
   }
 }
@@ -117,7 +115,7 @@
   width: 100%;
   gap: 1rem;
   margin: 20px 0 40px 0;
-  font-family: "Jua";
+  font-family: 'Jua';
   font-size: 1.2rem;
 
   display: flex;
@@ -208,12 +206,12 @@
 .mypage-badge p {
   cursor: pointer;
   padding: 1%;
-  font-family: "Jua";
+  font-family: 'Jua';
   font-weight: 400;
   font-size: 0.9rem;
   color: white;
   border-radius: 10px;
-  background: linear-gradient(0deg, #776BFF -15%, #BCB7FF 100%);
+  background: linear-gradient(0deg, #776bff -15%, #bcb7ff 100%);
 
   position: relative;
   bottom: 20px;
@@ -299,8 +297,7 @@
   margin: 5.5vh 0;
   cursor: pointer;
 
-  @media (max-width: 650px),
-  (min-height: 1100px) {
+  @media (max-width: 650px), (min-height: 1100px) {
     font-size: 2vh;
   }
 }
@@ -313,8 +310,7 @@
   margin: 3.4vh 0;
 }
 
-@media (max-width: 650px),
-(min-height: 1100px) {
+@media (max-width: 650px), (min-height: 1100px) {
   .mypage-feedback-topic h4 {
     font-size: 2vh;
   }
@@ -327,7 +323,6 @@
 .mypage-feedback-topic-long h4 {
   margin: 0;
 }
-
 
 .badge-modal-container {
   width: 100%;
@@ -348,8 +343,8 @@
   height: fit-content;
   max-height: 100%;
   margin: 5% 0;
-  border: 6px solid #FFE660;
-  background-color: #FFFDF3;
+  border: 6px solid #ffe660;
+  background-color: #fffdf3;
   padding: 2%;
   position: relative;
 }
@@ -361,7 +356,7 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  font-family: "Jua";
+  font-family: 'Jua';
   font-size: 1.5rem;
   color: #746745;
 
@@ -392,9 +387,9 @@
 .badge-badge {
   width: 27%;
   aspect-ratio: 1/1;
-  border: 3px solid #FBC55D;
+  border: 3px solid #fbc55d;
   border-radius: 100%;
-  background-color: #FFFBE0;
+  background-color: #fffbe0;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -405,7 +400,6 @@
     z-index: 0;
     height: 70%;
     object-fit: fill;
-
   }
 
   & p {
@@ -413,7 +407,7 @@
     z-index: 1;
     width: 100%;
     height: 100%;
-    color: #E3E3E3;
+    color: #e3e3e3;
     background: rgba(0, 0, 0, 0.5);
     border-radius: 100%;
     display: flex;

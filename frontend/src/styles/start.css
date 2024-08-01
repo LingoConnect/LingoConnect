@@ -48,12 +48,13 @@
 }
 
 .start-button-box {
-  margin-top: 10%;
-  width: 50%;
+  margin-top: 5%;
+  width: 40%;
   z-index: 5000;
 
   @media (max-width: 500px) {
     width: 60%;
+    margin-top: 7%;
   }
 
   @media (min-height: 1100px) {
@@ -68,7 +69,7 @@
   border: none;
   background-color: white;
   border-radius: 8px;
-  padding: 10px;
+  padding: 12px;
   margin: 5px;
   font-size: 1.1rem;
 
