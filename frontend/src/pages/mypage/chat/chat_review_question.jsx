@@ -3,6 +3,8 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import '../../../styles/chat_review_question.css';
 import { getMyFeedback } from '../../../api/mypage_api';
 import { getMainQuestion } from '../../../api/learning_content_api';
+import { FaArrowLeftLong } from 'react-icons/fa6';
+
 
 export default function ReviewQuestion() {
   const navigate = useNavigate();
@@ -45,6 +47,9 @@ export default function ReviewQuestion() {
 
   return (
     <div className="feedbackquestion-container">
+      <div className="mypage-back" onClick={()=>navigate(-1)}>
+        <FaArrowLeftLong size={30} color='#746745' />
+      </div>
       <div className="feedbackquestion-main">
         <h4>피드백 모아보기</h4>
         <p>{topic}</p>

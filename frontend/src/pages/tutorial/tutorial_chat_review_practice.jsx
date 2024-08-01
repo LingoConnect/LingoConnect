@@ -41,7 +41,6 @@ export default function TutorialReviewResult() {
         </div>
       </div>
       <Modal index={index} setIndex={setIndex} reviewTutorial={reviewTutorial} />
-      <div className="tutorial-overlay" />
     </div>
   );
 }

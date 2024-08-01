@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../../styles/chat.css';
 import { test_topics } from './tutorial_data';
@@ -7,12 +7,23 @@ export default function TutorialChat() {
   const navigate = useNavigate();
   const [index, setIndex] = useState(0);
   const mainTutorial = [
-    '학습 주제를 고를 수 있는 화면이에요!',
+    '링고커넥트에 온 걸 환영해요!',
+    '여기는 메인 화면으로, 학습 주제를 고를 수 있어요.',
     '깜빡거리는 주제상자를 눌러볼까요?'
   ];
 
+  const topElementRef = useRef(null);
+  useEffect(() => {
+    if (index === 2) {
+      if (topElementRef.current) {
+        topElementRef.current.scrollIntoView({behavior:'smooth'});
+      }
+    }
+  }, [index]);
+
   return (
     <div className="main-container">
+      <div ref={topElementRef} />
       <div className="main-navbar">
         <div className="main-profile-box">
           <div className="main-profile-pic">
@@ -44,9 +55,9 @@ export default function TutorialChat() {
         </div>
 
         <div
-          className={index === 1 ? 'main-topic-box tutorial-chat-box' : 'main-topic-box'}
+          className={index === 2 ? 'main-topic-box tutorial-chat-box' : 'main-topic-box'}
           onClick={() => {
-            if (index === 1) {
+            if (index === 2) {
               navigate('/tutorial/chat/practice');
             }
           }}
@@ -74,7 +85,6 @@ export default function TutorialChat() {
       </div>
 
       <Modal index={index} setIndex={setIndex} mainTutorial={mainTutorial} />
-      <div className="tutorial-overlay" />
     </div>
   );
 }
@@ -86,11 +96,11 @@ function Modal({ index, setIndex, mainTutorial }) {
       <h4>{mainTutorial[index]}</h4>
       <p
         onClick={() => {
-          if (index === 0) {
+          if (index < 2) {
             setIndex(index + 1);
           }
         }}
-        style={{ color: index === 1 ? 'white' : 'black' }}
+        style={{ color: index === 2 ? 'white' : 'black' }}
       >
         다음 &gt;
       </p>

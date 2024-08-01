@@ -31,7 +31,7 @@ export default function PatternPractice() {
 
   return (
     <div className="PatternResult-container">
-      <div className="PatternResult-back" onClick={() => navigate(-1)}>
+      <div className="mypage-back" onClick={() => navigate(-1)}>
         <FaArrowLeftLong size={30} color="#746745" />
       </div>
 

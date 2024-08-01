@@ -6,6 +6,18 @@
   background-color: #fffdf3;
 }
 
+.mypage-back {
+  cursor: pointer;
+  width: fit-content;
+  position: absolute;
+  top: 25px;
+  left: 15px;
+
+  @media (max-width: 600px) {
+    top: 4vw;
+  }
+}
+
 .feedback-main {
   width: 100%;
   display: flex;

@@ -25,7 +25,9 @@
   z-index: 1000;
 }
 
-.navbar-mypage {
+.navbar-mypage,
+.navbar-tutorial,
+.navbar-no-mypage {
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -47,7 +49,7 @@
 }
 
 .navbar-no-mypage {
-  width: calc(100% - 30px);
+  width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;

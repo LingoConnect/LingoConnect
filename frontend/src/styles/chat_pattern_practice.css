@@ -6,18 +6,6 @@
   background-color: #fffdf3;
 }
 
-.PatternResult-back {
-  cursor: pointer;
-  width: fit-content;
-  position: absolute;
-  top: 25px;
-  left: 15px;
-
-  @media (max-width: 600px) {
-    top: 4vw;
-  }
-}
-
 .PatternResult-navbar {
   background-color: #ffe660;
   display: flex;
