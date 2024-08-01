@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import '../../styles/chat_practice.css';
 import { getFeedback, getAudioFeedback } from '../../api/ai_api';
 import { getSubQuestion } from '../../api/learning_content_api';
+import { sendFeedbackMail } from '../../api/mail_api';
 import { getTTS } from '../../api/tts_api';
 import { HiOutlineLightBulb } from 'react-icons/hi';
 import { HiSpeakerWave } from 'react-icons/hi2';
@@ -15,6 +16,7 @@ const ChatPracticeContent = forwardRef((_, ref) => {
   const { topic, question, id } = location.state || {};
   const navigate = useNavigate();
   const [answerInput, setAnswerInput] = useState('');
+  const [mail, setMail] = useState('');
 
   const [Questions, setQuestions] = useState([]);
   const [answers, setAnswers] = useState([]);
@@ -90,13 +92,32 @@ const ChatPracticeContent = forwardRef((_, ref) => {
   );
 
   const fetchFeedbackTTS = async (text) => {
-    console.log(text);
     const { status, data } = await getTTS({ text });
     if (status === 200) {
       const url = URL.createObjectURL(data);
       setFeedbackTTSurls(url);
     } else {
       console.error('Failed to fetch TTS audio:', status);
+    }
+  };
+
+  const feedbackMail = async () => {
+    let mail_content = '';
+
+    Questions.forEach((element, index) => {
+      mail_content += `질문: ${element}\n학습자의 답변: ${answers[index]}\n피드백: ${feedbacks[index].feedback}\n\n`;
+    });
+
+    const { status } = await sendFeedbackMail({
+      receiver: mail,
+      title: '[링고커넥트] 학습 내용을 공유해드립니다!',
+      content: mail_content,
+    });
+
+    if (status === 200) {
+      alert('메일이 발송되었습니다.');
+    } else {
+      console.log('failed to send mail', status);
     }
   };
 
@@ -391,6 +412,13 @@ const ChatPracticeContent = forwardRef((_, ref) => {
         ))}
         {currentQuestionIndex === Questions.length && (
           <div className="practice-finish">
+            <div>
+              <input
+                placeholder="example@gmail.com"
+                onChange={(e) => setMail(e.target.value)}
+              ></input>
+              <button onClick={() => feedbackMail()}>메일 보내기</button>
+            </div>
             <div className="practice-finish-top">
               <HiOutlineLightBulb size={40} color="#FF2E00" />
               <p>학습 완료!</p>
