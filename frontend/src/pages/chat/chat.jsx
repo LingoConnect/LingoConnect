@@ -1,11 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../../styles/chat.css';
 import { AiOutlineQuestionCircle } from 'react-icons/ai';
 import { getTopic } from '../../api/learning_content_api';
 import { getMyInfo } from '../../api/mypage_api';
+import { GlobalContext } from '../../App';
 
 export default function Chat() {
+  const { globalScores } = useContext(GlobalContext);
+
   const navigate = useNavigate();
   const [topics, setTopics] = useState([]);
   const [profile, setProfile] = useState(true);
@@ -38,6 +41,9 @@ export default function Chat() {
   }, [topics]);
 
   const formattedRatio = studyRatio.toFixed(2);
+  const totalScore = globalScores.reduce((acc, score) => acc + score, 0);
+  const averageScore = totalScore / globalScores.length;
+  const formattedScore = averageScore.toFixed(2);
 
   return (
     <div className="main-container">
@@ -56,7 +62,10 @@ export default function Chat() {
             <div className="main-profile-dc">
               <p>초보</p>
               <h4>링구</h4>
-              <h6>학습성취도: {formattedRatio}%&nbsp;&nbsp;|&nbsp;&nbsp;내 발음 점수: 0</h6>
+              <h6>
+                학습성취도:&nbsp;{formattedRatio}%&nbsp;&nbsp;|&nbsp;&nbsp;내 발음 점수:&nbsp;
+                {formattedScore !== 'NaN' ? formattedScore : 0}점
+              </h6>
             </div>
             <div className="main-profile-link">
               <h4 onClick={() => navigate('/mypage')}>MY</h4>
