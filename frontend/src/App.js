@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { createContext, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import './App.css';
 import Start from './pages/start';
@@ -16,11 +16,14 @@ import TutorialChat from './pages/tutorial/tutorial_chat';
 import TutorialChatPractice from './pages/tutorial/tutorial_chat_practice';
 import TutorialReviewResult from './pages/tutorial/tutorial_chat_review_practice';
 import TutorialPatternPractice from './pages/tutorial/tutorial_chat_pattern_practice';
+import Error from './pages/error';
 import { SmallTitle, BigTitle } from './components/title';
 import { FaHashtag } from 'react-icons/fa6';
 import { CgProfile, CgClipboard } from 'react-icons/cg';
 import { TbMessage2Exclamation, TbLogout } from 'react-icons/tb';
 import { PiQuestionBold } from 'react-icons/pi';
+
+export const GlobalContext = createContext();
 
 function AppContent() {
   const navigate = useNavigate();
@@ -39,7 +42,7 @@ function AppContent() {
     location.pathname === '/study/chat/practice' ||
     location.pathname === '/tutorial/chat/practice';
   const toggleMenu = () => {
-    if(!isTutorialPage) {
+    if (!isTutorialPage) {
       setMenuOpen(!menuOpen);
     }
   };
@@ -127,29 +130,28 @@ function AppContent() {
           </div>
 
           {/* 마이페이지용 */}
-          { isMyPage &&
+          {isMyPage && (
             <div className="navbar-mypage">
               <p>마이페이지</p>
               <SmallTitle />
             </div>
-          }
+          )}
           {/* 튜토리얼용 */}
-          { isTutorialPage &&
+          {isTutorialPage && (
             <div className="navbar-tutorial">
               <div className="navbar-blank1"/>
               <h4>튜토리얼</h4>
               <p onClick={()=>navigate('/study/chat')}>튜토리얼 나가기</p>
             </div>
-          }
+          )}
           {/* 원래용 */}
-          {
-            !isMyPage && !isTutorialPage &&
+          {!isMyPage && !isTutorialPage && (
             <div className="navbar-no-mypage">
               <div className="navbar-blank2" />
               <SmallTitle />
               <div className="navbar-blank3" />
             </div>
-          }
+          )}
         </div>
       )}
 
@@ -178,6 +180,7 @@ function AppContent() {
           <Route path="/tutorial/chat/practice" element={<TutorialChatPractice />} />
           <Route path="/tutorial/mypage/chat-review" element={<TutorialReviewResult />} />
           <Route path="/tutorial/mypage/chat-pattern" element={<TutorialPatternPractice />} />
+          <Route path="*" element={<Error />} />
         </Routes>
       </div>
     </div>
@@ -185,10 +188,14 @@ function AppContent() {
 }
 
 function App() {
+  const [globalScores, setGlobalScores] = useState([]);
+
   return (
-    <Router basename={process.env.PUBLIC_URL}>
-      <AppContent />
-    </Router>
+    <GlobalContext.Provider value={{ globalScores, setGlobalScores }}>
+      <Router basename={process.env.PUBLIC_URL}>
+        <AppContent />
+      </Router>
+    </GlobalContext.Provider>
   );
 }
 

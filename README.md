@@ -50,7 +50,7 @@
 1. **기능 개발**: `feature/` 브랜치에서 새로운 기능을 개발합니다. `release` 브랜치에서 분기하여 작업 후, `release` 브랜치로 병합합니다.
 2. **버그 수정 및 릴리스 준비**: `release` 브랜치에서 검토 후 `main` 브랜치에 병합합니다.
 
-## frontend local
+## 🎥 Frontend local
 
 ### 프로젝트 가져오기
 
@@ -73,3 +73,18 @@ REACT_APP_BASE_URL : API 서버의 기본 URL을 설정합니다
 npm install
 npm start
 ```
+
+## ⏳ CI/CD Pipeline
+
+이 프로젝트는 GitHub Actions를 사용하여 CI/CD 파이프라인을 자동화합니다. 파이프라인은 백엔드와 프론트엔드로 나누어져 있습니다.
+
+### Backend
+
+1. **Build**: Gradle을 사용하여 백엔드를 빌드합니다.
+2. **Test**: 빌드 후 Gradle을 사용하여 백엔드 테스트를 실행합니다.
+3. **Deploy**: Docker Compose를 사용하여 백엔드 애플리케이션을 빌드하고 실행합니다.
+
+### Frontend
+
+1. **Build**: Node.js와 npm을 사용하여 프론트엔드를 빌드합니다.
+2. **Deploy**: 빌드된 프론트엔드를 GitHub Pages에 배포합니다.

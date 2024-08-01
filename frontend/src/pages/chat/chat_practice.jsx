@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useRef, forwardRef } from 'react';
+import React, { useState, useEffect, useContext, useCallback, useRef, forwardRef } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import '../../styles/chat_practice.css';
 import { getFeedback, getAudioFeedback } from '../../api/ai_api';
@@ -6,8 +6,11 @@ import { getSubQuestion } from '../../api/learning_content_api';
 import { getTTS } from '../../api/tts_api';
 import { HiOutlineLightBulb } from 'react-icons/hi';
 import { HiSpeakerWave } from 'react-icons/hi2';
+import { GlobalContext } from '../../App';
 
 const ChatPracticeContent = forwardRef((_, ref) => {
+  const { globalScores, setGlobalScores } = useContext(GlobalContext);
+
   const location = useLocation();
   const { topic, question, id } = location.state || {};
   const navigate = useNavigate();
@@ -240,6 +243,7 @@ const ChatPracticeContent = forwardRef((_, ref) => {
             if (response && response.status === 200) {
               console.log(response.data);
               const newFeedback = { feedback: response.data, score: answerScore };
+              setGlobalScores([...globalScores, answerScore]); //전역 변수에 발음 점수 추가
               setFeedbacks((prevFeedbacks) => [...prevFeedbacks, newFeedback]);
               setAnswers((prevAnswers) => [...prevAnswers, answerText]);
               setCurrentQuestionIndex((prevIndex) => {
@@ -420,17 +424,7 @@ const ChatPracticeContent = forwardRef((_, ref) => {
       </div>
 
       <div className="practice-input">
-        <input
-          value={answerInput}
-          onChange={(event) => setAnswerInput(event.target.value)}
-          onKeyUp={(event) => {
-            if (answerInput.trim() !== '') {
-              if (event.key === 'Enter') {
-                handleFeedback();
-              }
-            }
-          }}
-        />
+        <input value={answerInput} onChange={(event) => setAnswerInput(event.target.value)} />
         <div className="practice-input-send">
           <button onClick={activeMicButton ? startRecording : undefined}>
             <img
