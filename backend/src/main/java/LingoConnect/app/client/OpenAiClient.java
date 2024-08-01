@@ -31,7 +31,7 @@ public class OpenAiClient {
 
     public String createAssistant(String model) {
         JsonObject json = new JsonObject();
-        json.addProperty("name", "lingoConnect");
+        json.addProperty("name", "lingoConnect"); // ToDo 변경 필요
         json.addProperty("instructions", instructions);
         json.addProperty("model", model);
         JsonArray tools = new JsonArray();

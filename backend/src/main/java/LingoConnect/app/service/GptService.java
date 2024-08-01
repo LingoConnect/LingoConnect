@@ -30,6 +30,12 @@ public class GptService {
         return assistant.get("id").getAsString();
     }
 
+    public JsonArray listAssistants(){
+        JsonObject assistant = JsonParser.parseString(openAiClient.listAssistant()).getAsJsonObject();
+        log.info("assistant list: {}", assistant);
+        return assistant.get("data").getAsJsonArray();
+    }
+
     public String createThreadAndGetId(){
         JsonObject thread = JsonParser.parseString(openAiClient.createThread()).getAsJsonObject();
         log.info("thread: {}", thread);

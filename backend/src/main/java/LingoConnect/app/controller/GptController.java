@@ -9,6 +9,9 @@ import LingoConnect.app.service.FeedbackService;
 import LingoConnect.app.service.GptService;
 import LingoConnect.app.service.SecondQuestionService;
 import LingoConnect.app.service.TopQuestionService;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -96,13 +99,22 @@ public class GptController {
 
         String content = topic + question + userAnswer;
 
+        JsonArray jsonArray = gptService.listAssistants();
         String assistantId = null;
-        if(gptService.checkAssistant("lingoConnect")){
-            // 이미 lingoConnect Ai가 존재하는 경우
-            assistantId = "asst_72rWdwPlhnx8wsH6kSZ2Nypk";
-        } else {
-            // lingoConnect Ai를 새로 생성하는 경우
-            assistantId = gptService.getAssistantId("gpt-4o");
+
+        for (JsonElement element : jsonArray) {
+            JsonObject assistant = element.getAsJsonObject();
+            if (assistant.has("name") && "lingoConnect".equals(assistant.get("name").getAsString())) {
+                log.info("already exist: {}", assistant.get("name").getAsString());
+                assistantId = assistant.get("id").getAsString();
+                log.info("assistantId: {}", assistantId);
+                break;
+            }
+        }
+
+        if (assistantId == null) {
+            log.info("new");
+            assistantId = gptService.getAssistantId("gpt-4o");  // 예시로 작성되었습니다. 실제 구현에 맞게 수정하세요.
         }
 
         String gptFeedback = response(content, assistantId);
@@ -155,12 +167,12 @@ public class GptController {
     public ResponseEntity<?> getAiResponse() throws InterruptedException {
         // ToDo 일단 파라미터 없이 구성, 나중에 user 생기면 userId를 파라미터로 받아야함
 
-        count++;
+//        count++;
         Long topQuestionId = null;
 
-        if(count>5){
-            return ResponseEntity.ok().body("과금 방지 제한");
-        }
+//        if(count>5){
+//            return ResponseEntity.ok().body("과금 방지 제한");
+//        }
 
         ArrayList<FeedbackDTO> all = feedbackService.findAll();
 
