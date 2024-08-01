@@ -32,6 +32,23 @@ public class OpenAiClient {
         this.instruction_analysis = instruction_analysis;
     }
 
+    public String createImage(String prompt) {
+        JsonObject json = new JsonObject();
+
+        json.addProperty("model", "dall-e-3");
+        json.addProperty("prompt", prompt);
+        json.addProperty("n", 1);
+
+        return webClient.post()
+                .uri("https://api.openai.com/v1/images/generations")
+                .header("Content-Type", "application/json")
+                .header("Authorization", "Bearer " + apiKey)
+                .bodyValue(json.toString())
+                .retrieve()
+                .bodyToMono(String.class)
+                .block();
+    }
+
     public String createAssistant(String model, String name) {
         JsonObject json = new JsonObject();
 

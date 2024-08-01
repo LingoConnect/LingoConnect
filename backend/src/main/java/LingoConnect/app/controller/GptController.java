@@ -22,10 +22,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.ErrorResponse;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 
@@ -41,9 +38,42 @@ public class GptController {
     private final TopQuestionService topQuestionService;
     private final SecondQuestionService secondQuestionService;
 
-    private int flag = 0;
+    @PostMapping("/image")
+    @Operation(
+            summary = "get image through prompt",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Successful operation",
+                            content = @Content(
+                                    mediaType = "application/json",
+                                    schema = @Schema(implementation = SuccessResponse.class)
+                            )
+                    ),
+                    @ApiResponse(
+                            responseCode = "400",
+                            description = "Bad request",
+                            content = @Content(
+                                    mediaType = MediaType.APPLICATION_JSON_VALUE,
+                                    schema = @Schema(implementation = ErrorResponse.class)
+                            )
+                    ),
+                    @ApiResponse(
+                            responseCode = "401",
+                            description = "Bad credentials",
+                            content = @Content(
+                                    mediaType = MediaType.APPLICATION_JSON_VALUE,
+                                    schema = @Schema(implementation = ErrorResponse.class)
+                            )
+                    )
+            }
+    )
+    public ResponseEntity<String> makeImage(@RequestParam(name = "prompt") String prompt){
+        log.info(":{}",gptService);
+        String url = gptService.createImage(prompt);
+        return ResponseEntity.ok().body(url);
+    }
 
-    private int count = 0;
     @GetMapping("/")
     @Transactional
     @Operation(
@@ -207,6 +237,7 @@ public class GptController {
 
         return ResponseEntity.ok().body(response(request, assistantId));
     }
+
     private String response(String content, String assistantId) throws InterruptedException {
         log.info("response 호출");
         String threadId = gptService.createThreadAndGetId();
