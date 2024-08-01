@@ -1,13 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../../styles/chat.css';
 import { AiOutlineQuestionCircle } from 'react-icons/ai';
 import { getTopic } from '../../api/learning_content_api';
+import { getMyInfo } from '../../api/mypage_api';
+import { GlobalContext } from '../../App';
 
 export default function Chat() {
+  const { globalScores } = useContext(GlobalContext);
+
   const navigate = useNavigate();
   const [topics, setTopics] = useState([]);
   const [profile, setProfile] = useState(true);
+  const [studyRatio, setStudyRatio] = useState(0);
 
   const handleTopicClick = (topic) => {
     navigate('/study/chat/question', { state: { topic } });
@@ -23,6 +28,22 @@ export default function Chat() {
 
     fetchTopics();
   }, []);
+
+  useEffect(() => {
+    if (topics.length === 0) return;
+
+    const fetchStudyRatio = async () => {
+      const get_ratio = await getMyInfo(topics);
+      setStudyRatio(get_ratio);
+    };
+
+    fetchStudyRatio();
+  }, [topics]);
+
+  const formattedRatio = studyRatio.toFixed(2);
+  const totalScore = globalScores.reduce((acc, score) => acc + score, 0);
+  const averageScore = totalScore / globalScores.length;
+  const formattedScore = averageScore.toFixed(2);
 
   return (
     <div className="main-container">
@@ -41,7 +62,10 @@ export default function Chat() {
             <div className="main-profile-dc">
               <p>초보</p>
               <h4>링구</h4>
-              <h6>학습성취도:0%&nbsp;&nbsp;|&nbsp;&nbsp;내 발음 점수: 0</h6>
+              <h6>
+                학습성취도:&nbsp;{formattedRatio}%&nbsp;&nbsp;|&nbsp;&nbsp;내 발음 점수:&nbsp;
+                {formattedScore !== 'NaN' ? formattedScore : 0}점
+              </h6>
             </div>
             <div className="main-profile-link">
               <h4 onClick={() => navigate('/mypage')}>MY</h4>
@@ -58,7 +82,7 @@ export default function Chat() {
       </div>
 
       <div className="main-tutorial-button">
-        <p>
+        <p onClick={() => navigate('/tutorial/chat')}>
           <AiOutlineQuestionCircle size={20} /> 앱 사용법 보기
         </p>
       </div>
@@ -68,7 +92,7 @@ export default function Chat() {
           <img src={process.env.PUBLIC_URL + '/img/mummy.png'} alt="" />
           <h4>학습할 주제를 선택하세요!</h4>
         </div>
-        {topics.map(function (element, index) {
+        {topics.map(function (element) {
           return (
             <div
               className="main-topic-box"
@@ -87,7 +111,6 @@ export default function Chat() {
           );
         })}
       </div>
-
     </div>
   );
 }

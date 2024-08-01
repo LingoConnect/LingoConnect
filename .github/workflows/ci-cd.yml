@@ -38,7 +38,6 @@ jobs:
         if: contains(github.ref, 'main')
         run: |
           cd ./backend/src/main/resources
-          touch ./application-prod.yml
           echo "${{ secrets.YML_PROD }}" > ./application-prod.yml
         shell: bash
 
@@ -120,6 +119,9 @@ jobs:
       - name: Install Dependencies
         working-directory: frontend
         run: npm install
+
+      - name: Create .env.production file
+        run: echo "BASE_URL=${{ secrets.BASE_URL }}" > ./frontend/.env.production
 
       - name: Run Frontend Tests
         working-directory: frontend

@@ -1,27 +1,15 @@
-import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import '../../../styles/chat_review_practice.css';
 import { AIChat, UserChat, AIFeedback } from '../../chat/chat_practice';
 import { FaArrowLeftLong } from 'react-icons/fa6';
-import { getMyFeedback } from '../../../api/mypage_api';
 
 export default function ReviewResult() {
   const location = useLocation();
   const navigate = useNavigate();
   // const [index, setIndex] = useState(1);
-  const { topic, question } = location.state || {};
-  const [myFeedback, setMyFeedback] = useState([]);
-
-  useEffect(() => {
-    const fetchMyFeedback = async () => {
-      const response = await getMyFeedback({ topic });
-      if (response.status === 200) {
-        console.log(response.data);
-        setMyFeedback(response.data);
-      }
-    };
-    fetchMyFeedback();
-  }, [topic]);
+  const { filteredFeedback, selectedMainQuestion } = location.state || {};
+  const topic =
+    filteredFeedback && filteredFeedback.length > 0 ? filteredFeedback[0].topic : undefined;
 
   return (
     <div className="feedbackresult-container">
@@ -31,7 +19,7 @@ export default function ReviewResult() {
       <div className="feedbackresult-main">
         <h4>피드백 모아보기</h4>
         <p>{topic}</p>
-        <h4>Q. {question}?</h4>
+        <h4>Q. {selectedMainQuestion}</h4>
       </div>
 
       {/* <div className="feedbackresult-index">
@@ -79,14 +67,12 @@ export default function ReviewResult() {
       </div> */}
 
       <div className="feedbackresult-box">
-        {myFeedback.map((element) => {
-          const questionWithoutPrefix = element.question.replace(/^질문:\s*/, '');
-          const userAnswerWithoutPrefix = element.userAnswer.replace(/^지적장애인:\s*/, '');
+        {filteredFeedback.map((element) => {
           return (
             <>
-              <AIChat question={questionWithoutPrefix} />
-              <UserChat index={0} answers={[userAnswerWithoutPrefix]} />
-              <AIFeedback index={0} feedbacks={[{ feedback: element.feedback }]} />
+              <AIChat question={element.question} ttsUrl={false} />
+              <UserChat index={0} answers={[element.userAnswer]} />
+              <AIFeedback index={0} feedbacks={[{ feedback: element.feedback }]} ttsUrl={false} />
             </>
           );
         })}
