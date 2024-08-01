@@ -42,7 +42,7 @@ function AppContent() {
     location.pathname === '/' ||
     location.pathname === '/login' ||
     location.pathname === '/register' ||
-    location.pathname === '/study/expression/practice' ||    
+    location.pathname === '/study/expression/practice' ||
     location.pathname === '/study/chat/practice' ||
     location.pathname === '/tutorial/chat/practice';
   const toggleMenu = () => {
@@ -164,7 +164,7 @@ function AppContent() {
           <Route path="/" element={<Start />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/select" element={<Select />} />
+          <Route path="/study" element={<Select />} />
           <Route path="/study/expression" element={<Expression />} />
           <Route path="/study/expression/practice" element={<ExpressionPractice />} />
           <Route path="/study/chat" element={<Chat />} />
