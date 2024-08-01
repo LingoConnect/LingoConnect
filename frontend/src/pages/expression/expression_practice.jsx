@@ -23,7 +23,8 @@ export default function ExpressionPractice() {
       bottomRef.current.scrollIntoView({ behavior: 'smooth' });
     }
 
-    const fetchRandomImg = async () => {
+    const fetchInitialImg = async () => {
+      setIsLoading(true);
       try {
         const response = await getRandomImage({ topic });
         if (response && response.status === 200) {
@@ -32,15 +33,20 @@ export default function ExpressionPractice() {
         }
       } catch (error) {
         console.error('Error fetching random images:', error);
+      } finally {
+        setIsLoading(false);
       }
     };
-    fetchRandomImg();
+
+    fetchInitialImg();
   }, [topic]);
 
   const analyzeImage = async () => {
-    try {
-      setIsLoading(true);
+    if (images.length === 0 || isLoading) return; // 방어 코드 추가
 
+    setIsLoading(true);
+
+    try {
       const response1 = await getImageAnalysis({
         prompt: answerInput,
         imageUrl: images[images.length - 1],
@@ -54,6 +60,7 @@ export default function ExpressionPractice() {
             : '답변이 그림과 연관성이 적습니다. 다음 그림에는 더 집중해서 대답해 보세요!';
         setQuestions([...questions, newQuestion]);
 
+        // Fetch a new image after the analysis
         await fetchNewImage();
       } else {
         console.error('Image analysis failed:', response1);
@@ -66,20 +73,20 @@ export default function ExpressionPractice() {
   };
 
   const fetchNewImage = async () => {
-    try {
-      setIsLoading(true);
+    if (isLoading) return; // 방어 코드 추가
 
+    setIsLoading(true);
+
+    try {
       const response2 = await getImage({ prompt: answerInput });
       if (response2 && response2.status === 200) {
-        const imgList = [...images, response2.data];
-        setImages(imgList);
+        setImages([...images, response2.data]);
+        setAnswers([...answers, answerInput]);
+        setAnswerInput('');
+        setCurrentQuestionIndex(currentQuestionIndex + 1);
       } else {
         console.error('Image generation failed:', response2);
       }
-
-      setAnswers([...answers, answerInput]);
-      setAnswerInput('');
-      setCurrentQuestionIndex(currentQuestionIndex + 1);
     } catch (error) {
       console.error('Error fetching new images:', error);
     } finally {
@@ -107,7 +114,7 @@ export default function ExpressionPractice() {
               <UserChat index={index} answers={answers} />
             </div>
             <AIChat question={question} />
-            {images[index] && <AIExpressionImage expressionImgUrl={images[index]} />}
+            {images[index + 1] && <AIExpressionImage expressionImgUrl={images[index + 1]} />}
           </React.Fragment>
         ))}
         {currentQuestionIndex >= 4 && (
