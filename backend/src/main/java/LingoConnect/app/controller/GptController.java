@@ -294,7 +294,7 @@ public class GptController {
                     )
             }
     )
-    public ResponseEntity<?> getImageAnalysis(@RequestParam String prompt,@RequestParam String imageUrl) throws InterruptedException {
+    public ResponseEntity<?> getImageAnalysis(@RequestParam(name = "prompt") String prompt,@RequestParam(name = "imageUrl") String imageUrl) throws InterruptedException {
         JsonArray jsonArray = gptService.listAssistants();
         String assistantId = null;
 
