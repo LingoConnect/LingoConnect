@@ -12,11 +12,10 @@ export default function ExpressionPractice() {
   const [answerInput, setAnswerInput] = useState('');
   const [answers, setAnswers] = useState([]);
   const [images, setImages] = useState([]);
-  const [questions, setQuestions] = useState([]);
+  const [questions, setQuestions] = useState(['그림을 보고 그림을 묘사해주세요']);
   const [isLoading, setIsLoading] = useState(false);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const initialQuestion = '그림을 보고 그림을 묘사해주세요';
-  const [initialImg, setInitialImg] = useState('');
+  const [isAnswerSubmitted, setIsAnswerSubmitted] = useState(false);
 
   useEffect(() => {
     if (bottomRef.current) {
@@ -27,7 +26,7 @@ export default function ExpressionPractice() {
       try {
         const response = await getRandomImage({ topic });
         if (response && response.status === 200) {
-          setInitialImg(response.data);
+          console.log(response.data);
           setImages([response.data]);
         }
       } catch (error) {
@@ -40,19 +39,38 @@ export default function ExpressionPractice() {
   const analyzeImage = async () => {
     try {
       setIsLoading(true);
+      setIsAnswerSubmitted(true);
+
+      // 사용자 입력을 먼저 answers에 추가
+      setAnswers((prevAnswers) => [...prevAnswers, answerInput]);
+      setAnswerInput('');
+      setCurrentQuestionIndex(currentQuestionIndex + 1);
+
+      // 가장 최근 이미지의 URL을 사용하여 분석
+      const imageUrl = images[images.length - 1];
 
       const response1 = await getImageAnalysis({
         prompt: answerInput,
-        imageUrl: images[images.length - 1],
+        imageUrl: imageUrl, // 올바른 imageUrl 전달
       });
 
       if (response1 && response1.status === 200) {
         console.log('Analysis Response:', response1.data);
-        const newQuestion =
-          response1.data === true
-            ? '잘했어요! 계속해서 그림을 보고 그림을 묘사해보세요.'
-            : undefined;
-        setQuestions([...questions, newQuestion]);
+
+        // API 응답에 따른 질문 선택
+        let newQuestion;
+        if (response1.data === true) {
+          newQuestion = '잘했어요! 계속해서 그림을 보고 그림을 묘사해보세요.';
+        } else if (response1.data === false) {
+          newQuestion = '조금 더 설명해주세요.';
+        } else {
+          // response1.data가 예상치 못한 데이터일 경우에 대한 기본 처리
+          newQuestion = '응답을 이해하지 못했습니다. 다시 시도해주세요.';
+        }
+
+        // 새 질문을 추가하고 렌더링
+        setQuestions((prevQuestions) => [...prevQuestions, newQuestion]);
+        console.log(questions);
 
         await fetchNewImage();
       } else {
@@ -62,6 +80,7 @@ export default function ExpressionPractice() {
       console.error('Error during image analysis:', error);
     } finally {
       setIsLoading(false);
+      setIsAnswerSubmitted(false);
     }
   };
 
@@ -77,10 +96,6 @@ export default function ExpressionPractice() {
       } else {
         console.error('Image generation failed:', response2);
       }
-
-      setAnswers([...answers, answerInput]);
-      setAnswerInput('');
-      setCurrentQuestionIndex(currentQuestionIndex + 1);
     } catch (error) {
       console.error('Error fetching new images:', error);
     } finally {
@@ -100,17 +115,31 @@ export default function ExpressionPractice() {
       </div>
 
       <div className="practice-chat">
-        <AIChat question={initialQuestion} />
-        {initialImg && <AIExpressionImage expressionImgUrl={initialImg} />}
-        {questions.map((question, index) => (
+        <AIChat index={0} questions={questions} />
+        {images[0] && <AIExpressionImage expressionImgUrl={images[0]} />}
+        {answers.map((answer, index) => (
           <React.Fragment key={index}>
             <div className="practice-chat-answer">
-              <UserChat index={index} answers={answers} />
+              <UserChat answer={answer} />
             </div>
-            {/* <AIChat question={question} /> */}
-            {images[index] && <AIExpressionImage expressionImgUrl={images[index]} />}
+            {index + 1 === answers.length ? (
+              <>
+                {!isAnswerSubmitted && !isLoading && (
+                  <AIChat index={index + 1} questions={questions} />
+                )}
+                {!isAnswerSubmitted && !isLoading && images[index + 1] && (
+                  <AIExpressionImage expressionImgUrl={images[index + 1]} />
+                )}
+              </>
+            ) : (
+              <>
+                <AIChat index={index + 1} questions={questions} />
+                {images[index + 1] && <AIExpressionImage expressionImgUrl={images[index + 1]} />}
+              </>
+            )}
           </React.Fragment>
         ))}
+
         {currentQuestionIndex >= 4 && (
           <div className="practice-finish">
             <div className="practice-finish-top">
@@ -125,7 +154,7 @@ export default function ExpressionPractice() {
         )}
         {isLoading && (
           <div className="loading-box">
-            <p>"이미지를 생성하고 있어요!"</p>
+            <p>"답변을 분석하는 중이에요!"</p>
             <div className="loading-spinner"></div>
           </div>
         )}
@@ -136,7 +165,7 @@ export default function ExpressionPractice() {
       <div className="practice-input">
         <input value={answerInput} onChange={(event) => setAnswerInput(event.target.value)} />
         <div className="practice-input-send">
-          <button onClick={analyzeImage}>
+          <button onClick={analyzeImage} disabled={isLoading || isAnswerSubmitted}>
             <img src={process.env.PUBLIC_URL + '/img/send.png'} alt="send" />
           </button>
         </div>
@@ -145,7 +174,8 @@ export default function ExpressionPractice() {
   );
 }
 
-export function AIChat({ question }) {
+export function AIChat({ index, questions = [] }) {
+  const questionText = questions[index] || '질문이 없습니다.';
   return (
     <div className="ai-chat">
       <div className="ai-chat-img">
@@ -153,15 +183,17 @@ export function AIChat({ question }) {
         <p />
       </div>
       <div className="ai-chat-dialogue">
-        <h4>{question}</h4>
+        <h4>{questionText}</h4>
       </div>
     </div>
   );
 }
 
-export function UserChat({ index, answers }) {
+export function UserChat({ answer }) {
   return (
-    <div className="answer-box">{answers.length > index ? <p>{answers[index]}</p> : undefined}</div>
+    <div className="answer-box">
+      <p>{answer}</p>
+    </div>
   );
 }
 
