@@ -51,7 +51,7 @@ export default function ExpressionPractice() {
         const newQuestion =
           response1.data === true
             ? '잘했어요! 계속해서 그림을 보고 그림을 묘사해보세요.'
-            : '답변이 그림과 연관성이 적습니다. 다음 그림에는 더 집중해서 대답해 보세요!';
+            : undefined;
         setQuestions([...questions, newQuestion]);
 
         await fetchNewImage();
@@ -69,6 +69,7 @@ export default function ExpressionPractice() {
     try {
       setIsLoading(true);
 
+      await new Promise((resolve) => setTimeout(resolve, 5000));
       const response2 = await getImage({ prompt: answerInput });
       if (response2 && response2.status === 200) {
         const imgList = [...images, response2.data];
@@ -106,7 +107,7 @@ export default function ExpressionPractice() {
             <div className="practice-chat-answer">
               <UserChat index={index} answers={answers} />
             </div>
-            <AIChat question={question} />
+            {/* <AIChat question={question} /> */}
             {images[index] && <AIExpressionImage expressionImgUrl={images[index]} />}
           </React.Fragment>
         ))}
@@ -160,9 +161,7 @@ export function AIChat({ question }) {
 
 export function UserChat({ index, answers }) {
   return (
-    <div className="answer-box">
-      {answers.length > index ? <p>{answers[index]}</p> : <p>응답 없음</p>}
-    </div>
+    <div className="answer-box">{answers.length > index ? <p>{answers[index]}</p> : undefined}</div>
   );
 }
 
