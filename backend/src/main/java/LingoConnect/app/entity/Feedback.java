@@ -28,7 +28,7 @@ public class Feedback {
     @Column(name = "user_answer", nullable = false)
     private String userAnswer;
 
-    @Column(name = "feedback", nullable = false)
+    @Column(name = "feedback", nullable = false, length = 1000)
     private String feedback;
 
     // Default constructor for JPA
