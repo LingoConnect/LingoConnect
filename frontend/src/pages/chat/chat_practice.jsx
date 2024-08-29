@@ -55,7 +55,8 @@ const ChatPracticeContent = forwardRef((_, ref) => {
       try {
         const response = await getSubQuestion({ topic, id });
         if (response && response.status === 200) {
-          const subQuestionList = response.data.map((element) => element.question);
+          // const subQuestionList = response.data.map((element) => element.question);
+          const subQuestionList = response.data.slice(0, 2).map((element) => element.question);
           const questionList = [question, ...subQuestionList];
           setActiveMicButton(true);
           setQuestions(questionList);
